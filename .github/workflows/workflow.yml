@@ -20,6 +20,7 @@ jobs:
       with:
         lfs: false
         submodules: recursive
+        token: ${{ secrets.GITHUB_TOKEN }}
     - name: apply_lfs_filters
       run: |
         git config --local lfs.fetchexclude '**/MacOS/**,**/iOS/**,**/visionOS/**,**/Android**'
@@ -57,6 +58,7 @@ jobs:
       with:
         lfs: false
         submodules: recursive
+        token: ${{ secrets.GITHUB_TOKEN }}
     - name: apply_lfs_filters
       run: |
         git config --local lfs.fetchexclude '**/MacOS/**,**/iOS/**,**/visionOS/**,**/macCatalyst/**,**/Android**,**/Windows/**'
@@ -106,6 +108,7 @@ jobs:
       with:
         lfs: false
         submodules: recursive
+        token: ${{ secrets.GITHUB_TOKEN }}
     - name: apply_lfs_filters
       run: |
         git config --local lfs.fetchexclude '**/Windows/**,**/iOS/**,**/visionOS/**,**/Android/**'
