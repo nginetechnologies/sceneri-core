@@ -28,7 +28,7 @@ option(BUILD_STATIC_LIBS "Build static libraries" ON)
 if(OPTION_BUILD_UNIT_TESTS OR OPTION_BUILD_FEATURE_TESTS)
 	set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 	set(BUILD_GMOCK OFF CACHE BOOL "" FORCE)
-	add_subdirectory(${ENGINE_CODE_DIRECTORY}/Public/Common/3rdparty/googletest EXCLUDE_FROM_ALL)
+	add_subdirectory(${ENGINE_CODE_DIRECTORY}/Common/Public/Common/3rdparty/googletest EXCLUDE_FROM_ALL)
 
 	set_target_properties(gtest PROPERTIES FOLDER "Tests/gtest")
 	set_target_properties(gtest_main PROPERTIES FOLDER "Tests/gtest")
