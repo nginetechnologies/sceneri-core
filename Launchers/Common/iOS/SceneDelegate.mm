@@ -31,10 +31,6 @@
 
 #import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
 
-#include <Analytics/Plugin.h>
-#include <Backend/Plugin.h>
-#include <Backend/Game.h>
-
 @interface WindowScene ()
 @end
 
@@ -345,28 +341,6 @@ ngine::Threading::Atomic<bool> hasCreatedWindow{false};
 					Asset::Guid assetGuid = Asset::Guid::TryParse(assetGuidView.GetStringView());
 					if (assetGuid.IsValid())
 					{
-						const IO::ConstURIView shareSessionGuidView = query.GetQueryParameterValue(IO::ConstURIView(MAKE_URI_LITERAL("share")));
-						Asset::Guid shareSessionGuid = Asset::Guid::TryParse(shareSessionGuidView.GetStringView());
-
-						Networking::Analytics::Plugin& analytics = *System::FindPlugin<Networking::Analytics::Plugin>();
-						analytics.SetReceivedShareSessionGuid(shareSessionGuid);
-
-						analytics.SendEvent(
-							"receiveSharedAsset",
-							[assetGuid, shareSessionGuid](Serialization::Writer attributesWriter)
-							{
-								attributesWriter.Serialize("assetGuid", assetGuid);
-								if (shareSessionGuid.IsValid())
-								{
-									attributesWriter.Serialize("shareSessionId", shareSessionGuid);
-								}
-
-								attributesWriter.Serialize("source", ConstStringView{"iOS openURLContexts"});
-
-								return true;
-							}
-						);
-
 						documents.EmplaceBack(assetGuid);
 
 						openDocumentFlags |= Rendering::Window::OpenDocumentFlags::CopyToLocal;
@@ -502,28 +476,6 @@ ngine::Threading::Atomic<bool> hasCreatedWindow{false};
 					Asset::Guid assetGuid = Asset::Guid::TryParse(assetGuidView.GetStringView());
 					if (assetGuid.IsValid())
 					{
-						const IO::ConstURIView shareSessionGuidView = query.GetQueryParameterValue(IO::ConstURIView(MAKE_URI_LITERAL("share")));
-						Asset::Guid shareSessionGuid = Asset::Guid::TryParse(shareSessionGuidView.GetStringView());
-
-						Networking::Analytics::Plugin& analytics = *System::FindPlugin<Networking::Analytics::Plugin>();
-						analytics.SetReceivedShareSessionGuid(shareSessionGuid);
-
-						analytics.SendEvent(
-							"receiveSharedAsset",
-							[assetGuid, shareSessionGuid](Serialization::Writer attributesWriter)
-							{
-								attributesWriter.Serialize("assetGuid", assetGuid);
-								if (shareSessionGuid.IsValid())
-								{
-									attributesWriter.Serialize("shareSessionId", shareSessionGuid);
-								}
-
-								attributesWriter.Serialize("source", ConstStringView{"iOS continueUserActivity"});
-
-								return true;
-							}
-						);
-
 						documents.EmplaceBack(assetGuid);
 					}
 				}
