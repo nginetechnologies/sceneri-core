@@ -73,6 +73,7 @@ namespace ngine::App::Core
 
 			Assert(false, "TODO");
 			// TODO: Link to dynamic widgets plug-in and do the below
+			UNUSED(engine);
 			UNUSED(pLogicalDevice);
 			/*UI::Document::MainWindow& mainWindow = UI::Document::MainWindow::Create(Rendering::Window::Initializer {
 				pLogicalDevice, EngineInfo::Name, windowArea, Rendering::Window::CreationFlags{},
