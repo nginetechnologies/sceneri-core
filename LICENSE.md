@@ -53,7 +53,9 @@ Permitted Purposes specifically include using the Software:
 
 2. for non-commercial education;
 
-3. for non-commercial research.
+3. for non-commercial research;
+
+4. for commercial games and interactive media.
 
 ### Patents
 
