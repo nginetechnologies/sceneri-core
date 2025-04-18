@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>aps-environment</key>
+	<string>development</string>
+	<key>com.apple.developer.applesignin</key>
+	<array>
+		<string>Default</string>
+	</array>
+	<key>com.apple.developer.aps-environment</key>
+	<string>development</string>
+	<key>com.apple.developer.associated-domains</key>
+	<array>
+		<string>applinks:sceneri.com</string>
+		<string>applinks:www.sceneri.com</string>
+		<string>applinks:app.sceneri.com</string>
+		<string>applinks:dev.sceneri.com</string>
+		<string>applinks:ngine-website.netlify.app</string>
+		<string>applinks:sceneri-app.netlify.app</string>
+		<string>applinks:sceneri.onelink.me</string>
+		
+		<string>activitycontinuation:sceneri.com</string>
+		<string>activitycontinuation:www.sceneri.com</string>
+		<string>activitycontinuation:app.sceneri.com</string>
+		<string>activitycontinuation:dev.sceneri.com</string>
+		<string>activitycontinuation:ngine-website.netlify.app</string>
+		<string>activitycontinuation:sceneri-app.netlify.app</string>
+		<string>activitycontinuation:sceneri.onelink.me</string>
+
+		<string>appclips:sceneri.com</string>
+		<string>appclips:www.sceneri.com</string>
+		<string>appclips:app.sceneri.com</string>
+		<string>appclips:dev.sceneri.com</string>
+		<string>appclips:ngine-website.netlify.app</string>
+		<string>appclips:sceneri-app.netlify.app</string>
+		<string>appclips:sceneri.onelink.me</string>
+	</array>
+	<key>com.apple.developer.in-app-payments</key>
+	<array>
+		<string>merchant.ngine.Editor</string>
+	</array>
+	<key>com.apple.developer.kernel.extended-virtual-addressing</key>
+	<true/>
+	<key>com.apple.developer.kernel.increased-memory-limit</key>
+	<true/>
+	<key>com.apple.developer.networking.custom-protocol</key>
+	<true/>
+	<key>com.apple.developer.networking.multipath</key>
+	<true/>
+	<key>com.apple.security.app-sandbox</key>
+	<true/>
+	<key>com.apple.security.assets.music.read-write</key>
+	<true/>
+	<key>com.apple.security.assets.pictures.read-write</key>
+	<true/>
+	<key>com.apple.security.files.downloads.read-write</key>
+	<true/>
+	<key>com.apple.security.files.user-selected.read-write</key>
+	<true/>
+	<key>com.apple.security.network.client</key>
+	<true/>
+	<key>com.apple.security.network.server</key>
+	<true/>
+</dict>
+</plist>

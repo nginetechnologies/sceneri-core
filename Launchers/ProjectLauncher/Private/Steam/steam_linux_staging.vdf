@@ -1,0 +1,15 @@
+"AppBuild"
+{
+	"AppID" "3219750"
+	"Desc" "Publish Sceneri for Linux"
+
+	"ContentRoot" "..\..\..\..\..\bin\Linux\ProfileDevelopment" // root content folder, relative to location of this file
+	"BuildOutput" "..\..\..\..\..\..\steam_output\" // build output folder for build logs and build cache files
+	"SetLive" "staging"
+
+	"Depots"
+	{
+		"3219751" "steam_depot_content.vdf"
+		"3219755" "steam_depot_linux.vdf"
+	}
+}

@@ -1,0 +1,29 @@
+[[redirects]]
+  from = "/"
+  to = "Editor.html"
+  status = 200
+  force = true
+  headers = {X-From = "Netlify"}
+
+[[redirects]]
+  from = "/Editor.wasm.map"
+  to = "/Editor.wasm.map"
+  status = 200
+  force = false
+  conditions = {Role = ["admin", "editor"]}
+
+[[redirects]]
+  from = "/ProjectLauncher.wasm.map"
+  to = "/ProjectLauncher.wasm.map"
+  status = 200
+  force = false
+  conditions = {Role = ["admin", "editor"]}
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Cross-Origin-Opener-Policy = "same-origin"
+    Cross-Origin-Embedder-Policy = "require-corp"
+    Cross-Origin-Resource-Policy = "same-site"
+    Access-Control-Allow-Origin = "*"
+    Access-Control-Allow-Headers = "*"

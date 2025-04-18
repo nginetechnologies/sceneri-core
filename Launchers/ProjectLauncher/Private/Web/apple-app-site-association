@@ -1,0 +1,35 @@
+{
+   "applinks": {
+       "details": [
+          {
+            "appIDs": [ "P27U4677K9.com.ngine.Editor", "RR3Q434Q4U.com.ngine.Editor" ],
+            "components": [
+              {
+                 "/": "/*",
+                 "?": { "project": "*", "document": "*", "share": "*" }
+              },
+              {
+                 "/": "/*",
+                 "?": { "project": "*", "document": "*" }
+              },
+              {
+                 "/": "/*",
+                 "?": { "project": "*" }
+              },
+              {
+                 "/": "/*",
+                 "?": { "project": "*", "share": "*" }
+              },
+              {
+                 "/": "/*",
+                 "?": { "remote_session": "*" }
+              },
+              {
+                 "/": "/*",
+                 "?": { "remote_session": "*", "share": "*" }
+              }
+            ]
+          }
+      ]
+   }
+}

@@ -1,0 +1,16 @@
+{
+    "name": "Physics",
+    "version": "0.0.1",
+    "guid": "f6c31290-cb03-452c-b3de-78f19a8cf943",
+    "database_guid": "6b3d8e35-af8c-8327-3f92-f4b319a0704d",
+    "engine": "3ff049e0-0880-4898-879d-1ccf5583c9c6",
+    "source_directory": "Code",
+    "binary_directory": "bin",
+    "library_directory": "lib",
+    "source": "Physics.nplugin",
+    "plugin_dependencies": [
+        "B0ABCB76-705B-4244-9474-F7B29131FC70",
+        "CBFE8887-9CB2-4703-9328-94F0B8223ECE"
+    ],
+    "assetTypeGuid": "926268b2-2d45-4c52-87c9-d76815217359"
+}

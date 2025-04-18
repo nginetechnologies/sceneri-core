@@ -1,0 +1,26 @@
+"DepotBuild"
+{
+	"DepotID" "3219753"
+
+	"FileMapping"
+	{
+		"LocalPath" "bin\*"
+		"DepotPath" "bin\"
+		"recursive" "1"
+	}
+	"FileMapping"
+	{
+		"LocalPath" "*.dll"
+		"DepotPath" "."
+	}
+	"FileMapping"
+	{
+		"LocalPath" "Editor.exe"
+		"DepotPath" "."
+	}
+	"FileMapping"
+	{
+		"LocalPath" "crashpad_handler.exe"
+		"DepotPath" "."
+	}
+}

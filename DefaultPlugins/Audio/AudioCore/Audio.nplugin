@@ -1,0 +1,13 @@
+{
+    "name": "Audio",
+    "version": "0.0.1",
+    "guid": "a4bbf061-5f65-43b1-acc0-711f28b3bb56",
+    "database_guid": "f42ee3c7-dc0b-1dd8-896f-483365f96374",
+    "engine": "3ff049e0-0880-4898-879d-1ccf5583c9c6",
+    "source_directory": "Code",
+    "binary_directory": "bin",
+    "library_directory": "lib",
+    "source": "Audio.nplugin",
+    "plugin_dependencies": [],
+    "assetTypeGuid": "926268b2-2d45-4c52-87c9-d76815217359"
+}

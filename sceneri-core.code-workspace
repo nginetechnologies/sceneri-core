@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"cmake.configureOnOpen": true,
+		"cmake.debugConfig": {
+			"cwd": "${workspaceFolder}",
+			"visualizerFile": "${workspaceFolder}/Common/Public/Common/Common.natvis",
+			"showDisplayString": true
+		},
+		"cmake.exportCompileCommandsFile": true
+	}
+}

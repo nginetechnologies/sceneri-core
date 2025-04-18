@@ -1,0 +1,12 @@
+{
+    "name": "Asset Compiler Core",
+    "version": "0.0.1",
+    "guid": "72d83e65-b5d9-4ccd-8b8b-8227c805570e",
+    "database_guid": "fef2b785-7390-959f-6960-14a0671d3db6",
+    "engine": "3ff049e0-0880-4898-879d-1ccf5583c9c6",
+    "source_directory": "Code",
+    "binary_directory": "bin",
+    "library_directory": "lib",
+    "source": "AssetCompilerCore.nplugin",
+    "assetTypeGuid": "926268b2-2d45-4c52-87c9-d76815217359"
+}

@@ -1,0 +1,20 @@
+"DepotBuild"
+{
+	"DepotID" "3219755"
+
+	"FileMapping"
+	{
+		"LocalPath" "Editor"
+		"DepotPath" "bin"
+	}
+	"FileMapping"
+	{
+		"LocalPath" "*.so"
+		"DepotPath" "bin"
+	}
+	"FileMapping"
+	{
+		"LocalPath" "crashpad_handler"
+		"DepotPath" "bin"
+	}
+}

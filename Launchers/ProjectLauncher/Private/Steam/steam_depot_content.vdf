@@ -1,0 +1,37 @@
+"DepotBuild"
+{
+	"DepotID" "3219751"
+
+	"FileMapping"
+	{
+		"LocalPath" "EngineAssets\*"
+		"DepotPath" "EngineAssets\"
+		"recursive" "1"
+	}
+	"FileMapping"
+	{
+		"LocalPath" "Plug-ins\*"
+		"DepotPath" "Plug-ins\"
+		"recursive" "1"
+	}
+	"FileMapping"
+	{
+		"LocalPath" "AvailablePlugins.json"
+		"DepotPath" "."
+	}
+	"FileMapping"
+	{
+		"LocalPath" "EngineAssets.nassetdb"
+		"DepotPath" "."
+	}
+	"FileMapping"
+	{
+		"LocalPath" "PackagedBundle.json"
+		"DepotPath" "."
+	}
+	"FileMapping"
+	{
+		"LocalPath" "sceneri.ngine"
+		"DepotPath" "."
+	}
+}

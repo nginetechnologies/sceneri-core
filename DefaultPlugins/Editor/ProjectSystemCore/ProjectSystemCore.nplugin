@@ -1,0 +1,15 @@
+{
+    "name": "Project System Core",
+    "version": "0.0.1",
+    "guid": "c80de435-3310-46c2-ba6f-2596a82c9a48",
+    "database_guid": "44ea9550-d7e6-4466-6103-c2474c1b6933",
+    "engine": "3ff049e0-0880-4898-879d-1ccf5583c9c6",
+    "source_directory": "Code",
+    "binary_directory": "bin",
+    "library_directory": "lib",
+    "plugin_dependencies": [
+        "72D83E65-B5D9-4CCD-8B8B-8227C805570E"
+    ],
+    "source": "ProjectSystemCore.nplugin",
+    "assetTypeGuid": "926268b2-2d45-4c52-87c9-d76815217359"
+}

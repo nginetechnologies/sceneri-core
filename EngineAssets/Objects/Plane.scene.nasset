@@ -1,0 +1,58 @@
+{
+    "guid": "b9a8fc95-12c8-4a67-a428-1d0865e7aa51",
+    "assetTypeGuid": "807d69a9-56ec-4032-bb92-d081df336672",
+    "thumbnailGuid": "6ade2f83-95fd-ae67-b92b-42703b53e025",
+    "typeGuid": "de0b2bc1-2e72-4739-a749-f5281e0de55a",
+    "instanceGuid": "a7dd271d-ecd5-415f-a9ec-94e05a976c5a",
+    "dependencies": [
+        "db5dc618-2cfe-44e9-a319-69c503d090e7",
+        "7962add3-c63a-6075-42d3-517305ba3b0b",
+        "7fa427c1-e00c-4a9c-b42f-93110fe1deff"
+    ],
+    "data_components": [
+        {
+            "typeGuid": "653ee503-f473-47d2-be45-08a577d17b86",
+            "type": 0
+        }
+    ],
+    "9f750482-b822-4d4b-be6a-9c135c614328": {
+        "stages": [
+            "bba6ad40-e1ee-4f1e-baf8-608ff9e7d77f",
+            "dfca0ef8-eded-4660-8adb-43c0aa8f4e60"
+        ]
+    },
+    "de0b2bc1-2e72-4739-a749-f5281e0de55a": {
+        "mesh": "7fa427c1-e00c-4a9c-b42f-93110fe1deff",
+        "material_instance": "7962add3-c63a-6075-42d3-517305ba3b0b"
+    },
+    "children": [
+        {
+            "typeGuid": "4c1071cc-31cc-4dbe-a810-96f2c521a280",
+            "instanceGuid": "1e5cba81-2ad6-47cd-bf9d-dddcac97f1c5",
+            "4c1071cc-31cc-4dbe-a810-96f2c521a280": {
+                "half_extent": [
+                    0.5
+                ]
+            },
+            "10dceba7-be9f-4a9d-9902-6f51bed634ab": {
+                "physical_material": "db5dc618-2cfe-44e9-a319-69c503d090e7"
+            },
+            "data_components": [
+                {
+                    "typeGuid": "fefa51b8-945d-4f88-8859-356c7546efa7",
+                    "name": "Mesh Collider"
+                }
+            ]
+        }
+    ],
+    "data_components": [
+        {
+            "typeGuid": "653ee503-f473-47d2-be45-08a577d17b86",
+            "type": 0
+        },
+        {
+            "typeGuid": "fefa51b8-945d-4f88-8859-356c7546efa7",
+            "name": "Plane"
+        }
+    ]
+}

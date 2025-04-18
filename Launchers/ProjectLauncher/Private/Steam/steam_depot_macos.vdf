@@ -1,0 +1,11 @@
+"DepotBuild"
+{
+	"DepotID" "3219754"
+
+	"FileMapping"
+	{
+		"LocalPath" "sceneri.app\*"
+		"DepotPath" "sceneri.app\"
+		"recursive" "1"
+	}
+}

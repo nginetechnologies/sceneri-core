@@ -1,0 +1,20 @@
+{
+    "46c88fe9-db91-4d51-842f-7abb3d66ad46": {
+        "path": "Assets/Shaders/panoramaToCubeMap.fragshader.nasset"
+    },
+    "5200a133-51ed-4292-ab0d-8bd0eaf8058d": {
+        "path": "Assets/Shaders/filter.fragshader.nasset"
+    },
+    "72d83e65-b5d9-4ccd-8b8b-8227c805570e": {
+        "assetTypeGuid": "926268b2-2d45-4c52-87c9-d76815217359",
+        "path": "AssetCompilerCore.nplugin",
+        "name": "Asset Compiler Core"
+    },
+    "c8b836b2-50c9-49ed-8f4e-08c672b7d510": {
+        "path": "Assets/Shaders/primitive.vertshader.nasset"
+    },
+    "ed190a9c-85f4-4ea3-bedf-2f685d4c4e38": {
+        "path": "Assets/Shaders/BRDF.fragshader.nasset"
+    },
+    "guid": "fef2b785-7390-959f-6960-14a0671d3db6"
+}

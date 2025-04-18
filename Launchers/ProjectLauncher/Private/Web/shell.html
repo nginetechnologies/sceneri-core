@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Play & Create 3D experiences from any device.">
+    <meta property="og:description" content="Sceneri - Play & Create 3D experiences from any device">
+    <meta property="og:site_name" content="Sceneri">
+    <meta property="og:image" content="https://www.sceneri.com/sceneri-content/uploads/2024/11/yoast-site-image-bg.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="675">
+    <meta property="og:image:type" content="image/png">
+    <title>Sceneri</title>
+    <link rel="icon" href="icon.png"/>
+    <link rel="apple-touch-icon" href="icon.png" />
+
+    <style>
+        body { background-color: black; overscroll-behavior: none; touch-action: none; }
+        canvas { position:absolute; top:0px; left:0px; border:none; margin:0; width: 100%; height: 100%; overflow: hidden; display: block; }
+    </style>
+    
+  <link href="Editor.js" rel="preload" as="script" fetchpriority="high" />
+</head>
+
+<body>
+    <canvas contenteditable virtualkeyboardpolicy="manual" oncontextmenu="return false;"></canvas>
+
+    <script>
+        async function testGpuSupport() {
+            if (navigator.gpu) {
+                try
+                {
+                    const adapter = await navigator.gpu.requestAdapter();
+                    if (!adapter) {
+                        redirectToStore();
+                    }
+                }
+                catch(error) {
+                    redirectToStore();
+                }
+            }
+            else {
+                redirectToStore();
+            }
+        }
+        function redirectToStore() {
+            const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+            if (/iPhone|iPad|iPod/.test(userAgent)) {
+                window.location.replace("https://apps.apple.com/app/sceneri/id1497395538");
+            } else if (/Android/.test(userAgent)) {
+                window.location.replace("https://play.google.com/store/apps/details?id=com.sceneri.App");
+            } else {
+                window.location.replace("https://store.steampowered.com/app/3219750/Sceneri");
+            }
+        }
+        testGpuSupport();
+
+        var Module = {};
+        Module['mainScriptUrlOrBlobPromise'] = fetch('Editor.js', { priority: 'high' })
+            .then(response => response.text())
+            .then(workerScript => {
+            Module['mainScriptUrlOrBlob'] = new Blob([workerScript], { type: 'application/javascript' });
+        });
+    </script>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script src="appleid.auth.js" async defer></script>
+    <script>
+        let googleClient;
+
+        function initializeGoogleAuth() {
+            googleClient = google.accounts.oauth2.initCodeClient({
+                client_id: "replaceme",
+                scope: "openid email profile",
+                ux_mode: "popup",
+                redirect_uri: window.location.host,
+                callback: (response) => {
+                    console.log(o);
+                    Module.ccall('onGoogleSignIn', 'void', ['string'], [response.code ?? ""]);
+                },
+                error_callback: (error) => {
+                    console.log("err");
+                    console.log(o);
+                    Module.ccall('onGoogleSignIn', 'void', ['string'], [""]);
+                }
+            });
+        }
+        function signInWithGoogle() {
+            if (googleClient) {
+                googleClient.requestCode();
+            } else {
+                console.error("Google client not initialized");
+            }
+        }
+        
+        function initializeAppleAuth() {
+            AppleID.auth.init({
+                clientId: 'com.ngine.Editor.Web',
+                scope: 'email name',
+                redirectURI: window.location.host + "/signinwithapple",
+                usePopup: true
+            });
+        }
+        function signInWithApple() {
+            AppleID.auth.signIn().then(function (response) {
+                if (response.error) {
+                    Module.ccall('onAppleSignIn', 'void', ['string', 'string'], ["", ""]);
+                    return;
+                }
+
+                const authCode = response.authorization.code;
+                const idToken = response.authorization.id_token;
+
+                console.log("Authorization Code:", authCode);
+                console.log("ID Token:", idToken);
+
+                Module.ccall('onAppleSignIn', 'void', ['string', 'string'], [authCode, idToken]);
+            });
+        }
+
+        function initializeSignInProviders() {
+            initializeGoogleAuth();
+            initializeAppleAuth();
+        }
+        // Initialize on page load
+        window.onload = initializeSignInProviders;
+    </script>
+
+
+  {{{ SCRIPT }}}
+</body>
+</html>

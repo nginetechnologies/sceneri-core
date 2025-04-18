@@ -1,0 +1,14 @@
+{
+    "name": "HTTP",
+    "version": "0.0.1",
+    "guid": "4732db7a-619b-421e-8569-bf31f607bbb7",
+    "database_guid": "a4a08680-a61b-7f75-40d9-a043f33d5ed5",
+    "engine": "3ff049e0-0880-4898-879d-1ccf5583c9c6",
+    "asset_directory": "Assets",
+    "source_directory": "Code",
+    "binary_directory": "bin",
+    "library_directory": "lib",
+    "plugin_dependencies": [],
+    "source": "Http.nplugin",
+    "assetTypeGuid": "926268b2-2d45-4c52-87c9-d76815217359"
+}

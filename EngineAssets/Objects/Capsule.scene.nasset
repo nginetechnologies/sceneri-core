@@ -1,0 +1,57 @@
+{
+    "guid": "fa74dcfc-a979-48bd-8143-a291f2e3e74f",
+    "assetTypeGuid": "807d69a9-56ec-4032-bb92-d081df336672",
+    "thumbnailGuid": "6bee95f9-e689-d151-b3e7-9ff46e8227e4",
+    "typeGuid": "de0b2bc1-2e72-4739-a749-f5281e0de55a",
+    "instanceGuid": "ec6d7f9c-765d-4249-89f7-114d7c30ec1e",
+    "dependencies": [
+        "db5dc618-2cfe-44e9-a319-69c503d090e7",
+        "7962add3-c63a-6075-42d3-517305ba3b0b",
+        "efd09bc2-1069-4640-84f4-b48bc0309339"
+    ],
+    "data_components": [
+        {
+            "typeGuid": "653ee503-f473-47d2-be45-08a577d17b86",
+            "type": 0
+        }
+    ],
+    "9f750482-b822-4d4b-be6a-9c135c614328": {
+        "stages": [
+            "bba6ad40-e1ee-4f1e-baf8-608ff9e7d77f",
+            "dfca0ef8-eded-4660-8adb-43c0aa8f4e60"
+        ]
+    },
+    "de0b2bc1-2e72-4739-a749-f5281e0de55a": {
+        "mesh": "efd09bc2-1069-4640-84f4-b48bc0309339",
+        "material_instance": "7962add3-c63a-6075-42d3-517305ba3b0b"
+    },
+    "children": [
+        {
+            "typeGuid": "a87d82b2-1cd5-4b81-8103-85248c61d585",
+            "instanceGuid": "6d8f478a-366b-4809-a5f8-8a9ac47b655b",
+            "a87d82b2-1cd5-4b81-8103-85248c61d585": {
+                "radius": 0.5,
+                "half_height": 0.5
+            },
+            "10dceba7-be9f-4a9d-9902-6f51bed634ab": {
+                "physical_material": "db5dc618-2cfe-44e9-a319-69c503d090e7"
+            },
+            "data_components": [
+                {
+                    "typeGuid": "fefa51b8-945d-4f88-8859-356c7546efa7",
+                    "name": "Mesh Collider"
+                }
+            ]
+        }
+    ],
+    "data_components": [
+        {
+            "typeGuid": "653ee503-f473-47d2-be45-08a577d17b86",
+            "type": 0
+        },
+        {
+            "typeGuid": "fefa51b8-945d-4f88-8859-356c7546efa7",
+            "name": "Capsule"
+        }
+    ]
+}
