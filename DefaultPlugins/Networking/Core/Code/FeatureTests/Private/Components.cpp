@@ -457,20 +457,20 @@ namespace ngine::Tests::Network
 
 		// Test delegating authority
 		{
-			EXPECT_TRUE(boundComponents[0]->HasAuthority(*components[0]));
-			EXPECT_FALSE(boundComponents[1]->HasAuthority(*components[1]));
-			EXPECT_TRUE(boundComponents[0]->DelegateAuthority(*components[0], localClientComponent.GetIdentifier()));
+			EXPECT_TRUE(boundComponents[0]->HasAuthority(*components[0], sceneRegistries[0]));
+			EXPECT_FALSE(boundComponents[1]->HasAuthority(*components[1], sceneRegistries[1]));
+			EXPECT_TRUE(boundComponents[0]->DelegateAuthority(*components[0], sceneRegistries[0], localClientComponent.GetIdentifier()));
 
 			// Run the main thread job runner until we finished connecting and the network component hasn't been bound
 			RunMainThreadJobRunner(
-				[&networkComponent = *boundComponents[1], &owner = *components[1]]()
+				[&networkComponent = *boundComponents[1], &owner = *components[1], &sceneRegistry = sceneRegistries[1]]()
 				{
-					return !networkComponent.HasAuthority(owner);
+					return !networkComponent.HasAuthority(owner, sceneRegistry);
 				}
 			);
 
-			EXPECT_TRUE(boundComponents[1]->HasAuthority(*components[1]));
-			EXPECT_FALSE(boundComponents[0]->HasAuthority(*components[0]));
+			EXPECT_TRUE(boundComponents[1]->HasAuthority(*components[1], sceneRegistries[1]));
+			EXPECT_FALSE(boundComponents[0]->HasAuthority(*components[0], sceneRegistries[0]));
 		}
 
 		EXPECT_FALSE(components[0]->m_receivedClientToServer);
@@ -481,7 +481,7 @@ namespace ngine::Tests::Network
 		{
 			Channel channel{0};
 			const bool wasSent =
-				boundComponents[0]->BroadcastToAllClients<&Bound3DComponent::ServerToClient>(*components[0], channel, MessageData{4321, 4.321f});
+				boundComponents[0]->BroadcastToAllClients<&Bound3DComponent::ServerToClient>(*components[0], sceneRegistries[0], channel, MessageData{4321, 4.321f});
 			EXPECT_TRUE(wasSent);
 		}
 
@@ -730,20 +730,20 @@ namespace ngine::Tests::Network
 
 		// Test delegating authority
 		{
-			EXPECT_TRUE(boundComponents[0]->HasAuthority(*components[0]));
-			EXPECT_FALSE(boundComponents[1]->HasAuthority(*components[1]));
-			EXPECT_TRUE(boundComponents[0]->DelegateAuthority(*components[0], localClientComponent.GetIdentifier()));
+			EXPECT_TRUE(boundComponents[0]->HasAuthority(*components[0], sceneRegistries[0]));
+			EXPECT_FALSE(boundComponents[1]->HasAuthority(*components[1], sceneRegistries[1]));
+			EXPECT_TRUE(boundComponents[0]->DelegateAuthority(*components[0], sceneRegistries[0], localClientComponent.GetIdentifier()));
 
 			// Run the main thread job runner until we finished connecting and the network component hasn't been bound
 			RunMainThreadJobRunner(
-				[&networkComponent = *boundComponents[1], &owner = *components[1]]()
+				[&networkComponent = *boundComponents[1], &owner = *components[1], &sceneRegistry = sceneRegistries[1]]()
 				{
-					return !networkComponent.HasAuthority(owner);
+					return !networkComponent.HasAuthority(owner, sceneRegistry);
 				}
 			);
 
-			EXPECT_TRUE(boundComponents[1]->HasAuthority(*components[1]));
-			EXPECT_FALSE(boundComponents[0]->HasAuthority(*components[0]));
+			EXPECT_TRUE(boundComponents[1]->HasAuthority(*components[1], sceneRegistries[1]));
+			EXPECT_FALSE(boundComponents[0]->HasAuthority(*components[0], sceneRegistries[0]));
 		}
 
 		EXPECT_FALSE(boundDataComponents[0]->m_receivedClientToServer);
@@ -754,7 +754,7 @@ namespace ngine::Tests::Network
 		{
 			Channel channel{0};
 			const bool wasSent =
-				boundComponents[0]->BroadcastToAllClients<&BoundDataComponent::ServerToClient>(*components[0], channel, MessageData{4321, 4.321f});
+				boundComponents[0]->BroadcastToAllClients<&BoundDataComponent::ServerToClient>(*components[0], sceneRegistries[0], channel, MessageData{4321, 4.321f});
 			EXPECT_TRUE(wasSent);
 		}
 
@@ -993,7 +993,7 @@ namespace ngine::Tests::Network
 			EXPECT_TRUE(components[1]->m_propagatedServerToClientFlags.AreNoneSet());
 
 			const bool wasInvalidated =
-				boundComponents[0]->InvalidateProperties<&Bound3DComponentPropagation::m_propagatedServerToClientFlags>(*components[0]);
+				boundComponents[0]->InvalidateProperties<&Bound3DComponentPropagation::m_propagatedServerToClientFlags>(*components[0], sceneRegistries[0]);
 			EXPECT_TRUE(wasInvalidated);
 
 			// Run the main thread job runner until we received the message
@@ -1009,21 +1009,21 @@ namespace ngine::Tests::Network
 
 		// Test delegating authority to the object
 		{
-			EXPECT_TRUE(boundComponents[0]->HasAuthority(*components[0]));
-			EXPECT_FALSE(boundComponents[1]->HasAuthority(*components[1]));
+			EXPECT_TRUE(boundComponents[0]->HasAuthority(*components[0], sceneRegistries[0]));
+			EXPECT_FALSE(boundComponents[1]->HasAuthority(*components[1], sceneRegistries[1]));
 
-			boundComponents[0]->DelegateAuthority(*components[0], localClientComponent.GetIdentifier());
+			boundComponents[0]->DelegateAuthority(*components[0], sceneRegistries[0], localClientComponent.GetIdentifier());
 
 			// Run the main thread job runner until we received authority
 			RunMainThreadJobRunner(
-				[&boundComponent = *boundComponents[1], &component = *components[1]]()
+				[&boundComponent = *boundComponents[1], &component = *components[1], &sceneRegistry = sceneRegistries[1]]()
 				{
-					return !boundComponent.HasAuthority(component);
+					return !boundComponent.HasAuthority(component, sceneRegistry);
 				}
 			);
 
-			EXPECT_FALSE(boundComponents[0]->HasAuthority(*components[0]));
-			EXPECT_TRUE(boundComponents[1]->HasAuthority(*components[1]));
+			EXPECT_FALSE(boundComponents[0]->HasAuthority(*components[0], sceneRegistries[0]));
+			EXPECT_TRUE(boundComponents[1]->HasAuthority(*components[1], sceneRegistries[1]));
 		}
 
 		// Now test property propagation from client to server
@@ -1035,7 +1035,7 @@ namespace ngine::Tests::Network
 			EXPECT_TRUE(components[0]->m_propagatedClientToServerFlags.AreNoneSet());
 
 			const bool wasInvalidated =
-				boundComponents[1]->InvalidateProperties<&Bound3DComponentPropagation::m_propagatedClientToServerFlags>(*components[1]);
+				boundComponents[1]->InvalidateProperties<&Bound3DComponentPropagation::m_propagatedClientToServerFlags>(*components[1], sceneRegistries[1]);
 			EXPECT_TRUE(wasInvalidated);
 
 			// Run the main thread job runner until we received the message
@@ -1252,7 +1252,7 @@ namespace ngine::Tests::Network
 			EXPECT_TRUE(boundDataComponents[1]->m_propagatedServerToClientFlags.AreNoneSet());
 
 			const bool wasInvalidated =
-				boundComponents[0]->InvalidateProperties<&BoundDataPropagationComponent::m_propagatedServerToClientFlags>(*components[0]);
+				boundComponents[0]->InvalidateProperties<&BoundDataPropagationComponent::m_propagatedServerToClientFlags>(*components[0], sceneRegistries[0]);
 			EXPECT_TRUE(wasInvalidated);
 
 			// Run the main thread job runner until we received the message
@@ -1268,21 +1268,21 @@ namespace ngine::Tests::Network
 
 		// Test delegating authority to the object
 		{
-			EXPECT_TRUE(boundComponents[0]->HasAuthority(*components[0]));
-			EXPECT_FALSE(boundComponents[1]->HasAuthority(*components[1]));
+			EXPECT_TRUE(boundComponents[0]->HasAuthority(*components[0], sceneRegistries[0]));
+			EXPECT_FALSE(boundComponents[1]->HasAuthority(*components[1], sceneRegistries[1]));
 
-			boundComponents[0]->DelegateAuthority(*components[0], localClientComponent.GetIdentifier());
+			boundComponents[0]->DelegateAuthority(*components[0], sceneRegistries[0], localClientComponent.GetIdentifier());
 
 			// Run the main thread job runner until we received authority
 			RunMainThreadJobRunner(
-				[&boundComponent = *boundComponents[1], &component = *components[1]]()
+				[&boundComponent = *boundComponents[1], &component = *components[1], &sceneRegistry = sceneRegistries[1]]()
 				{
-					return !boundComponent.HasAuthority(component);
+					return !boundComponent.HasAuthority(component, sceneRegistry);
 				}
 			);
 
-			EXPECT_FALSE(boundComponents[0]->HasAuthority(*components[0]));
-			EXPECT_TRUE(boundComponents[1]->HasAuthority(*components[1]));
+			EXPECT_FALSE(boundComponents[0]->HasAuthority(*components[0], sceneRegistries[0]));
+			EXPECT_TRUE(boundComponents[1]->HasAuthority(*components[1], sceneRegistries[1]));
 		}
 
 		// Now test property propagation from client to server
@@ -1294,7 +1294,7 @@ namespace ngine::Tests::Network
 			EXPECT_TRUE(boundDataComponents[0]->m_propagatedClientToServerFlags.AreNoneSet());
 
 			const bool wasInvalidated =
-				boundComponents[1]->InvalidateProperties<&BoundDataPropagationComponent::m_propagatedClientToServerFlags>(*components[1]);
+				boundComponents[1]->InvalidateProperties<&BoundDataPropagationComponent::m_propagatedClientToServerFlags>(*components[1], sceneRegistries[1]);
 			EXPECT_TRUE(wasInvalidated);
 
 			// Run the main thread job runner until we received the message
@@ -1442,7 +1442,7 @@ namespace ngine::Tests::Network
 		}
 
 		const Optional<Entity::HierarchyComponentBase*> pLocalComponent =
-			boundComponents[0]->SpawnBoundChildOnAllClients(*components[0], *sceneRegistries[0].FindComponentTypeData<Entity::Component3D>());
+			boundComponents[0]->SpawnBoundChildOnAllClients(*components[0], sceneRegistries[0], *sceneRegistries[0].FindComponentTypeData<Entity::Component3D>());
 		EXPECT_TRUE(pLocalComponent.IsValid());
 		EXPECT_TRUE(pLocalComponent->Is<Entity::Component3D>());
 		EXPECT_TRUE(pLocalComponent->HasDataComponentOfType<Session::BoundComponent>(sceneRegistries[0]));
@@ -1593,7 +1593,7 @@ namespace ngine::Tests::Network
 		}
 
 		const Optional<Entity::Data::Component*> pLocalComponent =
-			boundComponents[0]->AddDataComponent(*components[0], *sceneRegistries[0].GetOrCreateComponentTypeData<BoundDataComponent>());
+			boundComponents[0]->AddDataComponent(*components[0], sceneRegistries[0], *sceneRegistries[0].GetOrCreateComponentTypeData<BoundDataComponent>());
 		EXPECT_TRUE(pLocalComponent.IsValid());
 		EXPECT_TRUE(components[0]->HasDataComponentOfType<BoundDataComponent>(sceneRegistries[0]));
 
