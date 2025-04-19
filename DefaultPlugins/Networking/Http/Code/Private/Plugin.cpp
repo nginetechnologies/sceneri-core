@@ -22,8 +22,6 @@
 #include <curl.h>
 #endif
 
-#include <Common/IO/Log.h>
-#pragma clang optimize off
 namespace ngine::Networking::HTTP
 {
 #if USE_LIBCURL
@@ -141,12 +139,6 @@ namespace ngine::Networking::HTTP
 			Internal::AllocateClass
 		);
 		Assert(initResult == CURLE_OK);
-
-        curl_version_info_data *ver = curl_version_info(CURLVERSION_NOW);
-        LogMessage("libcurl version {}.{}.{}\n",
-               (ver->version_num >> 16) & 0xff,
-               (ver->version_num >> 8) & 0xff,
-               ver->version_num & 0xff);
 #endif
 
 		Asset::Manager& assetManager = System::Get<Asset::Manager>();
