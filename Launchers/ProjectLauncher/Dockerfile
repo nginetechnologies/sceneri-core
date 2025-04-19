@@ -20,9 +20,9 @@ COPY ./PackagedEditor /app
 
 EXPOSE 30159/udp
 
-RUN chmod +x /app/bin/Linux/ProfileDevelopment/Editor
-RUN chmod +x /app/bin/Linux/ProfileDevelopment/crashpad_handler
+RUN chmod +x /app/bin/Linux/Profile/Editor
+RUN chmod +x /app/bin/Linux/Profile/crashpad_handler
 RUN chmod +x /app/bin/Linux/ProjectSystem
 RUN chmod +x /app/bin/Linux/AssetCompiler
 
-ENTRYPOINT ["./bin/Linux/ProfileDevelopment/Editor"]
+ENTRYPOINT ["./bin/Linux/Profile/Editor"]

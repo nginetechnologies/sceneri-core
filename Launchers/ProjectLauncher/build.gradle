@@ -63,7 +63,7 @@ android {
     }
 
     playConfigs {
-        register("ReleaseDevelopment") {
+        register("RelWithDebInfo") {
             enabled.set(true)
         }
     }
@@ -109,43 +109,23 @@ android {
             }
             signingConfig debug.signingConfig
         }
-        ProfileDevelopment {
+        Profile {
             debuggable true
             minifyEnabled false
             externalNativeBuild {
                 cmake {
-                    arguments '-DCMAKE_BUILD_TYPE=ProfileDevelopment'
+                    arguments '-DCMAKE_BUILD_TYPE=Profile'
                 }
             }
             signingConfig signingConfigs.debug
         }
-        ReleaseDevelopment {
+        RelWithDebInfo {
             //proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
             debuggable false
             minifyEnabled false
             externalNativeBuild {
                 cmake {
-                    arguments '-DCMAKE_BUILD_TYPE=ReleaseDevelopment'
-                }
-            }
-            signingConfig signingConfigs.release
-        }
-        DebugShipping {
-            debuggable true
-            minifyEnabled false
-            externalNativeBuild {
-                cmake {
-                    arguments '-DCMAKE_BUILD_TYPE=DebugShipping'
-                }
-            }
-        }
-        ReleaseShipping {
-            //proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-            debuggable false
-            minifyEnabled false
-            externalNativeBuild {
-                cmake {
-                    arguments '-DCMAKE_BUILD_TYPE=ReleaseShipping'
+                    arguments '-DCMAKE_BUILD_TYPE=RelWithDebInfo'
                 }
             }
             signingConfig signingConfigs.release

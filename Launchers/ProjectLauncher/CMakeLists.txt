@@ -8,12 +8,6 @@ endif()
 
 target_link_directories(ProjectLauncher PRIVATE Editor Renderer)
 
-set_target_properties(ProjectLauncher
-	PROPERTIES
-	EXCLUDE_FROM_DEFAULT_BUILD_DEBUGSHIPPING TRUE
-	EXCLUDE_FROM_DEFAULT_BUILD_RELEASESHIPPING TRUE
-)
-
 if (PLATFORM_APPLE)
 	set_target_properties(ProjectLauncher PROPERTIES
 		XCODE_ATTRIBUTE_PRODUCT_NAME "sceneri-core"
