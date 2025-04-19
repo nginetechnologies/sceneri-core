@@ -230,8 +230,6 @@ jobs:
 
   build-android-release:
     name: "Android Profile"
-    # Disable for now to avoid needing Gradle setup
-    if: false 
 
     runs-on: [self-hosted, macOS]
     defaults:
