@@ -7,17 +7,9 @@
         "assetTypeGuid": "926268b2-2d45-4c52-87c9-d76815217359",
         "path": "DefaultPlugins/Editor/AssetCompilerCore/AssetCompilerCore.nplugin"
     },
-    "44ea9550-d7e6-4466-6103-c2474c1b6933": {
-        "assetTypeGuid": "77b22fc4-d109-4dd3-a922-38388879fc90",
-        "path": "DefaultPlugins/Editor/ProjectSystemCore/Assets.nassetdb"
-    },
     "4732db7a-619b-421e-8569-bf31f607bbb7": {
         "assetTypeGuid": "926268b2-2d45-4c52-87c9-d76815217359",
         "path": "DefaultPlugins/Networking/Http/Http.nplugin"
-    },
-    "c80de435-3310-46c2-ba6f-2596a82c9a48": {
-        "assetTypeGuid": "926268b2-2d45-4c52-87c9-d76815217359",
-        "path": "DefaultPlugins/Editor/ProjectSystemCore/ProjectSystemCore.nplugin"
     },
     "4cc21fd4-730f-475d-9807-fbf9e5595308": {
         "assetTypeGuid": "926268b2-2d45-4c52-87c9-d76815217359",

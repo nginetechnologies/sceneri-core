@@ -6,6 +6,9 @@
 #include "AssetCompilerCore/AssetCompilers/AudioCompiler.h"
 #include "AssetCompilerCore/AssetCompilers/ScriptCompiler.h"
 
+#include "AssetCompilerCore/Packaging.h"
+#include "AssetCompilerCore/SolutionGenerator.h"
+
 #include <Common/Platform/Type.h>
 #include <Common/Platform/GetName.h>
 #include <Common/Asset/Asset.h>
@@ -16,10 +19,12 @@
 #include <Common/Project System/EngineInfo.h>
 #include <Common/Project System/EngineDatabase.h>
 #include <Common/Project System/PluginDatabase.h>
+#include <Common/Project System/ProjectDatabase.h>
 #include <Common/Project System/FindEngine.h>
 #include <Common/Project System/PackagedBundle.h>
 #include <Common/Serialization/Serialize.h>
 #include <Common/Serialization/Deserialize.h>
+#include <Common/Serialization/Guid.h>
 #include <Common/Reflection/DynamicTypeDefinition.h>
 #include <Common/Reflection/Registry.h>
 #include <Common/IO/FileIterator.h>
@@ -1378,6 +1383,510 @@ namespace ngine::AssetCompiler
 					{
 						failedAnyTasks = true;
 						LogError("Failed to open plug-in {}", pluginInfo.GetConfigFilePath());
+					}
+				}
+				else if (command.key == MAKE_NATIVE_LITERAL("register_engine"))
+				{
+					IO::Path nativePath = IO::Path(command.value);
+					nativePath.MakeNativeSlashes();
+
+					EngineDatabase engineDatabase;
+					if (engineDatabase.RegisterEngine(IO::Path(nativePath)))
+					{
+						failedAnyTasks |= !engineDatabase.Save(Serialization::SavingFlags::HumanReadable);
+					}
+					else
+					{
+						failedAnyTasks = true;
+					}
+				}
+				else if (command.key == MAKE_NATIVE_LITERAL("register_project"))
+				{
+					IO::Path nativePath = IO::Path(command.value);
+					nativePath.MakeNativeSlashes();
+
+					EditableProjectDatabase projectDatabase;
+
+					ProjectInfo projectInfo = ProjectInfo(IO::Path(nativePath));
+					if (projectInfo.IsValid())
+					{
+						projectDatabase.RegisterProject(IO::Path(projectInfo.GetConfigFilePath()), projectInfo.GetGuid());
+						projectDatabase.Save(Serialization::SavingFlags::HumanReadable);
+					}
+				}
+				else if (command.key == MAKE_NATIVE_LITERAL("create_project"))
+				{
+					IO::Path nativePath = IO::Path(command.value);
+					nativePath.MakeNativeSlashes();
+
+					const EngineInfo engineInfo = EngineInfo(IO::Path(nativePath));
+					if (LIKELY(engineInfo.IsValid()))
+					{
+						IO::Path newProjectPath = IO::Path::Combine(
+							engineInfo.GetDirectory(),
+							MAKE_PATH("Projects"),
+							IO::Path::Merge(MAKE_PATH("MyNewProject"), ProjectAssetFormat.metadataFileExtension),
+							IO::Path::Merge(MAKE_PATH("Project"), ProjectAssetFormat.metadataFileExtension)
+						);
+						failedAnyTasks |= !CreateProject(
+							MAKE_UNICODE_LITERAL("My New Project"),
+							Move(newProjectPath),
+							engineInfo.GetGuid(),
+							Serialization::SavingFlags::HumanReadable
+						);
+					}
+					else
+					{
+						failedAnyTasks = true;
+					}
+				}
+				else if (command.key == MAKE_NATIVE_LITERAL("duplicate_project"))
+				{
+					IO::Path nativePath = IO::Path(command.value);
+					nativePath.MakeNativeSlashes();
+
+					const ProjectInfo projectInfo = ProjectInfo(IO::Path(nativePath));
+					if (LIKELY(projectInfo.IsValid()))
+					{
+						const IO::Path assetDatabasePath = IO::Path::Combine(
+							projectInfo.GetDirectory(),
+							IO::Path::Merge(projectInfo.GetRelativeAssetDirectory(), Asset::Database::AssetFormat.metadataFileExtension)
+						);
+						Serialization::Data assetDatabaseData(assetDatabasePath);
+						Asset::Database assetDatabase(assetDatabaseData, assetDatabasePath.GetParentPath());
+						if (UNLIKELY(!assetDatabaseData.IsValid()))
+						{
+							failedAnyTasks = true;
+							return;
+						}
+
+						failedAnyTasks |= !CopyProject(
+							projectInfo,
+							Move(assetDatabase),
+							UnicodeString(projectInfo.GetName()),
+							IO::Path(projectInfo.GetConfigFilePath()),
+							projectInfo.GetEngineGuid(),
+							Serialization::SavingFlags::HumanReadable
+						);
+					}
+					else
+					{
+						failedAnyTasks = true;
+					}
+				}
+				else if (command.key == MAKE_NATIVE_LITERAL("create_asset_plugin"))
+				{
+					IO::Path nativePath = IO::Path(command.value);
+					nativePath.MakeNativeSlashes();
+
+					const EngineInfo engineInfo = EngineInfo(IO::Path(nativePath));
+					if (LIKELY(engineInfo.IsValid()))
+					{
+						IO::Path newPluginPath = IO::Path::Combine(
+							engineInfo.GetDirectory(),
+							MAKE_PATH("CustomPlugins"),
+							MAKE_PATH("MyNewPlugin"),
+							IO::Path::Merge(MAKE_PATH("MyNewPlugin"), PluginAssetFormat.metadataFileExtension)
+						);
+						failedAnyTasks |= !CreateAssetPlugin(
+																	 MAKE_UNICODE_LITERAL("My New Plugin"),
+																	 Move(newPluginPath),
+																	 engineInfo.GetGuid(),
+																	 Serialization::SavingFlags::HumanReadable
+																 )
+											 .IsValid();
+					}
+					else
+					{
+						failedAnyTasks = true;
+					}
+				}
+				else if (command.key == MAKE_NATIVE_LITERAL("create_code_plugin"))
+				{
+					IO::Path nativePath = IO::Path(command.value);
+					nativePath.MakeNativeSlashes();
+
+					const EngineInfo engineInfo = EngineInfo(IO::Path(nativePath));
+					if (LIKELY(engineInfo.IsValid()))
+					{
+						IO::Path newPluginPath = IO::Path::Combine(
+							engineInfo.GetDirectory(),
+							MAKE_PATH("CustomPlugins"),
+							MAKE_PATH("MyNewPlugin"),
+							IO::Path::Merge(MAKE_PATH("MyNewPlugin"), PluginAssetFormat.metadataFileExtension)
+						);
+						failedAnyTasks |= !CreateCodePlugin(
+																	 MAKE_UNICODE_LITERAL("My New Plugin"),
+																	 Move(newPluginPath),
+																	 engineInfo,
+																	 Serialization::SavingFlags::HumanReadable
+																 )
+											 .IsValid();
+					}
+					else
+					{
+						failedAnyTasks = true;
+					}
+				}
+				else if (command.key == MAKE_NATIVE_LITERAL("create_project_asset_plugin"))
+				{
+					IO::Path nativePath = IO::Path(command.value);
+					nativePath.MakeNativeSlashes();
+
+					ProjectInfo projectInfo = ProjectInfo(IO::Path(nativePath));
+					if (LIKELY(projectInfo.IsValid()))
+					{
+						IO::Path newPluginPath = IO::Path::Combine(
+							projectInfo.GetDirectory(),
+							MAKE_PATH("Plugins"),
+							MAKE_PATH("MyNewPlugin"),
+							IO::Path::Merge(MAKE_PATH("MyNewPlugin"), PluginAssetFormat.metadataFileExtension)
+						);
+
+						failedAnyTasks |= !CreateAssetPlugin(
+																	 MAKE_UNICODE_LITERAL("My New Plugin"),
+																	 Move(newPluginPath),
+																	 projectInfo,
+																	 Serialization::SavingFlags::HumanReadable
+																 )
+											 .IsValid();
+					}
+					else
+					{
+						failedAnyTasks = true;
+					}
+				}
+				else if (command.key == MAKE_NATIVE_LITERAL("create_project_code_plugin"))
+				{
+					IO::Path nativePath = IO::Path(command.value);
+					nativePath.MakeNativeSlashes();
+
+					ProjectInfo projectInfo = ProjectInfo(IO::Path(nativePath));
+					if (LIKELY(projectInfo.IsValid()))
+					{
+
+						IO::Path newPluginPath = IO::Path::Combine(
+							projectInfo.GetDirectory(),
+							MAKE_PATH("Plugins"),
+							MAKE_PATH("MyNewPlugin"),
+							IO::Path::Merge(MAKE_PATH("MyNewPlugin"), PluginAssetFormat.metadataFileExtension)
+						);
+						failedAnyTasks |= !CreateCodePlugin(
+																	 MAKE_UNICODE_LITERAL("My New Plugin"),
+																	 Move(newPluginPath),
+																	 projectInfo,
+																	 Serialization::SavingFlags::HumanReadable
+																 )
+											 .IsValid();
+					}
+					else
+					{
+						failedAnyTasks = true;
+					}
+				}
+				else if (command.key == MAKE_NATIVE_LITERAL("package_project"))
+				{
+					IO::Path nativePath(command.value);
+					nativePath.MakeNativeSlashes();
+
+					IO::Path buildDirectory;
+					if (commandArguments.HasArgument(MAKE_NATIVE_LITERAL("package_directory"), CommandLine::Prefix::Minus))
+					{
+						buildDirectory =
+							IO::Path(commandArguments.GetArgumentValue(MAKE_NATIVE_LITERAL("package_directory"), CommandLine::Prefix::Minus));
+					}
+					buildDirectory.MakeNativeSlashes();
+					LogMessage("Preparing to package project to {}", buildDirectory);
+
+					const ConstNativeStringView buildConfiguration =
+						commandArguments.GetArgumentValue(MAKE_NATIVE_LITERAL("config"), CommandLine::Prefix::Minus);
+
+					Asset::Context projectContext{context};
+					projectContext.SetProject(ProjectInfo(IO::Path(nativePath)));
+					projectContext.SetEngine(ProjectSystem::FindEngineFromProject(*projectContext.GetProject(), commandLineArgs));
+
+					if (LIKELY(projectContext.GetProject().IsValid() & projectContext.GetEngine().IsValid()))
+					{
+						Assert(platforms.GetNumberOfSetFlags() == 1);
+
+						EnumFlags<ProjectSystem::PackagingFlags> flags;
+						// Whether to remove the package directory prior to packaging, to create a fully clean build
+						flags |= ProjectSystem::PackagingFlags::CleanBuild *
+								 commandArguments.HasArgument(MAKE_NATIVE_LITERAL("clean"), CommandLine::Prefix::Minus);
+						PackageProjectLauncher(
+							*this,
+							*Threading::JobRunnerThread::GetCurrent(),
+							failedAnyTasks,
+							*platforms.GetFirstSetFlag(),
+							buildConfiguration,
+							projectContext,
+							buildDirectory,
+							flags
+						);
+					}
+					else
+					{
+						LogError("Failed to find project");
+						failedAnyTasks = true;
+					}
+				}
+				else if (command.key == MAKE_NATIVE_LITERAL("package_project_editor"))
+				{
+					IO::Path nativePath(command.value);
+					nativePath.MakeNativeSlashes();
+
+					IO::Path buildDirectory;
+					if (commandArguments.HasArgument(MAKE_NATIVE_LITERAL("package_directory"), CommandLine::Prefix::Minus))
+					{
+						buildDirectory =
+							IO::Path(commandArguments.GetArgumentValue(MAKE_NATIVE_LITERAL("package_directory"), CommandLine::Prefix::Minus));
+					}
+					buildDirectory.MakeNativeSlashes();
+					LogMessage("Preparing to package project editor to {}", buildDirectory);
+
+					const ConstNativeStringView buildConfiguration =
+						commandArguments.GetArgumentValue(MAKE_NATIVE_LITERAL("config"), CommandLine::Prefix::Minus);
+
+					Asset::Context projectContext{context};
+					projectContext.SetProject(ProjectInfo(IO::Path(nativePath)));
+					projectContext.SetEngine(ProjectSystem::FindEngineFromProject(*projectContext.GetProject(), commandLineArgs));
+
+					if (LIKELY(projectContext.GetProject().IsValid() & projectContext.GetEngine().IsValid()))
+					{
+						Assert(platforms.GetNumberOfSetFlags() == 1);
+
+						EnumFlags<ProjectSystem::PackagingFlags> flags;
+						// Whether to remove the package directory prior to packaging, to create a fully clean build
+						flags |= ProjectSystem::PackagingFlags::CleanBuild *
+								 commandArguments.HasArgument(MAKE_NATIVE_LITERAL("clean"), CommandLine::Prefix::Minus);
+						PackageProjectEditor(
+							*this,
+							*Threading::JobRunnerThread::GetCurrent(),
+							failedAnyTasks,
+							*platforms.GetFirstSetFlag(),
+							buildConfiguration,
+							Move(projectContext),
+							buildDirectory,
+							flags
+						);
+					}
+					else
+					{
+						LogError("Failed to find project");
+						failedAnyTasks = true;
+					}
+				}
+				else if (command.key == MAKE_NATIVE_LITERAL("package_editor"))
+				{
+					IO::Path nativePath(command.value);
+					nativePath.MakeNativeSlashes();
+
+					IO::Path buildDirectory;
+					if (commandArguments.HasArgument(MAKE_NATIVE_LITERAL("package_directory"), CommandLine::Prefix::Minus))
+					{
+						buildDirectory =
+							IO::Path(commandArguments.GetArgumentValue(MAKE_NATIVE_LITERAL("package_directory"), CommandLine::Prefix::Minus));
+					}
+					buildDirectory.MakeNativeSlashes();
+					LogMessage("Preparing to package standalone editor to {}", buildDirectory);
+
+					const ConstNativeStringView buildConfiguration =
+						commandArguments.GetArgumentValue(MAKE_NATIVE_LITERAL("config"), CommandLine::Prefix::Minus);
+
+					Asset::Context packagingContext{context};
+					packagingContext.SetEngine(EngineInfo(IO::Path(nativePath)));
+
+					if (LIKELY(packagingContext.GetEngine().IsValid()))
+					{
+						Assert(platforms.GetNumberOfSetFlags() == 1);
+
+						EnumFlags<ProjectSystem::PackagingFlags> flags;
+						// Whether to remove the package directory prior to packaging, to create a fully clean build
+						flags |= ProjectSystem::PackagingFlags::CleanBuild *
+								 commandArguments.HasArgument(MAKE_NATIVE_LITERAL("clean"), CommandLine::Prefix::Minus);
+						PackageStandaloneEditor(
+							*this,
+							*Threading::JobRunnerThread::GetCurrent(),
+							failedAnyTasks,
+							*platforms.GetFirstSetFlag(),
+							buildConfiguration,
+							Move(packagingContext),
+							buildDirectory,
+							flags
+						);
+					}
+					else
+					{
+						LogError("Failed to find engine");
+						failedAnyTasks = true;
+					}
+				}
+				else if (command.key == MAKE_NATIVE_LITERAL("package_launcher"))
+				{
+					IO::Path nativePath(command.value);
+					nativePath.MakeNativeSlashes();
+
+					IO::Path buildDirectory;
+					if (commandArguments.HasArgument(MAKE_NATIVE_LITERAL("package_directory"), CommandLine::Prefix::Minus))
+					{
+						buildDirectory =
+							IO::Path(commandArguments.GetArgumentValue(MAKE_NATIVE_LITERAL("package_directory"), CommandLine::Prefix::Minus));
+					}
+					buildDirectory.MakeNativeSlashes();
+					LogMessage("Preparing to package standalone launcher to {}", buildDirectory);
+
+					const ConstNativeStringView buildConfiguration =
+						commandArguments.GetArgumentValue(MAKE_NATIVE_LITERAL("config"), CommandLine::Prefix::Minus);
+
+					Asset::Context packagingContext{context};
+					packagingContext.SetEngine(EngineInfo(IO::Path(nativePath)));
+
+					if (LIKELY(packagingContext.GetEngine().IsValid()))
+					{
+						Assert(platforms.GetNumberOfSetFlags() == 1);
+
+						EnumFlags<ProjectSystem::PackagingFlags> flags;
+						// Whether to remove the package directory prior to packaging, to create a fully clean build
+						flags |= ProjectSystem::PackagingFlags::CleanBuild *
+								 commandArguments.HasArgument(MAKE_NATIVE_LITERAL("clean"), CommandLine::Prefix::Minus);
+						PackageStandaloneLauncher(
+							*this,
+							*Threading::JobRunnerThread::GetCurrent(),
+							failedAnyTasks,
+							*platforms.GetFirstSetFlag(),
+							buildConfiguration,
+							Move(packagingContext),
+							buildDirectory,
+							flags
+						);
+					}
+					else
+					{
+						LogError("Failed to find engine");
+						failedAnyTasks = true;
+					}
+				}
+				else if (command.key == MAKE_NATIVE_LITERAL("package_project_system"))
+				{
+					IO::Path nativePath(command.value);
+					nativePath.MakeNativeSlashes();
+
+					IO::Path buildDirectory;
+					if (commandArguments.HasArgument(MAKE_NATIVE_LITERAL("package_directory"), CommandLine::Prefix::Minus))
+					{
+						buildDirectory =
+							IO::Path(commandArguments.GetArgumentValue(MAKE_NATIVE_LITERAL("package_directory"), CommandLine::Prefix::Minus));
+					}
+					buildDirectory.MakeNativeSlashes();
+					LogMessage("Preparing to package standalone project system to {}", buildDirectory);
+
+					Asset::Context packagingContext{context};
+					packagingContext.SetEngine(EngineInfo(IO::Path(nativePath)));
+
+					if (LIKELY(packagingContext.GetEngine().IsValid()))
+					{
+						Assert(platforms.GetNumberOfSetFlags() == 1);
+
+						EnumFlags<ProjectSystem::PackagingFlags> flags;
+						// Whether to remove the package directory prior to packaging, to create a fully clean build
+						flags |= ProjectSystem::PackagingFlags::CleanBuild *
+								 commandArguments.HasArgument(MAKE_NATIVE_LITERAL("clean"), CommandLine::Prefix::Minus);
+						PackageStandaloneProjectSystem(
+							*this,
+							*Threading::JobRunnerThread::GetCurrent(),
+							failedAnyTasks,
+							*platforms.GetFirstSetFlag(),
+							Move(packagingContext),
+							buildDirectory,
+							flags
+						);
+					}
+					else
+					{
+						LogError("Failed to find engine");
+						failedAnyTasks = true;
+					}
+				}
+				else if (command.key == MAKE_NATIVE_LITERAL("package_asset_compiler"))
+				{
+					IO::Path nativePath(command.value);
+					nativePath.MakeNativeSlashes();
+
+					IO::Path buildDirectory;
+					if (commandArguments.HasArgument(MAKE_NATIVE_LITERAL("package_directory"), CommandLine::Prefix::Minus))
+					{
+						buildDirectory =
+							IO::Path(commandArguments.GetArgumentValue(MAKE_NATIVE_LITERAL("package_directory"), CommandLine::Prefix::Minus));
+					}
+					buildDirectory.MakeNativeSlashes();
+					LogMessage("Preparing to package standalone asset compiler to {}", buildDirectory);
+
+					Asset::Context packagingContext{context};
+					packagingContext.SetEngine(EngineInfo(IO::Path(nativePath)));
+
+					if (LIKELY(packagingContext.GetEngine().IsValid()))
+					{
+						Assert(platforms.GetNumberOfSetFlags() == 1);
+
+						EnumFlags<ProjectSystem::PackagingFlags> flags;
+						// Whether to remove the package directory prior to packaging, to create a fully clean build
+						flags |= ProjectSystem::PackagingFlags::CleanBuild *
+								 commandArguments.HasArgument(MAKE_NATIVE_LITERAL("clean"), CommandLine::Prefix::Minus);
+						PackageStandaloneAssetCompiler(
+							*this,
+							*Threading::JobRunnerThread::GetCurrent(),
+							failedAnyTasks,
+							*platforms.GetFirstSetFlag(),
+							Move(packagingContext),
+							buildDirectory,
+							flags
+						);
+					}
+					else
+					{
+						LogError("Failed to find engine");
+						failedAnyTasks = true;
+					}
+				}
+				else if (command.key == MAKE_NATIVE_LITERAL("package_tools"))
+				{
+					IO::Path nativePath(command.value);
+					nativePath.MakeNativeSlashes();
+
+					IO::Path buildDirectory;
+					if (commandArguments.HasArgument(MAKE_NATIVE_LITERAL("package_directory"), CommandLine::Prefix::Minus))
+					{
+						buildDirectory =
+							IO::Path(commandArguments.GetArgumentValue(MAKE_NATIVE_LITERAL("package_directory"), CommandLine::Prefix::Minus));
+					}
+					buildDirectory.MakeNativeSlashes();
+					LogMessage("Preparing to package standalone tools to {}", buildDirectory);
+
+					Asset::Context packagingContext{context};
+					packagingContext.SetEngine(EngineInfo(IO::Path(nativePath)));
+
+					if (LIKELY(packagingContext.GetEngine().IsValid()))
+					{
+						Assert(platforms.GetNumberOfSetFlags() == 1);
+
+						EnumFlags<ProjectSystem::PackagingFlags> flags;
+						// Whether to remove the package directory prior to packaging, to create a fully clean build
+						flags |= ProjectSystem::PackagingFlags::CleanBuild *
+								 commandArguments.HasArgument(MAKE_NATIVE_LITERAL("clean"), CommandLine::Prefix::Minus);
+						PackageStandaloneTools(
+							*this,
+							*Threading::JobRunnerThread::GetCurrent(),
+							failedAnyTasks,
+							*platforms.GetFirstSetFlag(),
+							Move(packagingContext),
+							buildDirectory,
+							flags
+						);
+					}
+					else
+					{
+						LogError("Failed to find engine");
+						failedAnyTasks = true;
 					}
 				}
 				else
@@ -3595,6 +4104,506 @@ namespace ngine::AssetCompiler
 			}
 		}
 	}
+	
+	Optional<ProjectInfo> Plugin::CreateProject(
+		UnicodeString&& name,
+		IO::Path&& targetConfigFilePath,
+		const ngine::Guid engineGuid,
+		const EnumFlags<Serialization::SavingFlags> savingFlags
+	)
+	{
+		if (IO::Path(targetConfigFilePath.GetParentPath()).Exists())
+		{
+			const IO::PathView fileName = targetConfigFilePath.GetFileName();
+			targetConfigFilePath = IO::Path::Combine(IO::Path(targetConfigFilePath.GetParentPath()).GetDuplicated(), fileName);
+		}
+
+		ProjectInfo projectInfo(Forward<UnicodeString>(name), Forward<IO::Path>(targetConfigFilePath), engineGuid);
+		IO::Path(projectInfo.GetDirectory()).CreateDirectories();
+
+		if (!Serialization::SerializeToDisk(projectInfo.GetConfigFilePath(), projectInfo, savingFlags))
+		{
+			return Invalid;
+		}
+
+		const IO::Path assetsDirectory = IO::Path::Combine(projectInfo.GetDirectory(), projectInfo.GetRelativeAssetDirectory());
+		assetsDirectory.CreateDirectory();
+
+		const IO::Path assetDatabasePath = IO::Path::Merge(assetsDirectory, Asset::Database::AssetFormat.metadataFileExtension);
+		Asset::Database assetDatabase(assetDatabasePath, projectInfo.GetDirectory());
+		if (!assetDatabase.Generate(projectInfo))
+		{
+			return Invalid;
+		}
+
+		projectInfo.SetAssetDatabaseGuid(assetDatabase.GetGuid());
+		if (!Serialization::SerializeToDisk(projectInfo.GetConfigFilePath(), projectInfo, savingFlags))
+		{
+			return Invalid;
+		}
+
+		assetDatabase.RegisterAsset(
+			assetDatabase.GetGuid(),
+			Asset::DatabaseEntry{Asset::Database::AssetFormat.assetTypeGuid, ngine::Guid{}, IO::Path(assetDatabasePath)},
+			projectInfo.GetDirectory()
+		);
+
+		if (!assetDatabase.Save(assetDatabasePath, savingFlags))
+		{
+			return Invalid;
+		}
+
+		EditableProjectDatabase projectDatabase;
+		projectDatabase.RegisterProject(IO::Path(projectInfo.GetConfigFilePath()), projectInfo.GetGuid());
+		if (!projectDatabase.Save(savingFlags))
+		{
+			return Invalid;
+		}
+
+		if (Optional<Asset::Manager*> pAssetManager = System::Find<Asset::Manager>())
+		{
+			const Asset::Identifier projectRootFolderAssetIdentifier =
+				pAssetManager->FindOrRegisterFolder(projectInfo.GetDirectory(), Asset::Identifier{});
+			const Asset::Identifier projectAssetIdentifier = pAssetManager->RegisterAsset(
+				projectInfo.GetGuid(),
+				Asset::DatabaseEntry{*assetDatabase.GetAssetEntry(projectInfo.GetGuid())},
+				projectRootFolderAssetIdentifier
+			);
+
+			assetDatabase.IterateAssets(
+				[&assetManager = *pAssetManager, projectRootFolderAssetIdentifier](const Asset::Guid assetGuid, const Asset::DatabaseEntry& entry)
+				{
+					assetManager.RegisterAsset(assetGuid, Asset::DatabaseEntry{entry}, projectRootFolderAssetIdentifier);
+					return Memory::CallbackResult::Continue;
+				}
+			);
+
+			constexpr ngine::Guid EditableLocalProjectTagGuid = "99aca0e9-ef55-405d-8988-94165b912a08"_tag;
+			constexpr ngine::Guid LocalPlayerTagGuid = "44be35b5-5c1c-49b9-a203-784b5b5ea4c6"_guid;
+
+			Tag::Registry& tagRegistry = System::Get<Tag::Registry>();
+			pAssetManager->SetTagAsset(tagRegistry.FindOrRegister(EditableLocalProjectTagGuid), projectAssetIdentifier);
+			pAssetManager->SetTagAsset(tagRegistry.FindOrRegister(LocalPlayerTagGuid), projectAssetIdentifier);
+		}
+
+		return Move(projectInfo);
+	}
+
+	enum class CopyResult : uint8
+	{
+		Failed,
+		Copied,
+		Skipped
+	};
+
+	CopyResult
+	CopyPackagingAsset(const IO::PathView sourceMetadataFilePath, const IO::Path& targetMetadataFilePath, const Asset::DatabaseEntry& assetEntry)
+	{
+		Assert(assetEntry.m_path.IsAbsolute());
+		CopyResult result{CopyResult::Skipped};
+		if (assetEntry.m_path.Exists() && !targetMetadataFilePath.Exists())
+		{
+			if (assetEntry.m_path.CopyFileTo(targetMetadataFilePath))
+			{
+				result = CopyResult::Copied;
+			}
+			else
+			{
+				result = CopyResult::Failed;
+			}
+		}
+		// This asset could have multiple (binary) files, e.g. '.tex.bc' and '.tex.astc'
+		const IO::PathView sourceBinaryFilePath = assetEntry.GetBinaryFilePath();
+		if (sourceBinaryFilePath.HasElements() && result != CopyResult::Skipped)
+		{
+			const IO::Path sourceDirectory = IO::Path(sourceMetadataFilePath.GetParentPath());
+			const IO::Path targetDirectory = IO::Path(targetMetadataFilePath.GetParentPath());
+			IO::FileIterator::TraverseDirectory(
+				IO::Path(sourceBinaryFilePath.GetParentPath()),
+				[sourceBinaryFilePath, sourceDirectory, targetDirectory, &result](IO::Path&& sourceFilePath) -> IO::FileIterator::TraversalResult
+				{
+					if (sourceFilePath.GetView().StartsWith(sourceBinaryFilePath))
+					{
+						const IO::PathView relativeBinaryPath = sourceFilePath.GetRelativeToParent(sourceDirectory);
+						const IO::Path targetBinaryPath = IO::Path::Combine(targetDirectory, relativeBinaryPath);
+						if (LIKELY(!targetBinaryPath.Exists()))
+						{
+							Assert(result != CopyResult::Skipped);
+							if (!sourceFilePath.CopyFileTo(targetBinaryPath))
+							{
+								result = CopyResult::Failed;
+							}
+						}
+					}
+					return IO::FileIterator::TraversalResult::Continue;
+				}
+			);
+		}
+
+		return result;
+	}
+
+	CopyResult CopyPackagingAsset(
+		const ProjectInfo& sourceProject, const ProjectInfo& targetProject, const Asset::DatabaseEntry& assetEntry, IO::Path& newAssetPathOut
+	)
+	{
+		Assert(assetEntry.m_path.IsAbsolute());
+		const IO::PathView sourceProjectDirectory = sourceProject.GetDirectory();
+		IO::PathView relativePath;
+		if (assetEntry.m_path.IsRelativeTo(sourceProjectDirectory))
+		{
+			relativePath = assetEntry.m_path.GetRelativeToParent(sourceProjectDirectory);
+		}
+		else
+		{
+			relativePath = assetEntry.m_path.GetFileName();
+		}
+		const IO::Path targetMetadataFilePath = IO::Path::Combine(targetProject.GetDirectory(), relativePath);
+		IO::Path(targetMetadataFilePath.GetParentPath()).CreateDirectories();
+
+		newAssetPathOut = targetMetadataFilePath;
+		return CopyPackagingAsset(assetEntry.m_path, targetMetadataFilePath, assetEntry);
+	}
+
+	Optional<ProjectInfo> Plugin::CopyProject(
+		const ProjectInfo& sourceProject,
+		Asset::Database&& sourceAssetDatabase,
+		UnicodeString&& name,
+		IO::Path&& targetConfigFilePath,
+		const ngine::Guid engineGuid,
+		const EnumFlags<Serialization::SavingFlags> savingFlags,
+		const EnumFlags<CopyProjectFlags> flags
+	)
+	{
+		if (targetConfigFilePath.Exists())
+		{
+			const IO::PathView fileName = targetConfigFilePath.GetFileName();
+			targetConfigFilePath = IO::Path::Combine(IO::Path(targetConfigFilePath.GetParentPath()).GetDuplicated(), fileName);
+		}
+
+		ProjectInfo projectInfo(sourceProject);
+		projectInfo.SetName(Forward<UnicodeString>(name));
+		projectInfo.SetMetadataFilePath(Forward<IO::Path>(targetConfigFilePath));
+		projectInfo.SetEngine(engineGuid);
+
+		IO::Path(projectInfo.GetDirectory()).CreateDirectories();
+
+		const IO::Path assetsDirectory = IO::Path::Combine(projectInfo.GetDirectory(), projectInfo.GetRelativeAssetDirectory());
+		assetsDirectory.CreateDirectory();
+
+		Optional<Asset::Manager*> pAssetManager = System::Find<Asset::Manager>();
+
+		Asset::Database assetDatabase;
+		if (flags.IsSet(CopyProjectFlags::Clone))
+		{
+			assetDatabase.ReserveImported(sourceAssetDatabase.GetAssetCount() + sourceAssetDatabase.GetImportedAssetCount());
+
+			// Import all assets from the other project
+			sourceAssetDatabase.IterateAssets(
+				[&assetDatabase](const Asset::Guid assetGuid, Asset::DatabaseEntry&) -> Memory::CallbackResult
+				{
+					assetDatabase.ImportAsset(assetGuid);
+					return Memory::CallbackResult::Continue;
+				}
+			);
+
+			// Carry over all imports
+			sourceAssetDatabase.IterateImportedAssets(
+				[&assetDatabase](const Asset::Guid assetGuid) -> Memory::CallbackResult
+				{
+					assetDatabase.ImportAsset(assetGuid);
+					return Memory::CallbackResult::Continue;
+				}
+			);
+
+			// We always clone the project info and asset database
+			assetDatabase.RemoveImportedAsset(projectInfo.GetGuid());
+			assetDatabase.RemoveImportedAsset(projectInfo.GetAssetDatabaseGuid());
+
+			projectInfo.SetGuid(Guid::Generate());
+			projectInfo.SetAssetDatabaseGuid(assetDatabase.GetGuid());
+		}
+		else
+		{
+			assetDatabase = sourceAssetDatabase;
+			assetDatabase.RemoveAsset(sourceProject.GetGuid());
+			assetDatabase.RemoveAsset(sourceProject.GetAssetDatabaseGuid());
+		}
+
+		Asset::DatabaseEntry& projectEntry = assetDatabase.RegisterAsset(projectInfo.GetGuid(), Asset::DatabaseEntry{projectInfo}, {});
+
+		Asset::Identifier projectRootFolderAssetIdentifier;
+
+		if (pAssetManager != nullptr && flags.IsSet(CopyProjectFlags::AddToProjectsDatabase))
+		{
+			projectRootFolderAssetIdentifier = pAssetManager->FindOrRegisterFolder(projectInfo.GetDirectory(), Asset::Identifier{});
+			const Asset::Identifier projectAssetIdentifier =
+				pAssetManager->RegisterAsset(projectInfo.GetGuid(), Asset::DatabaseEntry{projectEntry}, projectRootFolderAssetIdentifier);
+
+			constexpr ngine::Guid EditableLocalProjectTagGuid = "99aca0e9-ef55-405d-8988-94165b912a08"_tag;
+			constexpr ngine::Guid LocalPlayerTagGuid = "44be35b5-5c1c-49b9-a203-784b5b5ea4c6"_guid;
+
+			Tag::Registry& tagRegistry = System::Get<Tag::Registry>();
+			pAssetManager->SetTagAsset(tagRegistry.FindOrRegister(EditableLocalProjectTagGuid), projectAssetIdentifier);
+			pAssetManager->SetTagAsset(tagRegistry.FindOrRegister(LocalPlayerTagGuid), projectAssetIdentifier);
+		}
+
+		if (sourceProject.GetAssetDatabaseGuid().IsValid())
+		{
+			Asset::DatabaseEntry& newEntry = assetDatabase.RegisterAsset(
+				projectInfo.GetAssetDatabaseGuid(),
+				Asset::DatabaseEntry{
+					Asset::Database::AssetFormat.assetTypeGuid,
+					{},
+					IO::Path::Combine(
+						projectInfo.GetDirectory(),
+						IO::Path::Merge(projectInfo.GetRelativeAssetDirectory(), Asset::Database::AssetFormat.metadataFileExtension)
+					)
+				},
+				{}
+			);
+
+			if (pAssetManager != nullptr && flags.IsSet(CopyProjectFlags::AddToProjectsDatabase))
+			{
+				Assert(projectRootFolderAssetIdentifier.IsValid());
+				pAssetManager->RegisterAsset(projectInfo.GetAssetDatabaseGuid(), Asset::DatabaseEntry{newEntry}, projectRootFolderAssetIdentifier);
+			}
+		}
+
+		if (flags.IsSet(CopyProjectFlags::Clone))
+		{
+			const Asset::Guid previousThumbnailGuid = sourceProject.GetThumbnailGuid();
+			if (projectInfo.GetThumbnailGuid().IsValid() && !sourceAssetDatabase.IsAssetImported(previousThumbnailGuid))
+			{
+				projectInfo.SetThumbnail(Asset::Guid::Generate());
+
+				const Optional<const Asset::DatabaseEntry*> pPreviousThumbnailEntry = sourceAssetDatabase.GetAssetEntry(previousThumbnailGuid);
+				if (pPreviousThumbnailEntry.IsValid())
+				{
+					IO::Path newAssetPath;
+					const bool couldCopyAsset = CopyPackagingAsset(sourceProject, projectInfo, *pPreviousThumbnailEntry, newAssetPath) == CopyResult::Copied;
+
+					Asset::DatabaseEntry thumbnailEntry = *pPreviousThumbnailEntry;
+					thumbnailEntry.m_path = newAssetPath;
+
+					assetDatabase.RemoveAsset(previousThumbnailGuid);
+
+					const bool copiedFile = couldCopyAsset && newAssetPath.Exists();
+					if (copiedFile)
+					{
+						Serialization::Data thumbnailAssetData(newAssetPath);
+						Assert(thumbnailAssetData.IsValid() && thumbnailAssetData.GetDocument().IsObject());
+						if (LIKELY(thumbnailAssetData.IsValid() && thumbnailAssetData.GetDocument().IsObject()))
+						{
+							Serialization::Writer writer(thumbnailAssetData);
+							writer.Serialize("guid", projectInfo.GetThumbnailGuid());
+							[[maybe_unused]] const bool wasSaved = thumbnailAssetData.SaveToFile(newAssetPath, savingFlags);
+							if (!wasSaved)
+							{
+								return Invalid;
+							}
+						}
+					}
+
+					Asset::DatabaseEntry& emplacedEntry = assetDatabase.RegisterAsset(projectInfo.GetThumbnailGuid(), Move(thumbnailEntry), {});
+
+					if (pAssetManager != nullptr && flags.IsSet(CopyProjectFlags::AddToProjectsDatabase))
+					{
+						Assert(projectRootFolderAssetIdentifier.IsValid());
+						pAssetManager
+							->RegisterAsset(projectInfo.GetThumbnailGuid(), Asset::DatabaseEntry{emplacedEntry}, projectRootFolderAssetIdentifier);
+						if (!copiedFile)
+						{
+							pAssetManager->RegisterCopyFromSourceAsyncLoadCallback(previousThumbnailGuid, projectInfo.GetThumbnailGuid());
+						}
+					}
+				}
+			}
+
+			const Asset::Guid previousSceneGuid = sourceProject.GetDefaultSceneGuid();
+			if (projectInfo.GetDefaultSceneGuid().IsValid() && !sourceAssetDatabase.IsAssetImported(previousSceneGuid))
+			{
+				projectInfo.SetDefaultSceneGuid(Asset::Guid::Generate());
+
+				const Optional<const Asset::DatabaseEntry*> pPreviousSceneEntry = sourceAssetDatabase.GetAssetEntry(previousSceneGuid);
+				Assert(pPreviousSceneEntry.IsValid());
+				if (LIKELY(pPreviousSceneEntry.IsValid()))
+				{
+					IO::Path newAssetPath;
+					const bool couldCopyAsset = CopyPackagingAsset(sourceProject, projectInfo, *pPreviousSceneEntry, newAssetPath) == CopyResult::Copied;
+
+					Asset::DatabaseEntry sceneEntry = *pPreviousSceneEntry;
+					sceneEntry.m_path = newAssetPath;
+
+					assetDatabase.RemoveAsset(previousSceneGuid);
+
+					const bool copiedFile = couldCopyAsset && newAssetPath.Exists();
+					if (copiedFile)
+					{
+						Serialization::Data sceneAssetData(newAssetPath);
+						if (sceneAssetData.IsValid())
+						{
+							Serialization::Writer writer(sceneAssetData);
+							writer.Serialize("guid", projectInfo.GetDefaultSceneGuid());
+							[[maybe_unused]] const bool wasSaved = sceneAssetData.SaveToFile(newAssetPath, savingFlags);
+							if (!wasSaved)
+							{
+								return Invalid;
+							}
+						}
+					}
+
+					Asset::DatabaseEntry& emplacedEntry = assetDatabase.RegisterAsset(projectInfo.GetDefaultSceneGuid(), Move(sceneEntry), {});
+
+					if (pAssetManager != nullptr && flags.IsSet(CopyProjectFlags::AddToProjectsDatabase))
+					{
+						Assert(projectRootFolderAssetIdentifier.IsValid());
+						pAssetManager
+							->RegisterAsset(projectInfo.GetDefaultSceneGuid(), Asset::DatabaseEntry{emplacedEntry}, projectRootFolderAssetIdentifier);
+						if (!copiedFile)
+						{
+							pAssetManager->RegisterCopyFromSourceAsyncLoadCallback(previousSceneGuid, projectInfo.GetDefaultSceneGuid());
+						}
+					}
+				}
+			}
+		}
+
+		if (!Serialization::SerializeToDisk(projectInfo.GetConfigFilePath(), projectInfo, savingFlags))
+		{
+			return Invalid;
+		}
+
+		const IO::Path assetDatabasePath = IO::Path::Merge(assetsDirectory, Asset::Database::AssetFormat.metadataFileExtension);
+		if (!assetDatabase.Save(assetDatabasePath, savingFlags))
+		{
+			return Invalid;
+		}
+
+		if (flags.IsSet(CopyProjectFlags::AddToProjectsDatabase))
+		{
+			ProjectDatabase projectDatabase = flags.IsSet(CopyProjectFlags::IsEditable) ? (ProjectDatabase)EditableProjectDatabase()
+			                                                                            : (ProjectDatabase)PlayableProjectDatabase();
+			projectDatabase.RegisterProject(IO::Path(projectInfo.GetConfigFilePath()), projectInfo.GetGuid());
+			if (!projectDatabase.Save(Serialization::SavingFlags{}))
+			{
+				return Invalid;
+			}
+		}
+
+		return Move(projectInfo);
+	}
+
+	Optional<PluginInfo> Plugin::CreateAssetPlugin(
+		UnicodeString&& name,
+		IO::Path&& targetConfigFilePath,
+		const ngine::Guid engineGuid,
+		const EnumFlags<Serialization::SavingFlags> savingFlags
+	)
+	{
+		PluginInfo plugin(Forward<UnicodeString>(name), Forward<IO::Path>(targetConfigFilePath), engineGuid);
+		IO::Path(plugin.GetDirectory()).CreateDirectories();
+
+		const IO::Path assetsDirectory = IO::Path::Combine(plugin.GetDirectory(), plugin.GetRelativeAssetDirectory());
+		assetsDirectory.CreateDirectory();
+
+		const IO::Path assetDatabasePath = IO::Path::Merge(assetsDirectory, Asset::Database::AssetFormat.metadataFileExtension);
+		Asset::Database assetDatabase(assetDatabasePath, plugin.GetDirectory());
+		if (!assetDatabase.Generate(plugin))
+		{
+			return Invalid;
+		}
+
+		plugin.SetAssetDatabaseGuid(assetDatabase.GetGuid());
+		if (!plugin.Save(savingFlags))
+		{
+			return Invalid;
+		}
+
+		if (!assetDatabase.Save(assetDatabasePath, savingFlags))
+		{
+			return Invalid;
+		}
+
+		return plugin;
+	}
+
+	Optional<PluginInfo> Plugin::CreateAssetPlugin(
+		UnicodeString&& name, IO::Path&& targetConfigFilePath, ProjectInfo& projectInfo, const EnumFlags<Serialization::SavingFlags> savingFlags
+	)
+	{
+		Optional<PluginInfo> plugin =
+			CreateAssetPlugin(Forward<UnicodeString>(name), Forward<IO::Path>(targetConfigFilePath), projectInfo.GetEngineGuid(), savingFlags);
+		if (plugin.IsInvalid())
+		{
+			return Invalid;
+		}
+
+		projectInfo.AddPlugin(plugin->GetGuid());
+
+		if (!Serialization::SerializeToDisk(projectInfo.GetConfigFilePath(), projectInfo, savingFlags))
+		{
+			return Invalid;
+		}
+
+		return plugin;
+	}
+
+#if SUPPORT_GENERATE_CODE_PLUGIN
+	Optional<PluginInfo> Plugin::CreateCodePlugin(
+		UnicodeString&& name, IO::Path&& targetConfigFilePath, ProjectInfo& projectInfo, const EnumFlags<Serialization::SavingFlags> savingFlags
+	)
+	{
+		Optional<PluginInfo> plugin =
+			CreateAssetPlugin(Forward<UnicodeString>(name), Forward<IO::Path>(targetConfigFilePath), projectInfo, savingFlags);
+		if (plugin.IsInvalid())
+		{
+			return Invalid;
+		}
+
+		plugin->SetRelativeSourceDirectory(IO::Path(MAKE_PATH("Code")));
+		if (!plugin->Save(savingFlags))
+		{
+			return Invalid;
+		}
+
+		return plugin;
+	}
+
+	Optional<PluginInfo> Plugin::CreateCodePlugin(
+		UnicodeString&& name,
+		IO::Path&& targetConfigFilePath,
+		const EngineInfo& engineInfo,
+		const EnumFlags<Serialization::SavingFlags> savingFlags
+	)
+	{
+		Optional<PluginInfo> plugin =
+			CreateAssetPlugin(Forward<UnicodeString>(name), Forward<IO::Path>(targetConfigFilePath), engineInfo.GetGuid(), savingFlags);
+		if (plugin.IsInvalid())
+		{
+			return Invalid;
+		}
+
+		plugin->SetRelativeSourceDirectory(IO::Path(MAKE_PATH("Code")));
+		if (!plugin->Save(savingFlags))
+		{
+			return Invalid;
+		}
+
+		const IO::Path sourceDirectory = plugin->GetSourceDirectory();
+		if (!sourceDirectory.Exists())
+		{
+			sourceDirectory.CreateDirectory();
+		}
+
+		if (!GeneratePluginCMakeLists(*plugin))
+		{
+			return Invalid;
+		}
+
+		return plugin;
+	}
+#endif
 }
 
 #if PLUGINS_IN_EXECUTABLE

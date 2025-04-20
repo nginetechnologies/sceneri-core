@@ -14,6 +14,7 @@
 #include <Common/Memory/Containers/UnorderedSet.h>
 #include <Common/Memory/ReferenceWrapper.h>
 #include <Common/IO/Path.h>
+#include <Common/Function/Event.h>
 #include <Common/Asset/Guid.h>
 #include <Common/Threading/Mutexes/Mutex.h>
 #include <Common/Threading/ForwardDeclarations/Atomic.h>
@@ -39,6 +40,23 @@ namespace ngine::Asset
 	struct DatabaseEntry;
 	struct LocalDatabase;
 	struct Format;
+}
+
+namespace ngine
+{
+	struct EngineInfo;
+	struct ProjectInfo;
+	struct PluginInfo;
+
+	namespace Asset
+	{
+		struct Database;
+	}
+
+	namespace Reflection
+	{
+		struct Registry;
+	}
 }
 
 namespace ngine::CommandLine
@@ -105,6 +123,16 @@ namespace ngine::AssetCompiler
 		IO::PathView m_exportedFileExtension;
 		ExportFunction exportFunction;
 	};
+
+	enum class CopyProjectFlags : uint8
+	{
+		CopyAssets = 1 << 0,
+		IsEditable = 1 << 1,
+		//! Regenerate unique identifiers
+		Clone = 1 << 2,
+		AddToProjectsDatabase = 1 << 3
+	};
+	ENUM_FLAG_OPERATORS(CopyProjectFlags);
 
 	struct Plugin final : public ngine::Plugin
 	{
@@ -206,6 +234,47 @@ namespace ngine::AssetCompiler
 		MoveAsset(const IO::Path& existingMetaDataPath, const IO::Path& newMetaDataPath, const Asset::Context& context, const EnumFlags<Serialization::SavingFlags>);
 		ngine::Guid
 		DuplicateAsset(const IO::Path& existingMetaDataPath, const IO::Path& newMetaDataPath, const Asset::Context& newContext, const EnumFlags<Serialization::SavingFlags>, Function<void(Serialization::Data& assetData, Asset::Asset&), 64>&&);
+		
+		[[nodiscard]] Optional<ProjectInfo>
+		CreateProject(UnicodeString&& name, IO::Path&& targetConfigFilePath, const ngine::Guid engineGuid, const EnumFlags<Serialization::SavingFlags>);
+		[[nodiscard]] Optional<ProjectInfo> CopyProject(
+			const ProjectInfo& sourceProject,
+			Asset::Database&& sourceAssetDatabase,
+			UnicodeString&& name,
+			IO::Path&& targetConfigFilePath,
+			const ngine::Guid engineGuid,
+			const EnumFlags<Serialization::SavingFlags>,
+			const EnumFlags<CopyProjectFlags> flags = CopyProjectFlags::CopyAssets | CopyProjectFlags::IsEditable | CopyProjectFlags::Clone |
+		                                            CopyProjectFlags::AddToProjectsDatabase
+		);
+		[[nodiscard]] Optional<PluginInfo> CreateAssetPlugin(
+			UnicodeString&& name,
+			IO::Path&& targetConfigFilePath,
+			const ngine::Guid engineGuid,
+			const EnumFlags<Serialization::SavingFlags> savingFlags
+		);
+		[[nodiscard]] Optional<PluginInfo> CreateAssetPlugin(
+			UnicodeString&& name,
+			IO::Path&& targetConfigFilePath,
+			ProjectInfo& projectInfo,
+			const EnumFlags<Serialization::SavingFlags> savingFlags
+		);
+
+#define SUPPORT_GENERATE_CODE_PLUGIN PLATFORM_DESKTOP && !PLATFORM_APPLE_MACCATALYST
+#if SUPPORT_GENERATE_CODE_PLUGIN
+		[[nodiscard]] Optional<PluginInfo> CreateCodePlugin(
+			UnicodeString&& name,
+			IO::Path&& targetConfigFilePath,
+			const EngineInfo& engineInfo,
+			const EnumFlags<Serialization::SavingFlags> savingFlags
+		);
+		[[nodiscard]] Optional<PluginInfo> CreateCodePlugin(
+			UnicodeString&& name,
+			IO::Path&& targetConfigFilePath,
+			ProjectInfo& projectInfo,
+			const EnumFlags<Serialization::SavingFlags> savingFlags
+		);
+#endif
 	protected:
 		[[nodiscard]] bool
 		RemoveAssetFromDatabase(const Asset::Guid assetGuid, const Asset::Owners& assetOwners, const EnumFlags<Serialization::SavingFlags>);
