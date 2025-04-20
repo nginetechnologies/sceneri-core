@@ -58,6 +58,10 @@ if(OPTION_PACKAGE)
 		set(ASSETCOMPILER_PATH "${BINARY_OUTPUT_DIRECTORY}/${HOST_PLATFORM_NAME}/AssetCompiler")
 	endif()
 
+	if(PLATFORM_DESKTOP AND NOT PLATFORM_APPLE)
+	   add_dependencies(ProjectLauncher AssetCompiler)
+   	endif()
+
 	if(PLATFORM_APPLE)
 		if(DEFINED PROJECT_FILE)
 			set(PACKAGE_MACOS_COMMAND "")
