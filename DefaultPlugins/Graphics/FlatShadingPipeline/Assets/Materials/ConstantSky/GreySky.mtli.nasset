@@ -1,0 +1,15 @@
+{
+    "guid": "74e5159b-0ab5-4ac1-b761-55bb7fe0d93b",
+    "material": "d3b37153-2dce-4574-a8f1-f118df0e8e30",
+    "tags": [
+        "66173826-ac7d-44c4-a403-8dfde3fd54a0"
+    ],
+    "push_constants": [
+        {
+            "type": 0,
+            "color": "#14"
+        }
+    ],
+    "thumbnailGuid": "00fa209b-2cc5-8fab-2ccb-3bced675d426",
+    "assetTypeGuid": "ce3b6c53-1b6d-4bc6-97e6-2ea036c58c0f"
+}

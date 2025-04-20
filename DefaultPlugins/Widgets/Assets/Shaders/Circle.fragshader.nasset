@@ -1,0 +1,8 @@
+{
+    "guid": "9366d105-d1b7-4b64-9431-86561521bbd6",
+    "source": "Source/Rectangle.frag",
+    "definitions": [
+        "CIRCLE",
+        "TEXTURE_COORDINATES"
+    ]
+}

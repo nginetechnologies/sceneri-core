@@ -1,0 +1,96 @@
+#version 450
+#extension GL_EXT_samplerless_texture_functions : enable
+
+#define USE_CHROMATIC_ABERATION
+
+const uint baseSetIndex = HAS_PUSH_CONSTANTS == 1 ? 0 : 1;
+#if HAS_PUSH_CONSTANTS
+layout(push_constant) uniform PushConstants
+#else
+layout (binding = 0) buffer readonly PushConstants
+#endif
+{
+	layout(offset = 0) int numGhosts;
+	layout(offset = 4) float bloomIntensity;
+	layout(offset = 8) float haloIntensity;
+	layout(offset = 12) float ghostIntensity;
+	layout(offset = 16) float ghostDispersal;
+	layout(offset = 20) float haloWidth;
+	layout(offset = 24) float chromaticAberation;
+} pushConstants;
+
+layout(set = baseSetIndex, binding = 0) uniform texture2D downsampledHDRSceneImage;
+layout(set = baseSetIndex, binding = 1, rgba16f) uniform writeonly image2D outputImage;
+layout(set = baseSetIndex, binding = 2) uniform sampler bilinearSampler;
+
+
+#ifdef USE_CHROMATIC_ABERATION
+vec3 textureDistorted( texture2D tex, vec2 uv, vec2 direction, vec3 chromaticAberation ) {
+      return vec3(
+         texture(sampler2D(tex, bilinearSampler), uv + direction * chromaticAberation.r).r,
+         texture(sampler2D(tex, bilinearSampler), uv + direction * chromaticAberation.g).g,
+         texture(sampler2D(tex, bilinearSampler), uv + direction * chromaticAberation.b).b
+      );
+}
+#endif
+
+layout(local_size_x=8, local_size_y=8) in;
+
+void main()
+{
+	ivec2 res = textureSize(downsampledHDRSceneImage,0);
+	vec2 texelSize = 1.0 / vec2(res);
+
+	ivec2 index =  ivec2(gl_GlobalInvocationID.xy);
+	vec2 uv = vec2(index) / vec2(res);
+
+	//Bloom
+
+	vec3 bloom = texture(sampler2D(downsampledHDRSceneImage, bilinearSampler), uv).rgb * pushConstants.bloomIntensity;
+
+	//Ghosts
+
+	vec3 lensFlare = vec3(0);
+
+	uv = vec2(1,1) - uv;
+
+	vec2 ghostVec = (vec2(0.5) - uv) * pushConstants.ghostDispersal;
+	float ghostVecLength = length(ghostVec);
+
+	if( ghostVecLength > 0.0f )
+	{
+		vec2 direction = ghostVec / ghostVecLength;
+
+		vec3 chromaticAberation = vec3(-texelSize.x * pushConstants.chromaticAberation, 0.0, texelSize.x * pushConstants.chromaticAberation);
+
+		for (int i = 0; i < pushConstants.numGhosts; ++i)
+		{
+			vec2 offset = fract(uv + ghostVec * float(i)); //TODO fract not necessary if sampler is REPEAT
+
+			float weight = length(vec2(0.5) - offset) / length(vec2(0.5)); //weight toward center of screen to emphasize bright spot on screen center
+			weight = pow(1.0 - weight, 10.0);
+
+			#ifdef USE_CHROMATIC_ABERATION
+				lensFlare += textureDistorted(downsampledHDRSceneImage, offset, direction, chromaticAberation);
+			#else
+				lensFlare += texture(sampler2D(downsampledHDRSceneImage, bilinearSampler), offset).rgb;
+			#endif
+		}
+
+		lensFlare *= pushConstants.ghostIntensity;
+
+		//Halo
+
+		vec2 haloVec = direction * pushConstants.haloWidth;
+		float weight = length(vec2(0.5) - fract(uv + haloVec)) / length(vec2(0.5));
+		weight = pow(1.0 - weight, 5.0) * pushConstants.haloIntensity;
+
+		#ifdef USE_CHROMATIC_ABERATION
+			lensFlare += textureDistorted(downsampledHDRSceneImage, uv + haloVec, direction, chromaticAberation) * weight;
+		#else
+			lensFlare += texture(sampler2D(downsampledHDRSceneImage, bilinearSampler), uv + haloVec).rgb * weight;
+		#endif
+	}
+
+	imageStore( outputImage, index, vec4( lensFlare + bloom, 1 ) );
+}

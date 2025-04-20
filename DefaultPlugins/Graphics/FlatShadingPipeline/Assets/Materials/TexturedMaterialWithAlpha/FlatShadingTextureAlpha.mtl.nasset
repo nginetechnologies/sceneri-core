@@ -1,0 +1,33 @@
+{
+    "guid": "a519c196-21bf-416e-99fb-1c5341c3a70c",
+    "typeGuid": "6717ff80-6896-4396-a66c-b493e5fe634c",
+    "dependencies": [
+        "ff73d496-c4b0-4f97-9b05-96657334f624",
+        "80301dc0-5d0e-407a-b7d7-594269b4c09d"
+    ],
+    "vertex_shader": "ff73d496-c4b0-4f97-9b05-96657334f624",
+    "pixel_shader": "80301dc0-5d0e-407a-b7d7-594269b4c09d",
+    "descriptor_bindings": [
+        {
+            "location": 0,
+            "type": 1,
+            "preset": 4,
+            "default_texture": "f2f75147-d0ac-4d4c-5744-ccb965131c22",
+            "stages": 16
+        }
+    ],
+    "vertex_attributes": 13,
+    "attachments": [
+        {
+            "render_target": "f81d546b-7c63-4b54-bb62-49acee00b429",
+            "color_blending": {
+                "source_blend_factor": 6,
+                "target_blend_factor": 7
+            }
+        },
+        {
+            "render_target": "2c517d62-2f66-41b5-ae2e-52690b275120"
+        }
+    ],
+    "assetTypeGuid": "6717ff80-6896-4396-a66c-b493e5fe634c"
+}

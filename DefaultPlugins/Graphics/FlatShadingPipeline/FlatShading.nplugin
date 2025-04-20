@@ -1,0 +1,12 @@
+{
+    "name": "Flat Shading",
+    "version": "0.0.1",
+    "guid": "0f7c1053-884c-4795-a082-2aecf6ba8032",
+    "database_guid": "5b9d8c98-70fc-8c61-530a-adfe86eb287e",
+    "asset_directory": "Assets",
+    "plugin_dependencies": [
+        "7F333735-7D28-4EDE-815B-805AAD806B8C"
+    ],
+    "source": "FlatShading.nplugin",
+    "assetTypeGuid": "926268b2-2d45-4c52-87c9-d76815217359"
+}

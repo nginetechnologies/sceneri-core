@@ -1,0 +1,14 @@
+{
+    "guid": "565287cd-e2da-4379-811f-1068e117a052",
+    "material": "6a0bf533-e7f6-41fc-8a83-a1b5009bf18b",
+    "tags": [
+        "66173826-ac7d-44c4-a403-8dfde3fd54a0"
+    ],
+    "push_constants": [
+        {
+            "type": 0,
+            "color": "#ac25eb"
+        }
+    ],
+    "assetTypeGuid": "ce3b6c53-1b6d-4bc6-97e6-2ea036c58c0f"
+}

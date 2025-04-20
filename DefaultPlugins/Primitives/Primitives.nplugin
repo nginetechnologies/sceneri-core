@@ -1,0 +1,14 @@
+{
+    "name": "Primitives",
+    "version": "0.0.1",
+    "guid": "7f333735-7d28-4ede-815b-805aad806b8c",
+    "database_guid": "b5dff1ec-1e1e-f703-51bc-c3aca826a86a",
+    "engine": "3ff049e0-0880-4898-879d-1ccf5583c9c6",
+    "asset_directory": "Assets",
+    "plugin_dependencies": [
+        "B7921721-4029-47CE-873C-5D356D604AA9",
+        "0F7C1053-884C-4795-A082-2AECF6BA8032"
+    ],
+    "source": "Primitives.nplugin",
+    "assetTypeGuid": "926268b2-2d45-4c52-87c9-d76815217359"
+}

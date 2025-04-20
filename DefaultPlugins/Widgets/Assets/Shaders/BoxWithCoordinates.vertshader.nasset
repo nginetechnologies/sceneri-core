@@ -1,0 +1,7 @@
+{
+    "guid": "ac5838f2-d076-4cfa-8101-87a7e99e9fe9",
+    "source": "Source/Rectangle.vert",
+    "definitions": [
+        "TEXTURE_COORDINATES"
+    ]
+}

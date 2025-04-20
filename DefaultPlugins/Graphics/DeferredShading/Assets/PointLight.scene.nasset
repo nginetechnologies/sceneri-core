@@ -1,0 +1,70 @@
+{
+    "guid": "b04616d8-91dc-49e8-8e61-b9bac6d6354b",
+    "children": [
+        {
+            "typeGuid": "9dd6fa2f-730b-48a5-96b7-5166a166efc0",
+            "de8f8da2-d37f-41da-bc6e-580435fe605f": {
+                "position": [
+                    0,
+                    0,
+                    0
+                ],
+                "rotation": [
+                    0,
+                    0,
+                    0
+                ],
+                "scale": [
+                    -0.15,
+                    -0.15,
+                    -0.15
+                ]
+            },
+            "9f750482-b822-4d4b-be6a-9c135c614328": {
+                "stages": [
+                    "a489d208-e213-4cfd-8b84-b14a5bb54e28"
+                ]
+            },
+            "de0b2bc1-2e72-4739-a749-f5281e0de55a": {
+                "mesh": "7fa427c1-e00c-4a9c-b42f-93110fe1deff",
+                "material_instance": "cd11f969-721e-4316-880d-035ac4bda6cb"
+            },
+            "data_components": [
+                {
+                    "typeGuid": "fefa51b8-945d-4f88-8859-356c7546efa7",
+                    "name": "Icon",
+                    "visibility": 1
+                }
+            ]
+        },
+        {
+            "typeGuid": "c720a57c-40c6-48a4-8f18-12d41e093616",
+            "9f750482-b822-4d4b-be6a-9c135c614328": {
+                "stages": [
+                    "f141b823-5844-4fbc-b106-0635ff52199c",
+                    "DFCA0EF8-EDED-4660-8ADB-43C0AA8F4E60"
+                ]
+            },
+            "c720a57c-40c6-48a4-8f18-12d41e093616": {
+                "radius": 50,
+                "color": [
+                    1,
+                    1,
+                    1,
+                    0
+                ]
+            },
+            "data_components": [
+                {
+                    "typeGuid": "fefa51b8-945d-4f88-8859-356c7546efa7",
+                    "name": "Light",
+                    "visibility": 1
+                }
+            ]
+        }
+    ],
+    "typeGuid": "0c3f4f29-0d53-4878-922a-cca7d6af7bb6",
+    "0c3f4f29-0d53-4878-922a-cca7d6af7bb6": {
+        "scene": "b04616d8-91dc-49e8-8e61-b9bac6d6354b"
+    }
+}

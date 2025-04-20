@@ -1,0 +1,55 @@
+{
+    "guid": "18f69209-f9e0-477a-927c-948b113dd41f",
+    "typeGuid": "6717ff80-6896-4396-a66c-b493e5fe634c",
+    "dependencies": [
+        "9a4afd2e-3b55-4c06-aa18-7ed5f538298b",
+        "ebfb2d4c-30f4-424c-96b1-cbd33b6506d8"
+    ],
+    "vertex_shader": "9a4afd2e-3b55-4c06-aa18-7ed5f538298b",
+    "pixel_shader": "ebfb2d4c-30f4-424c-96b1-cbd33b6506d8",
+    "requires_time": 1,
+    "push_constants": [
+        {
+            "size": 4,
+            "stages": 16,
+            "default_value": {
+                "type": 1,
+                "value": 0
+            },
+            "preset": 5
+        },
+        {
+            "size": 4,
+            "stages": 16,
+            "default_value": {
+                "type": 1,
+                "value": 1
+            },
+            "preset": 6
+        }
+    ],
+    "descriptor_bindings": [
+        {
+            "location": 0,
+            "type": 1,
+            "preset": 3,
+            "default_texture": "f2f75147-d0ac-4d4c-5744-ccb965131c22",
+            "stages": 17
+        }
+    ],
+    "attachments": [
+        {
+            "render_target": "90d3d032-2e1e-4d72-b3c0-d3b4114c9d2e"
+        },
+        {
+            "render_target": "18988bce-dd7a-4d4a-9606-741047372c44"
+        },
+        {
+            "render_target": "fda607dc-ed70-4417-a242-84c3f6a86377"
+        },
+        {
+            "render_target": "73666631-a180-4835-b65c-c05b7e6dd9d7"
+        }
+    ],
+    "assetTypeGuid": "6717ff80-6896-4396-a66c-b493e5fe634c"
+}

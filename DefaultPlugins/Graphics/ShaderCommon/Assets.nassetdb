@@ -1,0 +1,17 @@
+{
+    "10c0dc8c-bfaf-424d-b3ea-e80eb60c07ca": {
+        "path": "Assets/Shaders/Source/Clear.fragshader.nasset"
+    },
+    "17718d93-e102-456b-9db8-cb5ba6a8292f": {
+        "path": "Assets/Shaders/FullscreenQuadWithUV.vertshader.nasset"
+    },
+    "4979ec10-9f8a-40cb-ae11-6f56d06ab2bc": {
+        "assetTypeGuid": "926268b2-2d45-4c52-87c9-d76815217359",
+        "path": "ShaderCommon.nplugin",
+        "name": "Shader Common"
+    },
+    "b47252b6-511d-4163-948b-494e02dd399f": {
+        "path": "Assets/Shaders/FullscreenQuad.vertshader.nasset"
+    },
+    "guid": "319db77b-2fa7-e800-562c-9a70713d6792"
+}

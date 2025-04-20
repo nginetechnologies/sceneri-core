@@ -7,6 +7,10 @@
     "source_directory": "Code",
     "binary_directory": "bin",
     "library_directory": "lib",
+    "plugin_dependencies": [
+        "4F6B545D-F826-4BAE-9A41-CD5149979D8D",
+        "b7921721-4029-47ce-873c-5d356d604aa9"
+    ],
     "source": "AssetCompilerCore.nplugin",
     "assetTypeGuid": "926268b2-2d45-4c52-87c9-d76815217359"
 }

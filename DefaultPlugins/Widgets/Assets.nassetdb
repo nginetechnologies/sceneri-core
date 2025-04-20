@@ -1,0 +1,98 @@
+{
+    "0142582d-9aa5-4644-b921-87edbbee3f2b": {
+        "path": "Assets/Shaders/UniformRoundedBorderRectangle.fragshader.nasset"
+    },
+    "01d8d860-8b49-44fa-9e9d-ce7dfb95f90f": {
+        "path": "Assets/Shaders/CopyToScreen/CopyToScreen.fragshader.nasset"
+    },
+    "0a56beb0-95c7-496c-858a-b80c04393055": {
+        "path": "Assets/Shaders/UniformRoundedRectangleConicGradient.fragshader.nasset"
+    },
+    "17f7d04f-fd7b-4e5f-90ef-0dec8d559a93": {
+        "assetTypeGuid": "7d2d2421-a875-450f-aedf-15c4c5c91f31",
+        "componentTypeGuid": "c4e01aa2-495d-4eb1-b9be-fe0e30500b07",
+        "path": "Assets/RenderTargets/UI.rendertarget.nasset"
+    },
+    "1ee53d13-a687-4735-8b92-061aef8a45a8": {
+        "path": "Assets/Shaders/RoundedRectangleLinearGradient.fragshader.nasset"
+    },
+    "24368a65-ddd7-40dc-9542-1f6b14222616": {
+        "path": "Assets/Shaders/UniformRoundedRectangle.fragshader.nasset"
+    },
+    "2451bf7f-79b3-4f4a-b6a2-f03acee73726": {
+        "path": "Assets/Shaders/UniformRoundedBorderRectangleConicGradient.fragshader.nasset"
+    },
+    "32272324-91fc-4061-8833-b15cc207e0e6": {
+        "path": "Assets/Shaders/UniformRoundedRectangleLinearGradient.fragshader.nasset"
+    },
+    "5050cf04-8a53-40a5-ae7a-f20017a66b8e": {
+        "path": "Assets/Shaders/Rectangle.vertshader.nasset"
+    },
+    "5dc95cdf-41d6-4482-9ea4-ec56b9460e16": {
+        "path": "Assets/Shaders/RectangleConicGradient.fragshader.nasset"
+    },
+    "606f4275-485c-4626-aad1-ac51f7edc5cf": {
+        "path": "Assets/Shaders/Line.fragshader.nasset"
+    },
+    "63e4bf93-f2d3-453b-a7df-b56412a65af6": {
+        "path": "Assets/Shaders/Rectangle.fragshader.nasset"
+    },
+    "64c9f8bd-f313-4257-bc20-e3d67c5b70ba": {
+        "path": "Assets/Shaders/RectangleGrid.fragshader.nasset"
+    },
+    "65244a79-6d27-4c93-abf3-2509dc1441fe": {
+        "path": "Assets/Shaders/BorderRectangle.fragshader.nasset"
+    },
+    "65d31ddc-5bfe-468c-bb9c-68e71b3cc0ee": {
+        "path": "Assets/Shaders/RoundedRectangleConicGradient.fragshader.nasset"
+    },
+    "6c3ea721-048b-4fcd-83df-fa919605d134": {
+        "path": "Assets/Shaders/CopyImage.fragshader.nasset"
+    },
+    "6c41b366-8c8e-db35-8567-df602cff4fdc": {
+        "path": "Assets/Shaders/ColoredIcon.fragshader.nasset"
+    },
+    "8b08ed23-3c70-4a80-a4af-a43d41d2e9cd": {
+        "path": "Assets/Shaders/RectangleLinearGradient.fragshader.nasset"
+    },
+    "904dcdb8-26ed-440c-97d4-114d355fbf9a": {
+        "path": "Assets/Shaders/UniformRoundedBorderRectangleLinearGradient.fragshader.nasset"
+    },
+    "9366d105-d1b7-4b64-9431-86561521bbd6": {
+        "path": "Assets/Shaders/Circle.fragshader.nasset"
+    },
+    "aaea95b0-9b18-442d-b043-0629481e8c95": {
+        "assetTypeGuid": "926268b2-2d45-4c52-87c9-d76815217359",
+        "path": "Widgets.nplugin"
+    },
+    "ac5838f2-d076-4cfa-8101-87a7e99e9fe9": {
+        "path": "Assets/Shaders/BoxWithCoordinates.vertshader.nasset"
+    },
+    "add6ef4c-3094-4731-a963-12fdb97ab5ae": {
+        "path": "Assets/Shaders/RoundedRectangle.fragshader.nasset"
+    },
+    "b6bb46d3-c2d6-4a5e-957a-da2ab7173e9f": {
+        "path": "Assets/Shaders/CircleLinearGradient.fragshader.nasset"
+    },
+    "bd3e2ece-a1f0-4d9b-bf2f-29b2a812f5ec": {
+        "path": "Assets/Shaders/CopyImage.vertshader.nasset"
+    },
+    "c4a9a15e-13ca-1b97-79dd-a1a3e50bae70": {
+        "path": "Assets/Shaders/Source/Rectangle.fragshader.nasset"
+    },
+    "ce17c8b0-2e8f-45fd-8138-4a3363db795f": {
+        "path": "Assets/Shaders/RoundedImage.fragshader.nasset"
+    },
+    "d719b424-3b96-4d41-a5a2-5c670bbbdf45": {
+        "path": "Assets/Shaders/RoundedBorderRectangle.fragshader.nasset"
+    },
+    "e0e5a7b3-4635-4299-94c3-2b5707aca76f": {
+        "assetTypeGuid": "7d2d2421-a875-450f-aedf-15c4c5c91f31",
+        "componentTypeGuid": "c4e01aa2-495d-4eb1-b9be-fe0e30500b07",
+        "path": "Assets/RenderTargets/UIDepth.rendertarget.nasset"
+    },
+    "e69162f5-2177-4cb4-ab4c-c807e1dc27a2": {
+        "path": "Assets/Shaders/CircleConicGradient.fragshader.nasset"
+    },
+    "guid": "8b2d69a7-da0e-f90e-c9e4-492ebf048a7e"
+}

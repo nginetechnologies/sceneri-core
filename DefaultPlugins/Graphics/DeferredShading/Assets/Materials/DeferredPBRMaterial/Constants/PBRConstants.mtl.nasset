@@ -1,0 +1,59 @@
+{
+    "guid": "a897cdfa-a65f-4222-a5ab-d64df68c17b6",
+    "typeGuid": "6717ff80-6896-4396-a66c-b493e5fe634c",
+    "dependencies": [
+        "5f7722b2-b69b-494b-876b-6951feb6283c",
+        "f14ea8c7-8094-43a3-b6de-bfd48856c7c5"
+    ],
+    "vertex_shader": "5f7722b2-b69b-494b-876b-6951feb6283c",
+    "pixel_shader": "f14ea8c7-8094-43a3-b6de-bfd48856c7c5",
+    "push_constants": [
+        {
+            "size": 16,
+            "stages": 16,
+            "default_value": {
+                "type": 0,
+                "color": "#9b3333"
+            },
+            "preset": 1
+        },
+        {
+            "size": 4,
+            "stages": 16,
+            "default_value": {
+                "type": 1,
+                "value": 0
+            },
+            "preset": 5
+        },
+        {
+            "size": 4,
+            "stages": 16,
+            "default_value": {
+                "type": 1,
+                "value": 1
+            },
+            "preset": 6
+        }
+    ],
+    "assetTypeGuid": "6717ff80-6896-4396-a66c-b493e5fe634c",
+    "stencil_test": {
+        "pass_operation": 2,
+        "write_mask": 1,
+        "reference": 1
+    },
+    "attachments": [
+        {
+            "render_target": "90d3d032-2e1e-4d72-b3c0-d3b4114c9d2e"
+        },
+        {
+            "render_target": "18988bce-dd7a-4d4a-9606-741047372c44"
+        },
+        {
+            "render_target": "fda607dc-ed70-4417-a242-84c3f6a86377"
+        },
+        {
+            "render_target": "73666631-a180-4835-b65c-c05b7e6dd9d7"
+        }
+    ]
+}

@@ -1,0 +1,117 @@
+#version 450
+#extension GL_EXT_samplerless_texture_functions : enable
+
+#define MAXIMUM_CASCADES 4
+
+layout(std430) struct SDSMLightInfo
+{
+	mat4 ViewMatrix;
+	ivec4 BoundMin[MAXIMUM_CASCADES];
+	ivec4 BoundMax[MAXIMUM_CASCADES];
+	vec4 CascadeSplits;
+	vec3 LightDirection;
+	float PSSMLambda;
+	float MaxShadowRange;
+};
+
+layout(std430, binding = 0) buffer readonly SDSMLightInfoBuffer
+{
+	layout(offset = 0) SDSMLightInfo lights[];
+} sdsmLightInfoBuffer;
+
+layout(std430) struct SDSMShadowSamplingInfo
+{
+	mat4 ViewProjMatrix[MAXIMUM_CASCADES];
+	float CascadeSplits[4];
+};
+
+layout(std430, binding = 1) buffer SDSMShadowSamplingInfoBuffer
+{
+	layout(offset = 0) SDSMShadowSamplingInfo lights[];
+} sdsmShadowSamplingInfoBuffer;
+
+layout (std140, binding = 2) buffer ShadowGenInfoBuffer
+{
+	layout(offset = 0) uint count;
+	layout(offset = 16) mat4 viewProjMatrix[];
+} shadowGenInfoBuffer;
+
+
+layout (std430, binding = 3) buffer readonly SDSMShadowMapsIndicesBuffer
+{
+	layout(offset = 0) uint index[];
+} sdsmShadowMapsIndicesBuffer;
+
+mat4 CreateOrthographic(float left, float right, float bottom, float top, float nearPlane, float farPlane)
+{
+	return mat4(
+		2.0 / (right - left),
+		0.0,
+		0.0,
+		0.0,
+
+		0.0,
+		2.0 / (top - bottom),
+		0.0,
+		0.0,
+
+		0.0,
+		0.0,
+		-1.0 / (farPlane - nearPlane),
+		0.0,
+
+		-(right + left) / (right - left),
+		-(top + bottom) / (top - bottom),
+		-nearPlane / (farPlane - nearPlane),
+		1.0);
+}
+
+float FixedPointToFloatingPointBound( int v )
+{
+	return float(v) / 65536.0;
+}
+
+layout(local_size_x=MAXIMUM_CASCADES, local_size_y=1) in;
+void main()
+{
+	//Compute cascades matrices based on optimal light space bounding box of visible samples.
+
+	//TODO only support ONE directional light throughout the engine and shaders ?
+	uint iLight = gl_LocalInvocationID.y;
+	uint iCascade = gl_LocalInvocationID.x;
+
+	sdsmShadowSamplingInfoBuffer.lights[iLight].CascadeSplits[iCascade] = sdsmLightInfoBuffer.lights[iLight].CascadeSplits[iCascade];
+
+	float left   = FixedPointToFloatingPointBound( sdsmLightInfoBuffer.lights[iLight].BoundMin[iCascade].x );
+	float right  = FixedPointToFloatingPointBound( sdsmLightInfoBuffer.lights[iLight].BoundMax[iCascade].x );
+	float bottom = FixedPointToFloatingPointBound( sdsmLightInfoBuffer.lights[iLight].BoundMin[iCascade].y );
+	float top    = FixedPointToFloatingPointBound( sdsmLightInfoBuffer.lights[iLight].BoundMax[iCascade].y );
+
+	float nearPlane = -FixedPointToFloatingPointBound( sdsmLightInfoBuffer.lights[iLight].BoundMax[iCascade].z );
+	float farPlane  = -FixedPointToFloatingPointBound( sdsmLightInfoBuffer.lights[iLight].BoundMin[iCascade].z );
+
+
+	// slightly enlarge the projection bound, to support PCF filtering
+	const float margin = 0.003;
+	const float xMargin = margin * (right - left);
+	const float yMargin = margin * (top - bottom);
+
+	left -= xMargin;
+	right += xMargin;
+	bottom -= yMargin;
+	top += yMargin;
+
+
+	//bias matrix remaps from NDC space [-1, 1] to UV space [0, 1]
+	const mat4 biasMatrix = mat4( 	0.5, 0.0, 0.0, 0.0,
+									0.0, 0.5, 0.0, 0.0,
+									0.0, 0.0, 1.0, 0.0,
+									0.5, 0.5, 0.0, 1.0);
+
+	mat4 projectionMatrix = CreateOrthographic( left, right, bottom, top, nearPlane, farPlane );
+	mat4 viewProjectionMatrix = projectionMatrix * sdsmLightInfoBuffer.lights[iLight].ViewMatrix;
+
+	uint shadowIndex = sdsmShadowMapsIndicesBuffer.index[iLight * MAXIMUM_CASCADES + iCascade];
+	shadowGenInfoBuffer.viewProjMatrix[shadowIndex] = viewProjectionMatrix;
+	sdsmShadowSamplingInfoBuffer.lights[iLight].ViewProjMatrix[iCascade] = biasMatrix * viewProjectionMatrix;
+}

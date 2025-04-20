@@ -1,0 +1,58 @@
+{
+    "35674db1-56c6-4c21-8c2c-5bdd7c86c452": {
+        "assetTypeGuid": "ce3b6c53-1b6d-4bc6-97e6-2ea036c58c0f",
+        "path": "Assets/Materials/Primitive/Primitive Red.mtli.nasset",
+        "tags": [
+            "66173826-ac7d-44c4-a403-8dfde3fd54a0"
+        ]
+    },
+    "36ee4991-8e7b-467b-b057-dcb11af6d754": {
+        "assetTypeGuid": "ce3b6c53-1b6d-4bc6-97e6-2ea036c58c0f",
+        "path": "Assets/Materials/Primitive/Primitive Blue.mtli.nasset",
+        "tags": [
+            "66173826-ac7d-44c4-a403-8dfde3fd54a0"
+        ]
+    },
+    "43f5cda9-b177-4f47-9d73-00b55586c7d8": {
+        "path": "Assets/Materials/Primitive/Shader.fragshader.nasset"
+    },
+    "565287cd-e2da-4379-811f-1068e117a052": {
+        "assetTypeGuid": "ce3b6c53-1b6d-4bc6-97e6-2ea036c58c0f",
+        "path": "Assets/Materials/Primitive/Primitive Purple.mtli.nasset",
+        "tags": [
+            "66173826-ac7d-44c4-a403-8dfde3fd54a0"
+        ]
+    },
+    "6a0bf533-e7f6-41fc-8a83-a1b5009bf18b": {
+        "assetTypeGuid": "6717ff80-6896-4396-a66c-b493e5fe634c",
+        "componentTypeGuid": "6717ff80-6896-4396-a66c-b493e5fe634c",
+        "path": "Assets/Materials/Primitive/Primitive.mtl.nasset",
+        "tags": [
+            "66173826-ac7d-44c4-a403-8dfde3fd54a0"
+        ],
+        "dependencies": [
+            "5f7722b2-b69b-494b-876b-6951feb6283c",
+            "43f5cda9-b177-4f47-9d73-00b55586c7d8"
+        ]
+    },
+    "6ddaa95a-1c7f-46d7-b50a-df85bab4808a": {
+        "assetTypeGuid": "ce3b6c53-1b6d-4bc6-97e6-2ea036c58c0f",
+        "path": "Assets/Materials/Primitive/Primitive Green.mtli.nasset",
+        "tags": [
+            "66173826-ac7d-44c4-a403-8dfde3fd54a0"
+        ]
+    },
+    "b0abcb76-705b-4244-9474-f7b29131fc70": {
+        "assetTypeGuid": "926268b2-2d45-4c52-87c9-d76815217359",
+        "path": "VisualDebug.nplugin",
+        "name": "Visual Debug"
+    },
+    "d096ab0b-3721-4029-8167-ff73b5e73f1c": {
+        "assetTypeGuid": "ce3b6c53-1b6d-4bc6-97e6-2ea036c58c0f",
+        "path": "Assets/Materials/Primitive/Primitive Orange.mtli.nasset",
+        "tags": [
+            "66173826-ac7d-44c4-a403-8dfde3fd54a0"
+        ]
+    },
+    "guid": "9349bfdb-366e-d296-de71-9d079a2222d9"
+}

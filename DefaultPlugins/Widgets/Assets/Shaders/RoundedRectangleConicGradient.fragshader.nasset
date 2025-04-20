@@ -1,0 +1,9 @@
+{
+    "guid": "65d31ddc-5bfe-468c-bb9c-68e71b3cc0ee",
+    "source": "Source/Rectangle.frag",
+    "definitions": [
+        "TEXTURE_COORDINATES",
+        "INDIVIDUAL_ROUNDED_CORNERS",
+        "CONIC_GRADIENT"
+    ]
+}

@@ -1,0 +1,7 @@
+{
+    "guid": "64c9f8bd-f313-4257-bc20-e3d67c5b70ba",
+    "source": "Source/Grid.frag",
+    "definitions": [
+        "TEXTURE_COORDINATES"
+    ]
+}

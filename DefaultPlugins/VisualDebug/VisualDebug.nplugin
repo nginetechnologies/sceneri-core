@@ -1,0 +1,17 @@
+{
+    "name": "Visual Debug",
+    "version": "0.0.1",
+    "guid": "b0abcb76-705b-4244-9474-f7b29131fc70",
+    "database_guid": "9349bfdb-366e-d296-de71-9d079a2222d9",
+    "engine": "3ff049e0-0880-4898-879d-1ccf5583c9c6",
+    "asset_directory": "Assets",
+    "source_directory": "Code",
+    "binary_directory": "bin",
+    "library_directory": "lib",
+    "plugin_dependencies": [
+        "7F333735-7D28-4EDE-815B-805AAD806B8C",
+        "5dc6a146-4ae7-43e8-9b53-69d46fc184af"
+    ],
+    "source": "VisualDebug.nplugin",
+    "assetTypeGuid": "926268b2-2d45-4c52-87c9-d76815217359"
+}

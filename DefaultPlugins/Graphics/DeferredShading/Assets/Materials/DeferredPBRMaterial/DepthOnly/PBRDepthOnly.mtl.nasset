@@ -1,0 +1,31 @@
+{
+    "guid": "8f6172ed-4a84-4137-8f33-97b49f05135e",
+    "typeGuid": "6717ff80-6896-4396-a66c-b493e5fe634c",
+    "dependencies": [
+        "5f7722b2-b69b-494b-876b-6951feb6283c",
+        "f29c9295-8259-44a8-901d-743953d59896"
+    ],
+    "tags": [
+        "66173826-ac7d-44c4-a403-8dfde3fd54a0"
+    ],
+    "vertex_shader": "5f7722b2-b69b-494b-876b-6951feb6283c",
+    "pixel_shader": "f29c9295-8259-44a8-901d-743953d59896",
+    "assetTypeGuid": "6717ff80-6896-4396-a66c-b493e5fe634c",
+    "attachments": [
+        {
+            "render_target": "90d3d032-2e1e-4d72-b3c0-d3b4114c9d2e",
+            "store_type": 1
+        },
+        {
+            "render_target": "18988bce-dd7a-4d4a-9606-741047372c44"
+        },
+        {
+            "render_target": "fda607dc-ed70-4417-a242-84c3f6a86377",
+            "store_type": 1
+        },
+        {
+            "render_target": "73666631-a180-4835-b65c-c05b7e6dd9d7",
+            "store_type": 1
+        }
+    ]
+}

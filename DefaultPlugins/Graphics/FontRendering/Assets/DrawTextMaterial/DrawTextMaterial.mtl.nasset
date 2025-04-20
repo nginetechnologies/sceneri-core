@@ -1,0 +1,54 @@
+{
+    "guid": "1af4b974-d144-44fc-a391-e61fcb2156c0",
+    "typeGuid": "6717ff80-6896-4396-a66c-b493e5fe634c",
+    "dependencies": [
+        "430e001a-7953-4412-9ef2-6d41679d0855",
+        "3aaf6d3d-16d2-4a1d-9d34-ab05bbfcc59c"
+    ],
+    "tags": [
+        "66173826-ac7d-44c4-a403-8dfde3fd54a0"
+    ],
+    "vertex_shader": "430e001a-7953-4412-9ef2-6d41679d0855",
+    "pixel_shader": "3aaf6d3d-16d2-4a1d-9d34-ab05bbfcc59c",
+    "descriptor_bindings": [
+        {
+            "location": 0,
+            "type": 1,
+            "preset": 3,
+            "default_texture": "f2f75147-d0ac-4d4c-5744-ccb965131c22",
+            "stages": 16
+        }
+    ],
+    "push_constants": [
+        {
+            "size": 16,
+            "stages": 1,
+            "default_value": {
+                "type": 2,
+                "value": []
+            }
+        },
+        {
+            "size": 16,
+            "stages": 16,
+            "default_value": {
+                "type": 0,
+                "color": "#0000ff"
+            }
+        }
+    ],
+    "vertex_attributes": 13,
+    "two_sided": true,
+    "assetTypeGuid": "6717ff80-6896-4396-a66c-b493e5fe634c",
+    "attachments": [
+        {
+            "render_target": "f81d546b-7c63-4b54-bb62-49acee00b429",
+            "color_blending": {
+                "target_blend_factor": 7
+            }
+        },
+        {
+            "render_target": "2c517d62-2f66-41b5-ae2e-52690b275120"
+        }
+    ]
+}

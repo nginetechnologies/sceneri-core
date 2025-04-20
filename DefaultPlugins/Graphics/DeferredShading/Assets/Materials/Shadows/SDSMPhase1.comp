@@ -1,0 +1,112 @@
+#version 450
+#extension GL_EXT_samplerless_texture_functions : enable
+
+#define MAXIMUM_CASCADES 4
+
+struct PerViewInfo
+{
+	mat4 viewMatrix;
+	mat4 projectionMatrix;
+	mat4 viewProjectionMatrix;
+	mat4 viewProjectionMatrixCylinderBillboard;
+	mat4 viewProjectionMatrixSphericalBillboard;
+	mat4 invertedViewProjectionMatrix;
+	mat4 invertedViewMatrix;
+	mat4 invertedProjectionMatrix;
+
+	vec4 viewLocationAndTime;
+	mat3 viewRotation;
+	mat3 invertedViewRotation;
+	uvec4 renderAndOutputResolution;
+	vec4 jitterOffset;
+};
+
+const uint baseSetIndex = HAS_PUSH_CONSTANTS == 1 ? 0 : 1;
+#if HAS_PUSH_CONSTANTS
+layout(push_constant) uniform PushConstants
+#else
+layout (binding = 0) buffer readonly PushConstants
+#endif
+{
+	layout(offset = 0) uint NumDirectionalLights;
+	uvec2 smallestMinMaxResolution;
+} pushConstants;
+
+layout(std140, set = baseSetIndex, binding = 0) uniform readonly ViewInfo
+{
+	PerViewInfo current;
+	PerViewInfo previous;
+} viewInfo;
+
+layout(set = baseSetIndex + 1, binding = 0) uniform texture2D DepthMinMax;
+
+layout(std430) struct SDSMLightInfo
+{
+	mat4 ViewMatrix;
+	ivec4 BoundMin[MAXIMUM_CASCADES];
+	ivec4 BoundMax[MAXIMUM_CASCADES];
+	vec4 CascadeSplits;
+	vec3 LightDirection;
+	float PSSMLambda;
+	float MaxShadowRange;
+};
+
+layout(std430, set = baseSetIndex + 1, binding = 1) buffer SDSMLightInfoBuffer
+{
+	layout(offset = 0) SDSMLightInfo lights[];
+} sdsmLightInfoBuffer;
+
+
+float LinearizeDepth( float sampledDepth )
+{
+	return viewInfo.current.projectionMatrix[3][2] / (sampledDepth + viewInfo.current.projectionMatrix[2][2]);
+}
+
+layout(local_size_x=1, local_size_y=1) in;
+void main()
+{
+	vec2 depthMinMax = vec2(0x7FFFFFFF, 0x80000000);
+	for(uint x = 0; x < pushConstants.smallestMinMaxResolution.x; ++x)
+	{
+		for(uint y = 0; y < pushConstants.smallestMinMaxResolution.y; ++y)
+		{
+			vec2 depthValue = texelFetch( DepthMinMax, ivec2(x, y), 0 ).xy;
+			depthMinMax.x = min(depthMinMax.x, depthValue.x);
+			depthMinMax.y = max(depthMinMax.y, depthValue.y);
+		}
+	}
+	depthMinMax.x = LinearizeDepth( depthMinMax.x );
+	depthMinMax.y = LinearizeDepth( depthMinMax.y );
+
+	for( uint iLight = 0 ; iLight < pushConstants.NumDirectionalLights ; ++iLight )
+	{
+		float minZ = depthMinMax.y;
+		float maxZ = min( depthMinMax.x, sdsmLightInfoBuffer.lights[iLight].MaxShadowRange );
+
+		float range = maxZ - minZ;
+		float ratio = maxZ / minZ;
+
+		const int NumCascades = MAXIMUM_CASCADES;
+
+		for(uint i = 0; i < NumCascades; ++i)
+		{
+			float p = (i + 1) / float(NumCascades);
+			float logScale = minZ * pow(abs(ratio), p);
+			float uniformScale = minZ + range * p;
+			float d = sdsmLightInfoBuffer.lights[iLight].PSSMLambda * (logScale - uniformScale) + uniformScale;
+			sdsmLightInfoBuffer.lights[iLight].CascadeSplits[i] = d;
+		}
+
+		vec3 shadowViewX, shadowViewY, shadowViewZ;
+		shadowViewX = viewInfo.current.viewMatrix[0].xyz; //Camera X-axis
+		shadowViewZ = -sdsmLightInfoBuffer.lights[iLight].LightDirection;
+		shadowViewY = normalize( cross( shadowViewX, shadowViewZ ) );
+		shadowViewX = normalize( cross( shadowViewY, shadowViewZ ) );
+
+		sdsmLightInfoBuffer.lights[iLight].ViewMatrix = mat4( 	shadowViewX.x, shadowViewY.x, shadowViewZ.x, 0.0,
+														shadowViewX.y, shadowViewY.y, shadowViewZ.y, 0.0,
+														shadowViewX.z, shadowViewY.z, shadowViewZ.z, 0.0,
+														0.0, 0.0, 0.0, 1.0 );
+
+	}
+}

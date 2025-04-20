@@ -1,0 +1,75 @@
+{
+    "guid": "84d95ee2-20f7-49c9-ba82-9adbe6a15864",
+    "typeGuid": "6717ff80-6896-4396-a66c-b493e5fe634c",
+    "dependencies": [
+        "5f7722b2-b69b-494b-876b-6951feb6283c",
+        "046598be-5055-4998-a00a-4cdf2ae0de39"
+    ],
+    "vertex_shader": "5f7722b2-b69b-494b-876b-6951feb6283c",
+    "pixel_shader": "046598be-5055-4998-a00a-4cdf2ae0de39",
+    "push_constants": [
+        {
+            "size": 8,
+            "stages": 16,
+            "default_value": {
+                "type": 2,
+                "value": [
+                    0,
+                    1
+                ]
+            },
+            "preset": 8
+        }
+    ],
+    "descriptor_bindings": [
+        {
+            "location": 0,
+            "type": 1,
+            "preset": 3,
+            "default_texture": "f2f75147-d0ac-4d4c-5744-ccb965131c22",
+            "stages": 16
+        },
+        {
+            "location": 1,
+            "type": 1,
+            "preset": 5,
+            "default_texture": "34596995-d236-4f02-9080-a48845328b58",
+            "stages": 16
+        },
+        {
+            "location": 2,
+            "type": 1,
+            "preset": 6,
+            "default_texture": "c5c4af2c-98ea-c390-53b2-1df40d7364e9",
+            "stages": 16
+        },
+        {
+            "location": 3,
+            "type": 1,
+            "preset": 7,
+            "default_texture": "d4d69827-f072-6586-d8aa-32de7b92467c",
+            "stages": 16
+        }
+    ],
+    "requires_time": 16,
+    "stencil_test": {
+        "pass_operation": 2,
+        "write_mask": 1,
+        "reference": 1
+    },
+    "attachments": [
+        {
+            "render_target": "90d3d032-2e1e-4d72-b3c0-d3b4114c9d2e"
+        },
+        {
+            "render_target": "18988bce-dd7a-4d4a-9606-741047372c44"
+        },
+        {
+            "render_target": "fda607dc-ed70-4417-a242-84c3f6a86377"
+        },
+        {
+            "render_target": "73666631-a180-4835-b65c-c05b7e6dd9d7"
+        }
+    ],
+    "assetTypeGuid": "6717ff80-6896-4396-a66c-b493e5fe634c"
+}

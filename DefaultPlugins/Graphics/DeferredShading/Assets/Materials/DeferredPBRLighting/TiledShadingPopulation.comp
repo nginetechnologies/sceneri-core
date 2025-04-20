@@ -1,0 +1,201 @@
+#version 450
+
+//Implementation based on:
+// https://gamedev.stackexchange.com/questions/108442/tiled-deferred-rendering-light-culling
+// https://gamedev.stackexchange.com/questions/67431/deferred-tiled-shading-tile-frusta-calculation-in-opengl
+//Another noteworthy implementation (AMD)
+// https://github.com/GPUOpen-LibrariesAndSDKs/ForwardPlus11/blob/master/forwardplus11/src/Shaders/ForwardPlus11Tiling.hlsl
+
+struct PerViewInfo
+{
+	mat4 viewMatrix;
+	mat4 projectionMatrix;
+	mat4 viewProjectionMatrix;
+	mat4 viewProjectionMatrixCylinderBillboard;
+	mat4 viewProjectionMatrixSphericalBillboard;
+	mat4 invertedViewProjectionMatrix;
+	mat4 invertedViewMatrix;
+	mat4 invertedProjectionMatrix;
+
+	vec4 viewLocationAndTime;
+	mat3 viewRotation;
+	mat3 invertedViewRotation;
+};
+
+const uint baseSetIndex = HAS_PUSH_CONSTANTS == 1 ? 0 : 1;
+#if HAS_PUSH_CONSTANTS
+layout(push_constant) uniform PushConstants
+#else
+layout (binding = 0) buffer readonly PushConstants
+#endif
+{
+	layout(offset = 0) uvec4 lightCounts;
+	layout(offset = 16) uvec2 screenResolution;
+	layout(offset = 24) uvec2 screenOffset;
+} pushConstants;
+
+layout(std140, set = baseSetIndex, binding = 0) uniform readonly ViewInfo
+{
+	PerViewInfo current;
+	PerViewInfo previous;
+} viewInfo;
+
+layout(set = baseSetIndex + 1, binding = 0, rgba32ui) uniform writeonly uimage2D outputTiles;
+
+struct PointLight
+{
+	vec4 positionAndInfluenceRadius;
+	vec4 colorAndInverseSquareInfluenceRadius;
+	int shadowMapIndex;
+	mat4 viewMatrices[6];
+};
+
+struct SpotLight
+{
+	vec4 positionAndInfluenceRadius;
+	vec4 colorAndInverseSquareInfluenceRadius;
+	int shadowMapIndex;
+	mat4 viewMatrix;
+};
+
+#define MAXIMUM_CASCADES 4
+#define ENABLE_SAMPLE_DISTRIBUTION_SHADOW_MAPS 1
+
+struct DirectionalLight
+{
+#ifndef ENABLE_SAMPLE_DISTRIBUTION_SHADOW_MAPS
+	vec4 cascadeSplits;
+#endif
+	vec3 direction;
+	uint cascadeCount;
+	vec3 color;
+	int shadowMapIndex;
+#ifdef ENABLE_SAMPLE_DISTRIBUTION_SHADOW_MAPS
+	uint shadowMatrixIndex;
+#else
+	mat4 viewMatrices[MAXIMUM_CASCADES];
+#endif
+};
+
+layout(std140, set = baseSetIndex + 1, binding = 1) buffer readonly LightBuffer
+{
+	layout(offset = 0) PointLight lights[];
+} pointLightBuffer;
+
+layout(std140, set = baseSetIndex + 1, binding = 2) buffer readonly SpotLightBuffer
+{
+	layout(offset = 0) SpotLight lights[];
+} spotLightBuffer;
+
+layout(std140, set = baseSetIndex + 1, binding = 3) buffer readonly DirectionalLightBuffer
+{
+#if RENDERER_WEBGPU
+	uint count;
+#endif
+	DirectionalLight lights[];
+} directionalLightBuffer;
+
+const uint MAX_POINT_LIGHTS_PER_TILE = 160;
+const uint MAX_DIRECTIONAL_LIGHTS_PER_TILE = 8;
+
+shared uint visiblePointLightCount;
+shared uint visiblePointLightIndices[MAX_POINT_LIGHTS_PER_TILE];
+
+const int WORK_GROUP_SIZE = 8;
+layout(local_size_x=8, local_size_y=8) in;
+
+void main()
+{
+	visiblePointLightCount = 0;
+	barrier();
+
+	vec2 center = vec2(pushConstants.screenResolution.xy) / float(2 * WORK_GROUP_SIZE); // Location of the middle work group
+    vec2 offset = center - vec2(gl_WorkGroupID.xy);
+
+    // Extract the viewing frustum planes (normals)
+    // https://gamedev.stackexchange.com/questions/156743/finding-the-normals-of-the-planes-of-a-view-frustum
+    vec4 column0 = vec4(-viewInfo.current.projectionMatrix[0][0] * center.x, viewInfo.current.projectionMatrix[0][1], offset.x, viewInfo.current.projectionMatrix[0][3]); // (-2 * n' / (r - l) * 80, 0, offset.x, 0)
+    vec4 column1 = vec4(viewInfo.current.projectionMatrix[1][0], -viewInfo.current.projectionMatrix[1][1] * center.y, offset.y, viewInfo.current.projectionMatrix[1][3]); // (0, -2 * n' / (t - b) * 45, offset.y, 0)
+    vec4 column3 = vec4(viewInfo.current.projectionMatrix[3][0], viewInfo.current.projectionMatrix[3][1], -1.0f, viewInfo.current.projectionMatrix[3][3]); // (0, 0, -1, 0)
+
+    vec4 frustumPlanes[4];
+    // Left
+    frustumPlanes[0] = normalize(column3 - column0);
+    // Right
+    frustumPlanes[1] = normalize(column3 + column0);
+    // Top
+    frustumPlanes[2] = normalize(column3 - column1);
+    // Bottom
+    frustumPlanes[3] = normalize(column3 + column1);
+
+    uint numThreads = WORK_GROUP_SIZE * WORK_GROUP_SIZE; // 16x16x1 sized thread group; 16x16 tile
+
+	const uint numPointLightPasses = (pushConstants.lightCounts.r + numThreads - 1) / numThreads; // (4096 + 16^2 - 1) / 16^2 = 16
+	for (uint i = 0; i < numPointLightPasses; ++i)
+	{
+		// [0-15] * 16^2 + gl_LocalInvocationIndex
+		// Each thread/shader processes using the same relative offset (that is unique to it inside the work group) in the tile,
+		// so that all of the threads in the work group collectively process all of the lights for their relevance to the tile
+		uint lightIndex =  min(i * numThreads + gl_LocalInvocationIndex, pushConstants.lightCounts.r - 1);
+		const PointLight pointLight = pointLightBuffer.lights[lightIndex];
+		if (visiblePointLightCount < MAX_POINT_LIGHTS_PER_TILE)
+		{
+			bool inFrustum = true;
+			for (int j = 0; j < 4 && inFrustum; ++j)
+			{
+				float distance = dot(frustumPlanes[j], viewInfo.current.viewMatrix * vec4(pointLight.positionAndInfluenceRadius.xyz, 1.0f)); // Distance of the point from the plane
+				// https://gamedev.stackexchange.com/questions/79172/checking-if-a-vector-is-contained-inside-a-viewing-frustum
+				inFrustum = -pointLight.positionAndInfluenceRadius.w <= distance;
+			}
+
+
+			// TODO: Load g-buffer depth, discard if too far away
+			// TODO: Load g-buffer normals: discard if opposite
+
+			if (inFrustum)
+			{
+				const uint visibleLightCountBefore  = atomicAdd(visiblePointLightCount, 1);
+		if(visibleLightCountBefore < MAX_POINT_LIGHTS_PER_TILE)
+		{
+			visiblePointLightIndices[visibleLightCountBefore] = lightIndex;
+		}
+			}
+		}
+	}
+
+    // TODO: Spot lights
+    // TODO: Read g-buffer normals and cull directional lights
+    // TODO: Cull / select environment lights as well
+
+	barrier();
+
+	uvec4 visibleLightRanges = uvec4(0, 0, 0, 0);
+
+	// Update point light indices
+	/*if(visiblePointLightCount > 0)
+	{
+		visibleLightRanges.r = visiblePointLightIndices[0] | ((visiblePointLightIndices[0] + 1) << 16);
+	}
+	for(uint lightIndex = 1; lightIndex < visiblePointLightCount; ++lightIndex)
+	{
+		const uint realLightIndex = visiblePointLightIndices[lightIndex];
+		// TODO: Currently this is a quick naive solution, will catch extra lights with this setup
+		const uint firstLightIndex = visibleLightRanges.r & 0xFFFF;
+		const uint endLightIndex = visibleLightRanges.r >> 16;
+		visibleLightRanges.r = min(firstLightIndex, realLightIndex) & 0xFFFF | (max(endLightIndex, (realLightIndex + 1)) << 16);
+	}*/
+
+	// Add all point lights
+	visibleLightRanges.r = 0 | (pushConstants.lightCounts.r << 16);
+
+	// Add all spot lights
+	// TODO: Discard
+	visibleLightRanges.g = 0 | (pushConstants.lightCounts.g << 16);
+
+	// Add all directional lights
+	// TODO: Check normals and discard
+	visibleLightRanges.b = 0 | (pushConstants.lightCounts.b << 16);
+
+	const ivec2 texelSpaceTexCoords = ivec2(pushConstants.screenOffset) + ivec2(gl_GlobalInvocationID.xy);
+    imageStore(outputTiles, texelSpaceTexCoords, visibleLightRanges);
+}

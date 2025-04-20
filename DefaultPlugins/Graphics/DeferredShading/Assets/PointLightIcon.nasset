@@ -1,0 +1,30 @@
+{
+    "guid": "78607BBA-AF76-4B4C-ADC3-2508A98548AE",
+    "typeGuid": "9dd6fa2f-730b-48a5-96b7-5166a166efc0",
+    "de8f8da2-d37f-41da-bc6e-580435fe605f": {
+        "position": [
+            0,
+            0,
+            0
+        ],
+        "rotation": [
+            0,
+            0,
+            0
+        ],
+        "scale": [
+            -0.15,
+            -0.15,
+            -0.15
+        ]
+    },
+    "9f750482-b822-4d4b-be6a-9c135c614328": {
+        "stages": [
+            "a489d208-e213-4cfd-8b84-b14a5bb54e28"
+        ]
+    },
+    "de0b2bc1-2e72-4739-a749-f5281e0de55a": {
+        "mesh": "7fa427c1-e00c-4a9c-b42f-93110fe1deff",
+        "material_instance": "cd11f969-721e-4316-880d-035ac4bda6cb"
+    }
+}

@@ -1,0 +1,84 @@
+#version 450
+#extension GL_EXT_samplerless_texture_functions : enable
+
+const uint baseSetIndex = HAS_PUSH_CONSTANTS == 1 ? 0 : 1;
+#if HAS_PUSH_CONSTANTS
+layout(push_constant) uniform PushConstants
+#else
+layout (binding = 0) buffer readonly PushConstants
+#endif
+{
+	layout(offset = 0) vec4 viewRatio;
+} pushConstants;
+
+layout(set = baseSetIndex, binding = 0) uniform texture2D hdrSceneSampler;
+layout(set = baseSetIndex, binding = 1) uniform texture2D lensFlareSampler;
+layout(set = baseSetIndex, binding = 2) uniform texture2D lensDirtSampler;
+#if RENDERER_WEBGPU
+layout(set = baseSetIndex, binding = 3) uniform writeonly image2D outputImage;
+#else
+layout(set = baseSetIndex, binding = 3, rgba16f) uniform writeonly image2D outputImage;
+#endif
+layout(set = baseSetIndex, binding = 4) uniform sampler bilinearSampler;
+
+// From http://filmicgames.com/archives/75
+vec3 Uncharted2Tonemap(const vec3 x)
+{
+	const float A = 0.15;
+	const float B = 0.50;
+	const float C = 0.10;
+	const float D = 0.20;
+	const float E = 0.02;
+	const float F = 0.30;
+	return ((x*(A*x+C*B)+D*E)/(x*(A*x+B)+D*F))-E/F;
+}
+
+vec3 FilmicTonemap(vec3 x) {
+  vec3 X = max(vec3(0.0), x - 0.004);
+  return (X * (6.2 * X + 0.5)) / (X * (6.2 * X + 1.7) + 0.06);
+}
+
+vec3 ScreenSpaceDither(vec2 vScreenPos) //TODO this is just a quick&dirty dither, improve this
+{
+    vec3 vDither = vec3(dot(vec2(131.0, 312.0), vScreenPos.xy ));
+    vDither.rgb = fract(vDither.rgb / vec3(103.0, 71.0, 97.0)) - vec3(0.5, 0.5, 0.5);
+    return (vDither.rgb / 255.0);
+}
+
+layout(local_size_x=8, local_size_y=8) in;
+
+void main()
+{
+	ivec2 res = textureSize(hdrSceneSampler,0);
+
+	ivec2 index =  ivec2(gl_GlobalInvocationID.xy);
+	vec2 uv = vec2(index) / vec2(res);
+
+	vec4 hdrScene = texelFetch( hdrSceneSampler, index, 0 );
+	vec3 lensFlare = texture(sampler2D(lensFlareSampler, bilinearSampler), uv).rgb;
+	vec3 lensDirt = texture(sampler2D(lensDirtSampler, bilinearSampler), uv).rgb;
+
+	hdrScene.rgb += lensFlare * lensDirt;
+
+	// Tone mapping
+	const float exposure = 1;
+
+	vec4 outColor;
+	outColor.rgb = FilmicTonemap(hdrScene.rgb * exposure);
+	outColor.rgb = pow(outColor.rgb, vec3(2.2)); //TODO hardware sRGB output
+	outColor.rgb += ScreenSpaceDither(gl_GlobalInvocationID.xy);
+
+	outColor.a = hdrScene.a;
+
+#if 0
+	ivec2 lensFlareRes = textureSize(lensFlareSampler,0);
+
+	if( ( index.x < lensFlareRes.x ) && ( index.y < lensFlareRes.y ) )
+	{
+		outColor = texelFetch( lensFlareSampler, index, 0 );
+	}
+
+#endif
+
+	imageStore( outputImage, index, outColor );
+}

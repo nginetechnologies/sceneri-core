@@ -1,0 +1,32 @@
+{
+    "guid": "d3b37153-2dce-4574-a8f1-f118df0e8e30",
+    "dependencies": [
+        "ad042b4c-aa0b-4633-adc2-257524b27fcb",
+        "f810e64c-63e4-46d4-9668-1b55ff8317cd"
+    ],
+    "vertex_shader": "ad042b4c-aa0b-4633-adc2-257524b27fcb",
+    "pixel_shader": "f810e64c-63e4-46d4-9668-1b55ff8317cd",
+    "push_constants": [
+        {
+            "size": 16,
+            "stages": 16,
+            "default_value": {
+                "type": 0,
+                "color": "#70bcf7"
+            }
+        }
+    ],
+    "vertex_attributes": 8,
+    "depth_compare_operation": 6,
+    "depth_write": false,
+    "attachments": [
+        {
+            "render_target": "314d236e-1c13-49da-bb70-1052c613768b"
+        },
+        {
+            "render_target": "2c517d62-2f66-41b5-ae2e-52690b275120"
+        }
+    ],
+    "typeGuid": "6717ff80-6896-4396-a66c-b493e5fe634c",
+    "assetTypeGuid": "6717ff80-6896-4396-a66c-b493e5fe634c"
+}

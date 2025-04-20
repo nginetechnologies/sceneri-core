@@ -1,0 +1,239 @@
+#version 450
+#extension GL_EXT_samplerless_texture_functions : enable
+
+//Note for future graphic prog: as we have a depth min/max pyramid we should really use it to optimize SSR (skipping empty space hierarchically, quadtree style)
+
+const uint baseSetIndex = HAS_PUSH_CONSTANTS == 1 ? 0 : 1;
+#if HAS_PUSH_CONSTANTS
+layout(push_constant) uniform PushConstants
+#else
+layout (binding = 0) buffer readonly PushConstants
+#endif
+{
+	layout(offset = 0) float zThickness;
+	layout(offset = 4) float nearPlaneZ;
+	layout(offset = 8) float stride;
+	layout(offset = 12) float cameraFacingReflectionCutoff;
+	layout(offset = 16) float screenBorderFadeDistancePx;
+	layout(offset = 20) float maxSteps;
+	layout(offset = 24) float maxDistance;
+} pushConstants;
+
+layout(set = baseSetIndex, binding = 0) uniform texture2D gbufferDepthImage;
+layout(set = baseSetIndex, binding = 1) uniform texture2D gbufferNormalsImage;
+layout(set = baseSetIndex, binding = 2) uniform texture2D gbufferMaterialPropertiesImage;
+layout(set = baseSetIndex, binding = 3) uniform texture2D HDRSceneImage;
+layout(set = baseSetIndex, binding = 4, rgba16f) uniform writeonly image2D outputImage;
+
+struct PerViewInfo
+{
+	mat4 viewMatrix;
+	mat4 projectionMatrix;
+	mat4 viewProjectionMatrix;
+	mat4 viewProjectionMatrixCylinderBillboard;
+	mat4 viewProjectionMatrixSphericalBillboard;
+	mat4 invertedViewProjectionMatrix;
+	mat4 invertedViewMatrix;
+	mat4 invertedProjectionMatrix;
+
+	vec4 viewLocationAndTime;
+	mat3 viewRotation;
+	mat3 invertedViewRotation;
+	uvec4 renderAndOutputResolution;
+	vec4 jitterOffset;
+};
+
+layout(std140, set = baseSetIndex + 1, binding = 0) uniform readonly ViewInfo
+{
+	PerViewInfo current;
+	PerViewInfo previous;
+} viewInfo;
+
+float DistanceSquared(vec2 a, vec2 b) { a -= b; return dot(a, a); }
+
+float Rand(vec2 co){
+    return fract(sin(dot(co, vec2(12.9898, 78.233))) * 43758.5453);
+}
+
+float LinearizeDepth( float sampledDepth )
+{
+	return -viewInfo.current.projectionMatrix[3][2] / (sampledDepth + viewInfo.current.projectionMatrix[2][2]);
+}
+
+vec3 DepthBufferToViewSpacePosition( vec2 normalizedScreenCoord/*[-1 ; 1]*/, float depth )
+{
+	vec4 projectedViewSpacePos = viewInfo.current.invertedProjectionMatrix * vec4(normalizedScreenCoord, depth, 1.0);
+	return projectedViewSpacePos.xyz / projectedViewSpacePos.w;
+}
+
+bool SSR_McGuireDDA(
+ vec3 csOrig,  // Camera-space ray origin, which must be within the view volume
+ vec3 csDir, // Unit length camera-space ray direction
+ mat4 proj,  // A projection matrix that maps to pixel coordinates (not [-1, +1] normalized device coordinates)
+ texture2D ZBuffer,
+ vec2 csZBufferSize,  // Dimensions of csZBuffer
+ float zThickness,  // Camera space thickness to ascribe to each pixel in the depth buffer
+ float nearPlaneZ, // (Negative number)
+ float stride, // Step in horizontal or vertical pixels between samples. This is a float
+ // because integer math is slow on GPUs, but should be set to an integer >= 1
+ float jitter, // Number between 0 and 1 for how far to bump the ray in stride units to conceal banding artifacts
+ float maxSteps,  // Maximum number of iterations. Higher gives better images but may be slow
+ float maxDistance,  // Maximum camera-space distance to trace before returning a miss
+ out vec2 hitPixel,  // Pixel coordinates of the first intersection with the scene
+ out vec3 hitPoint // Camera space location of the ray hit
+)
+{
+    // Clip to the near plane
+    float rayLength = ((csOrig.z + csDir.z * maxDistance) > nearPlaneZ) ?
+        (nearPlaneZ - csOrig.z) / csDir.z : maxDistance;
+    vec3 csEndPoint = csOrig + csDir * rayLength;
+
+    // Project into homogeneous clip space
+    vec4 H0 = proj * vec4(csOrig, 1.0);
+    vec4 H1 = proj * vec4(csEndPoint, 1.0);
+    float k0 = 1.0 / H0.w, k1 = 1.0 / H1.w;
+
+    // The interpolated homogeneous version of the camera-space points
+    vec3 Q0 = csOrig * k0, Q1 = csEndPoint * k1;
+
+    // Screen-space endpoints
+    vec2 P0 = ((H0.xy * k0) * 0.5 + 0.5) * csZBufferSize;
+	vec2 P1 = ((H1.xy * k1) * 0.5 + 0.5) * csZBufferSize;
+
+    // If the line is degenerate, make it cover at least one pixel
+    // to avoid handling zero-pixel extent as a special case later
+    P1 += vec2((DistanceSquared(P0, P1) < 0.0001) ? 0.01 : 0.0);
+    vec2 delta = P1 - P0;
+
+    // Permute so that the primary iteration is in x to collapse
+    // all quadrant-specific DDA cases later
+    bool permute = false;
+    if (abs(delta.x) < abs(delta.y))
+	{
+        // This is a more-vertical line
+        permute = true; delta = delta.yx; P0 = P0.yx; P1 = P1.yx;
+    }
+
+    float stepDir = sign(delta.x);
+    float invdx = stepDir / delta.x;
+
+    // Track the derivatives of Q and k
+    vec3  dQ = (Q1 - Q0) * invdx;
+    float dk = (k1 - k0) * invdx;
+    vec2  dP = vec2(stepDir, delta.y * invdx);
+
+	//advance one (unstrided) step
+    P0 += dP; Q0 += dQ; k0 += dk;
+
+    // Scale derivatives by the desired pixel stride and then
+    // offset the starting values by the jitter fraction
+    dP *= stride; dQ *= stride; dk *= stride;
+    P0 += dP * jitter; Q0 += dQ * jitter; k0 += dk * jitter;
+
+    // Slide P from P0 to P1, (now-homogeneous) Q from Q0 to Q1, k from k0 to k1
+    vec3 Q = Q0;
+
+    // Adjust end condition for iteration direction
+    float  end = P1.x * stepDir;
+
+    float k = k0, stepCount = 0.0, prevZMaxEstimate = csOrig.z;
+    float rayZMin = prevZMaxEstimate, rayZMax = prevZMaxEstimate;
+    float sceneZMax = rayZMax - 100;
+    for (vec2 P = P0;
+         ((P.x * stepDir) <= end) && (stepCount < maxSteps) &&
+         ((rayZMax < sceneZMax - zThickness) || (rayZMin > sceneZMax))/* &&
+          (sceneZMax != 0)*/;
+         P += dP, Q.z += dQ.z, k += dk, ++stepCount)
+	{
+
+        rayZMin = prevZMaxEstimate;
+        rayZMax = (dQ.z * 0.5 + Q.z) / (dk * 0.5 + k);
+        prevZMaxEstimate = rayZMax;
+        if (rayZMin > rayZMax)
+		{
+           float t = rayZMin; rayZMin = rayZMax; rayZMax = t;
+        }
+
+        hitPixel = permute ? P.yx : P;
+
+		//we can't rely on ZBuffer == 0 to detect offscreen sampling as we have an inverted Zbuffer and zero correspond to far plane
+		if( (hitPixel.x < 0.0) || (hitPixel.y < 0.0) || (hitPixel.x >= csZBufferSize.x) || (hitPixel.y >= csZBufferSize.y) )
+			return false; //went offscreen
+
+		sceneZMax = LinearizeDepth( texelFetch(ZBuffer, ivec2(hitPixel), 0).x );
+    }
+
+    // Advance Q based on the number of steps
+    Q.xy += dQ.xy * stepCount;
+    hitPoint = Q * (1.0 / k);
+    return (rayZMax >= sceneZMax - zThickness) && (rayZMin < sceneZMax);
+}
+
+
+layout(local_size_x=8, local_size_y=8) in;
+
+void main()
+{
+	ivec2 index =  ivec2(gl_GlobalInvocationID.xy);
+
+	float sampledDepth = texelFetch( gbufferDepthImage, index, 0 ).x;
+
+	if( sampledDepth == 0.0 )
+	{
+		imageStore( outputImage, index, vec4(0,0,0,0) );
+		return;
+	}
+
+	vec3 sampledNormal = texelFetch( gbufferNormalsImage, index, 0 ).rgb;
+	vec3 vsNormal = sampledNormal.rgb * 2.0 - 1.0;
+
+	ivec2 resolution = textureSize(gbufferDepthImage, 0);
+
+	vec2 ndc = vec2(gl_GlobalInvocationID.xy) / vec2(resolution-1); //TODO is it correct ?
+	ndc = ndc * 2.0 - 1.0;
+
+	vec3 vsPos = DepthBufferToViewSpacePosition( ndc, sampledDepth );
+
+	vec3 vsReflectionDir = reflect( normalize(vsPos), vsNormal );
+
+	vec4 reflection = vec4(0,0,0,0);
+
+	float metallic = 1.0;//texelFetch( gbufferMaterialPropertiesImage, index, 0 ).r;
+
+	//TODO handle fresnel
+
+	if( (metallic > 0.0) && (vsReflectionDir.z < pushConstants.cameraFacingReflectionCutoff) )
+	{
+		vec2 hitPixel;
+		vec3 hitPoint;
+
+		if( SSR_McGuireDDA(
+				vsPos,
+				vsReflectionDir,
+				viewInfo.current.projectionMatrix,
+				gbufferDepthImage,
+				vec2( resolution ),
+				pushConstants.zThickness,
+				pushConstants.nearPlaneZ,
+				pushConstants.stride,
+				0.0,//jitter is buggy for some reason... Rand(gl_GlobalInvocationID.xy),
+				pushConstants.maxSteps,
+				pushConstants.maxDistance,
+				hitPixel,
+				hitPoint
+				) )
+		{
+			reflection.rgb = texelFetch( HDRSceneImage, ivec2(hitPixel), 0 ).rgb;
+
+			const float fadeDistancePx = pushConstants.screenBorderFadeDistancePx;
+			float screenBorderFade = min( hitPixel.x / fadeDistancePx, hitPixel.y / fadeDistancePx );
+			screenBorderFade = min( screenBorderFade, (resolution.x - hitPixel.x) / fadeDistancePx );
+			screenBorderFade = min( screenBorderFade, (resolution.y - hitPixel.y) / fadeDistancePx );
+			screenBorderFade = min( screenBorderFade, 1.0f );
+
+			reflection.a = metallic * screenBorderFade;
+		}
+	}
+
+	imageStore( outputImage, index, reflection );
+}

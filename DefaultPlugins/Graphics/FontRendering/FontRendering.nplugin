@@ -1,0 +1,13 @@
+{
+    "name": "Font Rendering",
+    "version": "0.0.1",
+    "guid": "5dc6a146-4ae7-43e8-9b53-69d46fc184af",
+    "database_guid": "746bba54-ea06-4734-9ed2-e1c9316d9b75",
+    "engine": "3ff049e0-0880-4898-879d-1ccf5583c9c6",
+    "asset_directory": "Assets",
+    "source_directory": "Code",
+    "binary_directory": "bin",
+    "library_directory": "lib",
+    "source": "FontRendering.nplugin",
+    "assetTypeGuid": "926268b2-2d45-4c52-87c9-d76815217359"
+}

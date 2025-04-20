@@ -1,0 +1,129 @@
+{
+    "00fa209b-2cc5-8fab-2ccb-3bced675d426": {
+        "assetTypeGuid": "c4e01aa2-495d-4eb1-b9be-fe0e30500b07",
+        "path": "Assets/Materials/ConstantSky/Thumbnails/GreySky.mtli.nasset.tex.nasset"
+    },
+    "05e386db-4474-4536-8e04-9cc012ae371c": {
+        "path": "Assets/Materials/DepthOnlyMaterial/Shader.fragshader.nasset"
+    },
+    "0f7c1053-884c-4795-a082-2aecf6ba8032": {
+        "assetTypeGuid": "926268b2-2d45-4c52-87c9-d76815217359",
+        "path": "FlatShading.nplugin",
+        "name": "Flat Shading"
+    },
+    "1b705561-d3bf-fb1d-63af-9c19a3587c68": {
+        "assetTypeGuid": "c4e01aa2-495d-4eb1-b9be-fe0e30500b07",
+        "componentTypeGuid": "c4e01aa2-495d-4eb1-b9be-fe0e30500b07",
+        "path": "Assets/Materials/ConstantSky/Thumbnails/BlueSky.mtli.eduasset.tex.nasset"
+    },
+    "26f3006a-456e-48e2-9fd3-ca702ea151ec": {
+        "assetTypeGuid": "6717ff80-6896-4396-a66c-b493e5fe634c",
+        "componentTypeGuid": "6717ff80-6896-4396-a66c-b493e5fe634c",
+        "path": "Assets/Materials/StandardMaterial/FlatShadingTexture.mtl.nasset",
+        "dependencies": [
+            "85f09fdd-f0f5-4315-97f7-224ff2d66402",
+            "73a9a055-0643-42cf-ae98-4d4edeca7ed1"
+        ]
+    },
+    "51d72ef5-7911-4493-b369-2fd1a6a8cb30": {
+        "path": "Assets/Materials/SimpleColorMaterial/Shader.vertshader.nasset"
+    },
+    "53fbf7cd-ae64-4b32-b515-693c1f28358d": {
+        "assetTypeGuid": "6717ff80-6896-4396-a66c-b493e5fe634c",
+        "componentTypeGuid": "6717ff80-6896-4396-a66c-b493e5fe634c",
+        "path": "Assets/Materials/SimpleColorMaterial/IgnoreDepthMaterial.mtl.nasset",
+        "dependencies": [
+            "51d72ef5-7911-4493-b369-2fd1a6a8cb30",
+            "55a3eae8-a0b7-4d8d-bfd0-3dccf25e9b30"
+        ]
+    },
+    "55a3eae8-a0b7-4d8d-bfd0-3dccf25e9b30": {
+        "path": "Assets/Materials/SimpleColorMaterial/Shader.fragshader.nasset"
+    },
+    "5c865c69-1826-4ab3-0ec2-682dca46739c": {
+        "assetTypeGuid": "c4e01aa2-495d-4eb1-b9be-fe0e30500b07",
+        "path": "Assets/Materials/ConstantSky/Thumbnails/BlueSky.mtli.nasset.tex.nasset"
+    },
+    "6100ade9-a41b-4fe4-ae62-cd032a2e2bf4": {
+        "assetTypeGuid": "ce3b6c53-1b6d-4bc6-97e6-2ea036c58c0f",
+        "path": "Assets/Materials/DepthOnlyMaterial/DepthOnly.mtli.nasset",
+        "tags": [
+            "66173826-ac7d-44c4-a403-8dfde3fd54a0"
+        ]
+    },
+    "61327e65-3e13-4c49-bdac-3c9e90cf4ff1": {
+        "assetTypeGuid": "ce3b6c53-1b6d-4bc6-97e6-2ea036c58c0f",
+        "path": "Assets/Materials/ConstantSky/BlueSky.mtli.nasset",
+        "thumbnail": "5c865c69-1826-4ab3-0ec2-682dca46739c",
+        "tags": [
+            "66173826-ac7d-44c4-a403-8dfde3fd54a0"
+        ]
+    },
+    "73a9a055-0643-42cf-ae98-4d4edeca7ed1": {
+        "path": "Assets/Materials/StandardMaterial/Shader.fragshader.nasset"
+    },
+    "74e5159b-0ab5-4ac1-b761-55bb7fe0d93b": {
+        "assetTypeGuid": "ce3b6c53-1b6d-4bc6-97e6-2ea036c58c0f",
+        "path": "Assets/Materials/ConstantSky/GreySky.mtli.nasset",
+        "thumbnail": "00fa209b-2cc5-8fab-2ccb-3bced675d426",
+        "tags": [
+            "66173826-ac7d-44c4-a403-8dfde3fd54a0"
+        ]
+    },
+    "80301dc0-5d0e-407a-b7d7-594269b4c09d": {
+        "path": "Assets/Materials/TexturedMaterialWithAlpha/Shader.fragshader.nasset"
+    },
+    "85f09fdd-f0f5-4315-97f7-224ff2d66402": {
+        "path": "Assets/Materials/StandardMaterial/Shader.vertshader.nasset"
+    },
+    "a519c196-21bf-416e-99fb-1c5341c3a70c": {
+        "assetTypeGuid": "6717ff80-6896-4396-a66c-b493e5fe634c",
+        "componentTypeGuid": "6717ff80-6896-4396-a66c-b493e5fe634c",
+        "path": "Assets/Materials/TexturedMaterialWithAlpha/FlatShadingTextureAlpha.mtl.nasset",
+        "dependencies": [
+            "ff73d496-c4b0-4f97-9b05-96657334f624",
+            "80301dc0-5d0e-407a-b7d7-594269b4c09d"
+        ]
+    },
+    "ad042b4c-aa0b-4633-adc2-257524b27fcb": {
+        "path": "Assets/Materials/ConstantSky/Shader.vertshader.nasset"
+    },
+    "b354f3e3-056d-440f-8b0d-25e452621a81": {
+        "assetTypeGuid": "6717ff80-6896-4396-a66c-b493e5fe634c",
+        "componentTypeGuid": "6717ff80-6896-4396-a66c-b493e5fe634c",
+        "path": "Assets/Materials/SimpleColorMaterial/FlatShadingConstants.mtl.nasset",
+        "dependencies": [
+            "51d72ef5-7911-4493-b369-2fd1a6a8cb30",
+            "55a3eae8-a0b7-4d8d-bfd0-3dccf25e9b30"
+        ]
+    },
+    "bcc5fc26-c5a4-4653-8625-f6ab7ab4e1dc": {
+        "assetTypeGuid": "6717ff80-6896-4396-a66c-b493e5fe634c",
+        "componentTypeGuid": "6717ff80-6896-4396-a66c-b493e5fe634c",
+        "path": "Assets/Materials/DepthOnlyMaterial/DepthOnly.mtl.nasset",
+        "dependencies": [
+            "85f09fdd-f0f5-4315-97f7-224ff2d66402",
+            "05e386db-4474-4536-8e04-9cc012ae371c"
+        ]
+    },
+    "d3b37153-2dce-4574-a8f1-f118df0e8e30": {
+        "assetTypeGuid": "6717ff80-6896-4396-a66c-b493e5fe634c",
+        "componentTypeGuid": "6717ff80-6896-4396-a66c-b493e5fe634c",
+        "path": "Assets/Materials/ConstantSky/ConstantSky.mtl.nasset",
+        "dependencies": [
+            "ad042b4c-aa0b-4633-adc2-257524b27fcb",
+            "f810e64c-63e4-46d4-9668-1b55ff8317cd"
+        ]
+    },
+    "f28a2162-1a1a-c175-1a72-9b0e36f147bf": {
+        "assetTypeGuid": "c4e01aa2-495d-4eb1-b9be-fe0e30500b07",
+        "path": "Assets/Materials/TexturedMaterialWithAlpha/Thumbnails/Default.mtli.nasset.tex.nasset"
+    },
+    "f810e64c-63e4-46d4-9668-1b55ff8317cd": {
+        "path": "Assets/Materials/ConstantSky/Shader.fragshader.nasset"
+    },
+    "ff73d496-c4b0-4f97-9b05-96657334f624": {
+        "path": "Assets/Materials/TexturedMaterialWithAlpha/Shader.vertshader.nasset"
+    },
+    "guid": "5b9d8c98-70fc-8c61-530a-adfe86eb287e"
+}

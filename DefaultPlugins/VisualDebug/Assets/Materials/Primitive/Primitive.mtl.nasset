@@ -1,0 +1,38 @@
+{
+    "guid": "6a0bf533-e7f6-41fc-8a83-a1b5009bf18b",
+    "dependencies": [
+        "5f7722b2-b69b-494b-876b-6951feb6283c",
+        "43f5cda9-b177-4f47-9d73-00b55586c7d8"
+    ],
+    "tags": [
+        "66173826-ac7d-44c4-a403-8dfde3fd54a0"
+    ],
+    "vertex_shader": "5f7722b2-b69b-494b-876b-6951feb6283c",
+    "pixel_shader": "43f5cda9-b177-4f47-9d73-00b55586c7d8",
+    "push_constants": [
+        {
+            "size": 16,
+            "stages": 16,
+            "default_value": {
+                "type": 0,
+                "color": "#9b3333"
+            }
+        }
+    ],
+    "two_sided": true,
+    "assetTypeGuid": "6717ff80-6896-4396-a66c-b493e5fe634c",
+    "depth_write": false,
+    "attachments": [
+        {
+            "render_target": "f81d546b-7c63-4b54-bb62-49acee00b429",
+            "color_blending": {
+                "source_blend_factor": 6,
+                "target_blend_factor": 7
+            }
+        },
+        {
+            "render_target": "2c517d62-2f66-41b5-ae2e-52690b275120"
+        }
+    ],
+    "typeGuid": "6717ff80-6896-4396-a66c-b493e5fe634c"
+}

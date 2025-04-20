@@ -1,0 +1,8 @@
+{
+    "guid": "32c84a02-43f7-4236-93a2-012e320eb4a4",
+    "source": "DeferredPBRLighting.frag",
+    "definitions": [
+        "HAS_RAYTRACING"
+    ],
+    "vulkan_version": "vulkan1.2"
+}

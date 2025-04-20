@@ -1,0 +1,499 @@
+{
+    "03055d2c-c38d-4de9-965d-7baad7bfd7b4": {
+        "path": "Assets/Materials/PostProcess/BlurSimple.compshader.nasset"
+    },
+    "046598be-5055-4998-a00a-4cdf2ae0de39": {
+        "path": "Assets/Materials/DeferredPBRMaterial/TexturesScrolling/PBRTexturesScrolling.fragshader.nasset"
+    },
+    "08060b77-500a-8918-345f-a639a786c6cd": {
+        "path": "Assets/Materials/DeferredPBRLighting/DeferredPBRLighting.fragshader.nasset"
+    },
+    "0b2907d5-1626-4de3-948f-f1c0585963e9": {
+        "path": "Assets/Materials/DeferredPBRMaterial/TexturesBloom/PBRTexturesBloom.fragshader.nasset"
+    },
+    "0be8cfad-d55f-43c9-b9dc-3b569cade1b1": {
+        "assetTypeGuid": "7d2d2421-a875-450f-aedf-15c4c5c91f31",
+        "componentTypeGuid": "c4e01aa2-495d-4eb1-b9be-fe0e30500b07",
+        "path": "Assets/Materials/SSAO/SSAOBlur.rendertarget.nasset"
+    },
+    "0fa74cf9-9f60-4f70-a9f1-f653c61562b7": {
+        "path": "Assets/Materials/SSR/SSR.compshader.nasset"
+    },
+    "0fb14713-0658-3759-eae2-d5da71cbee9c": {
+        "path": "Assets/Materials/DeferredPBRLighting/DeferredPBRLighting.vertshader.nasset"
+    },
+    "10e5d8fe-d7ab-4eb6-ae50-190cc4e574ec": {
+        "path": "Assets/Materials/DeferredPBRMaterial/TexturesBloomScrolling/PBRTexturesBloomScrolling.fragshader.nasset"
+    },
+    "110e84a9-c54c-431d-a358-916f7668a230": {
+        "path": "Assets/Materials/MaterialIdentifiers/Shader.vertshader.nasset"
+    },
+    "14e9d53a-2709-4123-8224-67af35c22e25": {
+        "path": "Assets/Materials/Shadows/SDSMPhase3.compshader.nasset"
+    },
+    "18988bce-dd7a-4d4a-9606-741047372c44": {
+        "assetTypeGuid": "7d2d2421-a875-450f-aedf-15c4c5c91f31",
+        "componentTypeGuid": "c4e01aa2-495d-4eb1-b9be-fe0e30500b07",
+        "path": "Assets/Materials/DeferredPBRLighting/GBufferWorldNormals.rendertarget.nasset"
+    },
+    "18f69209-f9e0-477a-927c-948b113dd41f": {
+        "assetTypeGuid": "6717ff80-6896-4396-a66c-b493e5fe634c",
+        "componentTypeGuid": "6717ff80-6896-4396-a66c-b493e5fe634c",
+        "path": "Assets/Materials/DeferredPBRMaterial/DiffuseConstantsBendingMasked/PBRDiffuseConstantsBendingMaskedTwoSided.mtl.nasset",
+        "dependencies": [
+            "9a4afd2e-3b55-4c06-aa18-7ed5f538298b",
+            "ebfb2d4c-30f4-424c-96b1-cbd33b6506d8"
+        ]
+    },
+    "1903e8f9-eee5-4d33-b9be-8803ae56cbc2": {
+        "path": "Assets/Materials/DeferredPBRMaterial/Textures/PBRTextures.fragshader.nasset"
+    },
+    "1eef894c-c736-4a7c-b94f-e5a9ac5eca24": {
+        "assetTypeGuid": "ce3b6c53-1b6d-4bc6-97e6-2ea036c58c0f",
+        "path": "Assets/Materials/DeferredPBRMaterial/DepthOnly/PBRDepthOnly.mtli.nasset",
+        "tags": [
+            "66173826-ac7d-44c4-a403-8dfde3fd54a0"
+        ]
+    },
+    "1f3d33bf-5df2-4549-8618-4cfbb3f89cc1": {
+        "assetTypeGuid": "7d2d2421-a875-450f-aedf-15c4c5c91f31",
+        "componentTypeGuid": "c4e01aa2-495d-4eb1-b9be-fe0e30500b07",
+        "path": "Assets/Materials/PostProcess/LensFlare.rendertarget.nasset"
+    },
+    "1fdaba46-23fd-4a86-a57b-a152808ad0f1": {
+        "assetTypeGuid": "c4e01aa2-495d-4eb1-b9be-fe0e30500b07",
+        "path": "Assets/Textures/DefaultBRDF.brdf.tex.nasset"
+    },
+    "2457ddea-5fb9-4b23-ac28-19429d005862": {
+        "path": "Assets/Materials/SSAO/SSAO.vertshader.nasset"
+    },
+    "27d18593-b651-4ab1-a2a9-eb29adeca68f": {
+        "assetTypeGuid": "7d2d2421-a875-450f-aedf-15c4c5c91f31",
+        "componentTypeGuid": "c4e01aa2-495d-4eb1-b9be-fe0e30500b07",
+        "path": "Assets/Materials/DepthMinMax/DepthMinMax.rendertarget.nasset"
+    },
+    "2d8c6126-3c52-4463-ba1a-1da8e4ac3666": {
+        "assetTypeGuid": "6717ff80-6896-4396-a66c-b493e5fe634c",
+        "componentTypeGuid": "6717ff80-6896-4396-a66c-b493e5fe634c",
+        "path": "Assets/Materials/DeferredPBRMaterial/Textures/PBRTexturesTwoSided.mtl.nasset",
+        "dependencies": [
+            "5f7722b2-b69b-494b-876b-6951feb6283c",
+            "1903e8f9-eee5-4d33-b9be-8803ae56cbc2"
+        ]
+    },
+    "2df11f38-0b20-41c6-be48-c5c5fb8c6f9e": {
+        "assetTypeGuid": "6717ff80-6896-4396-a66c-b493e5fe634c",
+        "componentTypeGuid": "6717ff80-6896-4396-a66c-b493e5fe634c",
+        "path": "Assets/Materials/DeferredPBRMaterial/DiffuseConstantsScrolling/PBRDiffuseConstantsScrolling.mtl.nasset",
+        "dependencies": [
+            "5f7722b2-b69b-494b-876b-6951feb6283c",
+            "b9847543-de2a-4798-83d1-f44eb69c4c50"
+        ]
+    },
+    "300b5c44-4f15-400d-8b10-93dbcb00ef2f": {
+        "path": "Assets/Materials/Skybox/Shader.vertshader.nasset"
+    },
+    "314d236e-1c13-49da-bb70-1052c613768b": {
+        "assetTypeGuid": "7d2d2421-a875-450f-aedf-15c4c5c91f31",
+        "componentTypeGuid": "c4e01aa2-495d-4eb1-b9be-fe0e30500b07",
+        "path": "Assets/Materials/DeferredPBRLighting/HDRScene.rendertarget.nasset"
+    },
+    "32c84a02-43f7-4236-93a2-012e320eb4a4": {
+        "path": "Assets/Materials/DeferredPBRLighting/DeferredPBRLightingRayTraced.fragshader.nasset"
+    },
+    "35a1c957-eff6-4f67-a661-04e615229eed": {
+        "assetTypeGuid": "7d2d2421-a875-450f-aedf-15c4c5c91f31",
+        "componentTypeGuid": "c4e01aa2-495d-4eb1-b9be-fe0e30500b07",
+        "path": "Assets/Materials/SSAO/SSAO.rendertarget.nasset"
+    },
+    "37dbdcbd-7ef0-4373-9f6b-19cf4f5fd744": {
+        "assetTypeGuid": "7d2d2421-a875-450f-aedf-15c4c5c91f31",
+        "componentTypeGuid": "c4e01aa2-495d-4eb1-b9be-fe0e30500b07",
+        "path": "Assets/Materials/PostProcess/Downsample.rendertarget.nasset"
+    },
+    "38d56c56-1363-4f79-9eb7-c0d76e30ebf2": {
+        "path": "Assets/Materials/DeferredPBRMaterial/DiffuseConstants/PBRDiffuseConstants.fragshader.nasset"
+    },
+    "3d021d8c-37ea-4cb4-a4c4-17a0361234e2": {
+        "path": "Assets/Materials/Shadows/ShadowVertexOnly.vertshader.nasset"
+    },
+    "3db79a0b-1c7d-43bf-a571-80c47995b27e": {
+        "assetTypeGuid": "6717ff80-6896-4396-a66c-b493e5fe634c",
+        "componentTypeGuid": "6717ff80-6896-4396-a66c-b493e5fe634c",
+        "path": "Assets/Materials/DeferredPBRMaterial/TexturesScrolling/PBRTexturesScrollingTwoSided.mtl.nasset",
+        "dependencies": [
+            "5f7722b2-b69b-494b-876b-6951feb6283c",
+            "046598be-5055-4998-a00a-4cdf2ae0de39"
+        ]
+    },
+    "40bcfd38-00d8-4d1c-b231-1f8f77b23c9a": {
+        "assetTypeGuid": "6717ff80-6896-4396-a66c-b493e5fe634c",
+        "componentTypeGuid": "6717ff80-6896-4396-a66c-b493e5fe634c",
+        "path": "Assets/Materials/DeferredPBRMaterial/ConstantsBloom/PBRConstantsBloom.mtl.nasset",
+        "dependencies": [
+            "5f7722b2-b69b-494b-876b-6951feb6283c",
+            "d6b0d70a-30c8-48f6-a6e2-61fcc8e37542"
+        ]
+    },
+    "42143df3-f148-4a9e-a257-0e92b65f7b0f": {
+        "assetTypeGuid": "7d2d2421-a875-450f-aedf-15c4c5c91f31",
+        "componentTypeGuid": "c4e01aa2-495d-4eb1-b9be-fe0e30500b07",
+        "path": "Assets/Materials/Shadows/ShadowMap.rendertarget.nasset"
+    },
+    "44e1ec4c-00f6-4c5e-9b71-c7b7c510df71": {
+        "assetTypeGuid": "6717ff80-6896-4396-a66c-b493e5fe634c",
+        "componentTypeGuid": "6717ff80-6896-4396-a66c-b493e5fe634c",
+        "path": "Assets/Materials/DeferredPBRMaterial/DiffuseConstantsMasked/PBRDiffuseConstantsMasked.mtl.nasset",
+        "dependencies": [
+            "5f7722b2-b69b-494b-876b-6951feb6283c",
+            "b7fe166d-d089-4df9-a2b3-8eb330da22df"
+        ]
+    },
+    "452a14ff-5060-40f3-a24d-805dd75ff5c9": {
+        "assetTypeGuid": "6717ff80-6896-4396-a66c-b493e5fe634c",
+        "componentTypeGuid": "6717ff80-6896-4396-a66c-b493e5fe634c",
+        "path": "Assets/Materials/DeferredPBRMaterial/TexturesBloomScrolling/PBRTexturesBloomScrolling.mtl.nasset",
+        "dependencies": [
+            "5f7722b2-b69b-494b-876b-6951feb6283c",
+            "10e5d8fe-d7ab-4eb6-ae50-190cc4e574ec"
+        ]
+    },
+    "47a82ca5-41d9-485f-9b2c-dce409f50fac": {
+        "path": "Assets/Materials/DeferredPBRMaterial/TexturesBendingMasked/PBRTexturesBendingMasked.fragshader.nasset"
+    },
+    "4aa8c1b5-c5eb-4595-8c3e-b4ff75b9d280": {
+        "path": "Assets/Materials/PostProcess/FSR.compshader.nasset"
+    },
+    "4ac8a98e-eaa5-42a6-9367-c67f907d89ef": {
+        "assetTypeGuid": "6717ff80-6896-4396-a66c-b493e5fe634c",
+        "componentTypeGuid": "6717ff80-6896-4396-a66c-b493e5fe634c",
+        "path": "Assets/Materials/DeferredPBRMaterial/TexturesBendingMasked/PBRTexturesBendingMaskedTwoSided.mtl.nasset",
+        "dependencies": [
+            "9a4afd2e-3b55-4c06-aa18-7ed5f538298b",
+            "47a82ca5-41d9-485f-9b2c-dce409f50fac"
+        ]
+    },
+    "540a5fc1-4718-48a3-9c9d-bbddf4612483": {
+        "assetTypeGuid": "7d2d2421-a875-450f-aedf-15c4c5c91f31",
+        "componentTypeGuid": "c4e01aa2-495d-4eb1-b9be-fe0e30500b07",
+        "path": "Assets/Materials/PostProcess/TAAHistoryScene.rendertarget.nasset"
+    },
+    "5a4c5c51-300f-468e-b167-3c00a23fb0fc": {
+        "assetTypeGuid": "6717ff80-6896-4396-a66c-b493e5fe634c",
+        "componentTypeGuid": "6717ff80-6896-4396-a66c-b493e5fe634c",
+        "path": "Assets/Materials/DeferredPBRMaterial/DiffuseConstantsScrolling/PBRDiffuseConstantsScrollingTwoSided.mtl.nasset",
+        "dependencies": [
+            "5f7722b2-b69b-494b-876b-6951feb6283c",
+            "b9847543-de2a-4798-83d1-f44eb69c4c50"
+        ]
+    },
+    "5e7d7f11-6915-4eaa-90c1-2b74c8aaa049": {
+        "assetTypeGuid": "7d2d2421-a875-450f-aedf-15c4c5c91f31",
+        "componentTypeGuid": "c4e01aa2-495d-4eb1-b9be-fe0e30500b07",
+        "path": "Assets/Materials/MaterialIdentifiers/MaterialIdentifiers.rendertarget.nasset"
+    },
+    "5f63e2e7-0719-45ba-ae23-ba592ce87cd9": {
+        "assetTypeGuid": "6717ff80-6896-4396-a66c-b493e5fe634c",
+        "componentTypeGuid": "6717ff80-6896-4396-a66c-b493e5fe634c",
+        "path": "Assets/Materials/DeferredPBRMaterial/DiffuseConstants/PBRDiffuseConstantsTwoSided.mtl.nasset",
+        "dependencies": [
+            "5f7722b2-b69b-494b-876b-6951feb6283c",
+            "38d56c56-1363-4f79-9eb7-c0d76e30ebf2"
+        ]
+    },
+    "5f7722b2-b69b-494b-876b-6951feb6283c": {
+        "path": "Assets/Materials/DeferredPBRMaterial/Shader.vertshader.nasset"
+    },
+    "73666631-a180-4835-b65c-c05b7e6dd9d7": {
+        "assetTypeGuid": "7d2d2421-a875-450f-aedf-15c4c5c91f31",
+        "componentTypeGuid": "c4e01aa2-495d-4eb1-b9be-fe0e30500b07",
+        "path": "Assets/Materials/DeferredPBRMaterial/TAAVelocity.rendertarget.nasset"
+    },
+    "75112f44-cfe9-4f50-a426-9b251b84b44b": {
+        "path": "Assets/Materials/DeferredPBRMaterial/ConstantsBending/PBRConstantsBending.fragshader.nasset"
+    },
+    "78607bba-af76-4b4c-adc3-2508a98548ae": {
+        "componentTypeGuid": "9dd6fa2f-730b-48a5-96b7-5166a166efc0",
+        "path": "Assets/PointLightIcon.nasset"
+    },
+    "7942eb3f-d202-4030-a7be-03f4d886f43d": {
+        "assetTypeGuid": "6717ff80-6896-4396-a66c-b493e5fe634c",
+        "componentTypeGuid": "6717ff80-6896-4396-a66c-b493e5fe634c",
+        "path": "Assets/Materials/DeferredPBRMaterial/TexturesMasked/PBRTexturesMaskedTwoSided.mtl.nasset",
+        "dependencies": [
+            "5f7722b2-b69b-494b-876b-6951feb6283c",
+            "9921202a-9114-47e5-821e-4fd01c2835b5"
+        ]
+    },
+    "7ce18564-7e31-4b58-8701-21b9c32079a3": {
+        "path": "Assets/Materials/PostProcess/TAAResolve.compshader.nasset"
+    },
+    "7e23dcee-ca42-49a9-bd30-190fd5d0a0a2": {
+        "assetTypeGuid": "7d2d2421-a875-450f-aedf-15c4c5c91f31",
+        "componentTypeGuid": "c4e01aa2-495d-4eb1-b9be-fe0e30500b07",
+        "path": "Assets/Materials/PostProcess/SuperResolution.rendertarget.nasset"
+    },
+    "83ddbc8d-4fb6-409c-915b-7041d2dbf259": {
+        "path": "Assets/Materials/Shadows/SDSMPhase2.compshader.nasset"
+    },
+    "846a87e3-b738-4471-a336-bcac78e126b1": {
+        "assetTypeGuid": "6717ff80-6896-4396-a66c-b493e5fe634c",
+        "componentTypeGuid": "6717ff80-6896-4396-a66c-b493e5fe634c",
+        "path": "Assets/Materials/DeferredPBRMaterial/DiffuseConstants/PBRDiffuseConstants.mtl.nasset",
+        "dependencies": [
+            "5f7722b2-b69b-494b-876b-6951feb6283c",
+            "38d56c56-1363-4f79-9eb7-c0d76e30ebf2"
+        ]
+    },
+    "84d95ee2-20f7-49c9-ba82-9adbe6a15864": {
+        "assetTypeGuid": "6717ff80-6896-4396-a66c-b493e5fe634c",
+        "componentTypeGuid": "6717ff80-6896-4396-a66c-b493e5fe634c",
+        "path": "Assets/Materials/DeferredPBRMaterial/TexturesScrolling/PBRTexturesScrolling.mtl.nasset",
+        "dependencies": [
+            "5f7722b2-b69b-494b-876b-6951feb6283c",
+            "046598be-5055-4998-a00a-4cdf2ae0de39"
+        ]
+    },
+    "89434a27-17d5-95a7-dd8f-5b2edfb3aa07": {
+        "assetTypeGuid": "c4e01aa2-495d-4eb1-b9be-fe0e30500b07",
+        "path": "Assets/Textures/Noise.tex.nasset"
+    },
+    "8a091355-5ca4-ed04-0642-ce3ed76a0813": {
+        "path": "Assets/Materials/DeferredPBRLighting/TiledShadingPopulation.compshader.nasset"
+    },
+    "8decad67-5f23-43aa-9e8b-78007fffe50f": {
+        "assetTypeGuid": "6717ff80-6896-4396-a66c-b493e5fe634c",
+        "componentTypeGuid": "6717ff80-6896-4396-a66c-b493e5fe634c",
+        "path": "Assets/Materials/DeferredPBRMaterial/ConstantsBending/PBRConstantsBending.mtl.nasset",
+        "dependencies": [
+            "9a4afd2e-3b55-4c06-aa18-7ed5f538298b",
+            "75112f44-cfe9-4f50-a426-9b251b84b44b"
+        ]
+    },
+    "8e51b141-c4ed-4c71-860d-173b55c5aaac": {
+        "path": "Assets/Materials/DepthMinMax/InitialDepthMinMaxReduction.compshader.nasset"
+    },
+    "8f6172ed-4a84-4137-8f33-97b49f05135e": {
+        "assetTypeGuid": "6717ff80-6896-4396-a66c-b493e5fe634c",
+        "componentTypeGuid": "6717ff80-6896-4396-a66c-b493e5fe634c",
+        "path": "Assets/Materials/DeferredPBRMaterial/DepthOnly/PBRDepthOnly.mtl.nasset",
+        "tags": [
+            "66173826-ac7d-44c4-a403-8dfde3fd54a0"
+        ],
+        "dependencies": [
+            "5f7722b2-b69b-494b-876b-6951feb6283c",
+            "f29c9295-8259-44a8-901d-743953d59896"
+        ]
+    },
+    "9046fe26-b623-4d56-a565-4b2a3ea40fdf": {
+        "assetTypeGuid": "7d2d2421-a875-450f-aedf-15c4c5c91f31",
+        "componentTypeGuid": "c4e01aa2-495d-4eb1-b9be-fe0e30500b07",
+        "path": "Assets/Materials/DeferredPBRLighting/PrefilteredEnvironment.rendertarget.nasset"
+    },
+    "90d3d032-2e1e-4d72-b3c0-d3b4114c9d2e": {
+        "assetTypeGuid": "7d2d2421-a875-450f-aedf-15c4c5c91f31",
+        "componentTypeGuid": "c4e01aa2-495d-4eb1-b9be-fe0e30500b07",
+        "path": "Assets/Materials/DeferredPBRLighting/GBufferAlbedo.rendertarget.nasset"
+    },
+    "90f0187c-7e36-423c-9f34-7a802a626fc2": {
+        "path": "Assets/Materials/SSR/SSRComposite.compshader.nasset"
+    },
+    "951348f8-8392-4a89-b49c-698591676775": {
+        "assetTypeGuid": "6717ff80-6896-4396-a66c-b493e5fe634c",
+        "componentTypeGuid": "6717ff80-6896-4396-a66c-b493e5fe634c",
+        "path": "Assets/Materials/DeferredPBRMaterial/DiffuseConstantsBendingMasked/PBRDiffuseConstantsBendingMasked.mtl.nasset",
+        "dependencies": [
+            "9a4afd2e-3b55-4c06-aa18-7ed5f538298b",
+            "ebfb2d4c-30f4-424c-96b1-cbd33b6506d8"
+        ]
+    },
+    "9728a629-cc11-43bd-93ec-cc9025a720a1": {
+        "path": "Assets/Materials/PostProcess/CompositePostProcess.compshader.nasset"
+    },
+    "9921202a-9114-47e5-821e-4fd01c2835b5": {
+        "path": "Assets/Materials/DeferredPBRMaterial/TexturesMasked/PBRTexturesMasked.fragshader.nasset"
+    },
+    "9a4afd2e-3b55-4c06-aa18-7ed5f538298b": {
+        "path": "Assets/Materials/DeferredPBRMaterial/Bending.vertshader.nasset"
+    },
+    "9f0785a7-5f65-4d22-9efe-0e620dd2e01c": {
+        "path": "Assets/Materials/SSAO/SSAO.fragshader.nasset"
+    },
+    "9fcf4ee6-86dd-45dc-90a1-702dabdfe926": {
+        "assetTypeGuid": "7d2d2421-a875-450f-aedf-15c4c5c91f31",
+        "componentTypeGuid": "c4e01aa2-495d-4eb1-b9be-fe0e30500b07",
+        "path": "Assets/Materials/DeferredPBRLighting/Clusters.rendertarget.nasset"
+    },
+    "a0bab88f-b87f-422d-b3f4-1abbdfd6d9fa": {
+        "assetTypeGuid": "7d2d2421-a875-450f-aedf-15c4c5c91f31",
+        "componentTypeGuid": "c4e01aa2-495d-4eb1-b9be-fe0e30500b07",
+        "path": "Assets/Materials/PostProcess/TAAIntermediate.rendertarget.nasset"
+    },
+    "a342b17f-be9f-4610-b973-0bc1f4157b5b": {
+        "assetTypeGuid": "6717ff80-6896-4396-a66c-b493e5fe634c",
+        "componentTypeGuid": "6717ff80-6896-4396-a66c-b493e5fe634c",
+        "path": "Assets/Materials/DeferredPBRMaterial/TexturesBloom/PBRTexturesBloom.mtl.nasset",
+        "dependencies": [
+            "5f7722b2-b69b-494b-876b-6951feb6283c",
+            "0b2907d5-1626-4de3-948f-f1c0585963e9"
+        ]
+    },
+    "a5fa9cc6-eafe-4f12-84d6-316532473745": {
+        "assetTypeGuid": "7d2d2421-a875-450f-aedf-15c4c5c91f31",
+        "componentTypeGuid": "c4e01aa2-495d-4eb1-b9be-fe0e30500b07",
+        "path": "Assets/Materials/DeferredPBRLighting/Irradiance.rendertarget.nasset"
+    },
+    "a6fd3573-8f8a-4849-bdef-a61317b1ac44": {
+        "path": "Assets/Materials/DepthMinMax/DepthMinMaxReduction.compshader.nasset"
+    },
+    "a816fa9e-e3fd-49d0-8bb0-469cce3e8a28": {
+        "assetTypeGuid": "7d2d2421-a875-450f-aedf-15c4c5c91f31",
+        "componentTypeGuid": "c4e01aa2-495d-4eb1-b9be-fe0e30500b07",
+        "path": "Assets/Materials/PostProcess/CompositeScene.rendertarget.nasset"
+    },
+    "a897cdfa-a65f-4222-a5ab-d64df68c17b6": {
+        "assetTypeGuid": "6717ff80-6896-4396-a66c-b493e5fe634c",
+        "componentTypeGuid": "6717ff80-6896-4396-a66c-b493e5fe634c",
+        "path": "Assets/Materials/DeferredPBRMaterial/Constants/PBRConstants.mtl.nasset",
+        "dependencies": [
+            "5f7722b2-b69b-494b-876b-6951feb6283c",
+            "f14ea8c7-8094-43a3-b6de-bfd48856c7c5"
+        ]
+    },
+    "ac0befd3-fdfd-491c-a266-f5a5a1ebd6b5": {
+        "assetTypeGuid": "6717ff80-6896-4396-a66c-b493e5fe634c",
+        "componentTypeGuid": "6717ff80-6896-4396-a66c-b493e5fe634c",
+        "path": "Assets/Materials/DeferredPBRMaterial/DiffuseConstantsMasked/PBRDiffuseConstantsMaskedTwoSided.mtl.nasset",
+        "dependencies": [
+            "5f7722b2-b69b-494b-876b-6951feb6283c",
+            "b7fe166d-d089-4df9-a2b3-8eb330da22df"
+        ]
+    },
+    "ade8b81e-1edf-443a-8af7-37473edf1390": {
+        "assetTypeGuid": "6717ff80-6896-4396-a66c-b493e5fe634c",
+        "componentTypeGuid": "6717ff80-6896-4396-a66c-b493e5fe634c",
+        "path": "Assets/Materials/DeferredPBRMaterial/Textures/PBRTextures.mtl.nasset",
+        "dependencies": [
+            "5f7722b2-b69b-494b-876b-6951feb6283c",
+            "1903e8f9-eee5-4d33-b9be-8803ae56cbc2"
+        ]
+    },
+    "b04616d8-91dc-49e8-8e61-b9bac6d6354b": {
+        "componentTypeGuid": "0c3f4f29-0d53-4878-922a-cca7d6af7bb6",
+        "path": "Assets/PointLight.scene.nasset"
+    },
+    "b29170e0-bd18-4f96-8fed-8cb8a27c1c58": {
+        "assetTypeGuid": "6717ff80-6896-4396-a66c-b493e5fe634c",
+        "componentTypeGuid": "6717ff80-6896-4396-a66c-b493e5fe634c",
+        "path": "Assets/Materials/DeferredPBRMaterial/TexturesMasked/PBRTexturesMasked.mtl.nasset",
+        "dependencies": [
+            "5f7722b2-b69b-494b-876b-6951feb6283c",
+            "9921202a-9114-47e5-821e-4fd01c2835b5"
+        ]
+    },
+    "b7921721-4029-47ce-873c-5d356d604aa9": {
+        "assetTypeGuid": "926268b2-2d45-4c52-87c9-d76815217359",
+        "path": "DeferredShading.nplugin",
+        "name": "Deferred Shading"
+    },
+    "b7e1f92a-e14e-49e6-998d-1cf0ca1887b4": {
+        "path": "Assets/Materials/PostProcess/Blur.compshader.nasset"
+    },
+    "b7fe166d-d089-4df9-a2b3-8eb330da22df": {
+        "path": "Assets/Materials/DeferredPBRMaterial/DiffuseConstantsMasked/PBRDiffuseConstantsMasked.fragshader.nasset"
+    },
+    "b9847543-de2a-4798-83d1-f44eb69c4c50": {
+        "path": "Assets/Materials/DeferredPBRMaterial/DiffuseConstantsScrolling/PBRDiffuseConstantsScrolling.fragshader.nasset"
+    },
+    "bd8bc9d5-968b-4b06-bc28-0962ab61bb0d": {
+        "path": "Assets/Materials/SSAO/SSAO.compshader.nasset"
+    },
+    "c1585c1b-baaa-404c-b216-0f6a4f6d021b": {
+        "path": "Assets/Materials/MaterialIdentifiers/MaterialIdentifiers.fragshader.nasset"
+    },
+    "c27e5ebd-cc26-4744-8f21-a3508b59b41a": {
+        "path": "Assets/Materials/Shadows/Shader.vertshader.nasset"
+    },
+    "ca020d95-6935-4756-9f8c-5d988d5585ec": {
+        "path": "Assets/Materials/PostProcess/Downsample.compshader.nasset"
+    },
+    "ce6361e8-5ebe-46bc-aaab-2acc997a7c47": {
+        "path": "Assets/Materials/Shadows/SDSMPhase1.compshader.nasset"
+    },
+    "d07359fb-30c4-36b8-5c77-2182748091f3": {
+        "assetTypeGuid": "c4e01aa2-495d-4eb1-b9be-fe0e30500b07",
+        "componentTypeGuid": "c4e01aa2-495d-4eb1-b9be-fe0e30500b07",
+        "path": "Assets/Materials/SSAO/Noise.tex.nasset"
+    },
+    "d27a817a-890e-4e60-aaca-26890dca42a6": {
+        "path": "Assets/Materials/PostProcess/FSRSharpen.compshader.nasset"
+    },
+    "d5e247de-909a-43d2-a09f-b711e093d5cb": {
+        "assetTypeGuid": "6717ff80-6896-4396-a66c-b493e5fe634c",
+        "componentTypeGuid": "6717ff80-6896-4396-a66c-b493e5fe634c",
+        "path": "Assets/Materials/Skybox/Skybox.mtl.nasset",
+        "dependencies": [
+            "300b5c44-4f15-400d-8b10-93dbcb00ef2f",
+            "f9d5271f-fca4-4679-9df5-1a45bfd261d3"
+        ]
+    },
+    "d6b0d70a-30c8-48f6-a6e2-61fcc8e37542": {
+        "path": "Assets/Materials/DeferredPBRMaterial/ConstantsBloom/PBRConstantsBloom.fragshader.nasset"
+    },
+    "e610ae8d-bc71-4655-98b5-40fab2d84889": {
+        "path": "Assets/Materials/PostProcess/LensFlare.compshader.nasset"
+    },
+    "ebfb2d4c-30f4-424c-96b1-cbd33b6506d8": {
+        "path": "Assets/Materials/DeferredPBRMaterial/DiffuseConstantsBendingMasked/PBRDiffuseConstantsBendingMasked.fragshader.nasset"
+    },
+    "ec20c8f0-a98b-413b-b8b0-c98510888b13": {
+        "assetTypeGuid": "6717ff80-6896-4396-a66c-b493e5fe634c",
+        "componentTypeGuid": "6717ff80-6896-4396-a66c-b493e5fe634c",
+        "path": "Assets/Materials/DeferredPBRMaterial/Constants/PBRConstantsTwoSided.mtl.nasset",
+        "dependencies": [
+            "5f7722b2-b69b-494b-876b-6951feb6283c",
+            "f14ea8c7-8094-43a3-b6de-bfd48856c7c5"
+        ]
+    },
+    "f0c0ca04-e4c7-40f3-91f1-60b1b62979da": {
+        "assetTypeGuid": "7d2d2421-a875-450f-aedf-15c4c5c91f31",
+        "componentTypeGuid": "c4e01aa2-495d-4eb1-b9be-fe0e30500b07",
+        "path": "Assets/Materials/DeferredPBRLighting/GBufferLinearDepth.rendertarget.nasset"
+    },
+    "f14ea8c7-8094-43a3-b6de-bfd48856c7c5": {
+        "path": "Assets/Materials/DeferredPBRMaterial/Constants/PBRConstants.fragshader.nasset"
+    },
+    "f29c9295-8259-44a8-901d-743953d59896": {
+        "path": "Assets/Materials/DeferredPBRMaterial/DepthOnly/PBRDepthOnly.fragshader.nasset"
+    },
+    "f652d9ab-c7e9-4780-95c3-78ef269f1d13": {
+        "assetTypeGuid": "7d2d2421-a875-450f-aedf-15c4c5c91f31",
+        "componentTypeGuid": "c4e01aa2-495d-4eb1-b9be-fe0e30500b07",
+        "path": "Assets/Materials/SSR/SSR.rendertarget.nasset"
+    },
+    "f7a367ef-a5a3-41c2-af51-e9b759d52044": {
+        "path": "Assets/Materials/Shadows/Shader.geomshader.nasset"
+    },
+    "f95a563e-10c2-43ef-b31e-38778e81af3d": {
+        "assetTypeGuid": "6717ff80-6896-4396-a66c-b493e5fe634c",
+        "componentTypeGuid": "6717ff80-6896-4396-a66c-b493e5fe634c",
+        "path": "Assets/Materials/DeferredPBRMaterial/TexturesBendingMasked/PBRTexturesBendingMasked.mtl.nasset",
+        "dependencies": [
+            "9a4afd2e-3b55-4c06-aa18-7ed5f538298b",
+            "47a82ca5-41d9-485f-9b2c-dce409f50fac"
+        ]
+    },
+    "f9d5271f-fca4-4679-9df5-1a45bfd261d3": {
+        "path": "Assets/Materials/Skybox/Shader.fragshader.nasset"
+    },
+    "fda607dc-ed70-4417-a242-84c3f6a86377": {
+        "assetTypeGuid": "7d2d2421-a875-450f-aedf-15c4c5c91f31",
+        "componentTypeGuid": "c4e01aa2-495d-4eb1-b9be-fe0e30500b07",
+        "path": "Assets/Materials/DeferredPBRLighting/GBufferMaterialProperties.rendertarget.nasset"
+    },
+    "ffbe89a9-8d62-0f28-26f3-f12b7b2d8d76": {
+        "assetTypeGuid": "c4e01aa2-495d-4eb1-b9be-fe0e30500b07",
+        "path": "Assets/Materials/PostProcess/LensDirt00.tex.nasset"
+    },
+    "guid": "ebede1d8-b31e-9cfb-ce6b-8d39a4e1b763"
+}

@@ -1,0 +1,39 @@
+#version 450
+#extension GL_EXT_samplerless_texture_functions : enable
+
+const uint baseSetIndex = HAS_PUSH_CONSTANTS == 1 ? 0 : 1;
+#if HAS_PUSH_CONSTANTS
+layout(push_constant) uniform PushConstants
+#else
+layout (binding = 0) buffer readonly PushConstants
+#endif
+{
+	layout(offset = 0) ivec2 blurDirection;
+} pushConstants;
+
+layout(set = baseSetIndex, binding = 0) uniform texture2D inputImage;
+layout(set = baseSetIndex, binding = 1, rgba16f) uniform writeonly image2D outputImage;
+
+const int BLUR_KERNEL_SIZE = 5;
+
+layout(set = baseSetIndex, binding = 2) buffer readonly KernelBuffer
+{
+	float weights[1 + BLUR_KERNEL_SIZE];
+} kernelBuffer;
+
+layout(local_size_x=8, local_size_y=8) in;
+
+void main()
+{
+	ivec2 index =  ivec2(gl_GlobalInvocationID.xy);
+
+	vec3 accum = vec3(0);
+
+	for( int i=-BLUR_KERNEL_SIZE ; i <= BLUR_KERNEL_SIZE ; ++i )
+	{
+		float weight = kernelBuffer.weights[abs(i)];
+		accum += texelFetch( inputImage, index + pushConstants.blurDirection * i , 0 ).rgb * weight;
+	}
+
+	imageStore( outputImage, index, vec4( accum, 1 ) );
+}

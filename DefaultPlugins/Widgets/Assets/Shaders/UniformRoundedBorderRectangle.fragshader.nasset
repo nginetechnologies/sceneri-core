@@ -1,0 +1,9 @@
+{
+    "guid": "0142582d-9aa5-4644-b921-87edbbee3f2b",
+    "source": "Source/Rectangle.frag",
+    "definitions": [
+        "TEXTURE_COORDINATES",
+        "ROUNDED_CORNERS",
+        "INNER_BORDER"
+    ]
+}

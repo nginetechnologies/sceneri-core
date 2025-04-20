@@ -1,0 +1,17 @@
+{
+    "name": "Deferred Shading",
+    "version": "0.0.1",
+    "guid": "b7921721-4029-47ce-873c-5d356d604aa9",
+    "database_guid": "ebede1d8-b31e-9cfb-ce6b-8d39a4e1b763",
+    "engine": "3ff049e0-0880-4898-879d-1ccf5583c9c6",
+    "asset_directory": "Assets",
+    "source_directory": "Code",
+    "binary_directory": "bin",
+    "library_directory": "lib",
+    "plugin_dependencies": [
+        "7F333735-7D28-4EDE-815B-805AAD806B8C",
+        "4979EC10-9F8A-40CB-AE11-6F56D06AB2BC"
+    ],
+    "source": "DeferredShading.nplugin",
+    "assetTypeGuid": "926268b2-2d45-4c52-87c9-d76815217359"
+}

@@ -1,0 +1,23 @@
+{
+    "guid": "bcc5fc26-c5a4-4653-8625-f6ab7ab4e1dc",
+    "typeGuid": "6717ff80-6896-4396-a66c-b493e5fe634c",
+    "dependencies": [
+        "85f09fdd-f0f5-4315-97f7-224ff2d66402",
+        "05e386db-4474-4536-8e04-9cc012ae371c"
+    ],
+    "vertex_shader": "85f09fdd-f0f5-4315-97f7-224ff2d66402",
+    "pixel_shader": "05e386db-4474-4536-8e04-9cc012ae371c",
+    "assetTypeGuid": "6717ff80-6896-4396-a66c-b493e5fe634c",
+    "attachments": [
+        {
+            "render_target": "f81d546b-7c63-4b54-bb62-49acee00b429",
+            "color_blending": {
+                "source_blend_factor": 0,
+                "target_blend_factor": 1
+            }
+        },
+        {
+            "render_target": "2c517d62-2f66-41b5-ae2e-52690b275120"
+        }
+    ]
+}

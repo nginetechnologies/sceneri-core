@@ -1,0 +1,19 @@
+{
+    "name": "Widgets",
+    "version": "0.0.1",
+    "guid": "aaea95b0-9b18-442d-b043-0629481e8c95",
+    "database_guid": "8b2d69a7-da0e-f90e-c9e4-492ebf048a7e",
+    "engine": "3ff049e0-0880-4898-879d-1ccf5583c9c6",
+    "asset_directory": "Assets",
+    "source_directory": "Code",
+    "binary_directory": "bin",
+    "library_directory": "lib",
+    "plugin_dependencies": [
+        "4979EC10-9F8A-40CB-AE11-6F56D06AB2BC",
+        "5DC6A146-4AE7-43E8-9B53-69D46FC184AF",
+        "72D83E65-B5D9-4CCD-8B8B-8227C805570E",
+        "4732DB7A-619B-421E-8569-BF31F607BBB7"
+    ],
+    "source": "Widgets.nplugin",
+    "assetTypeGuid": "926268b2-2d45-4c52-87c9-d76815217359"
+}

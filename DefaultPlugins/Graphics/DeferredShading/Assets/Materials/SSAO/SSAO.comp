@@ -1,0 +1,126 @@
+#version 450
+#extension GL_EXT_samplerless_texture_functions : enable
+
+struct PerViewInfo
+{
+	mat4 viewMatrix;
+	mat4 projectionMatrix;
+	mat4 viewProjectionMatrix;
+	mat4 viewProjectionMatrixCylinderBillboard;
+	mat4 viewProjectionMatrixSphericalBillboard;
+	mat4 invertedViewProjectionMatrix;
+	mat4 invertedViewMatrix;
+	mat4 invertedProjectionMatrix;
+
+	vec4 viewLocationAndTime;
+	mat3 viewRotation;
+	mat3 invertedViewRotation;
+	uvec4 renderAndOutputResolution;
+	vec4 jitterOffset;
+};
+
+layout(std140, set = 0, binding = 0) uniform readonly ViewInfo
+{
+	PerViewInfo current;
+	PerViewInfo previous;
+} viewInfo;
+
+
+layout(set = 1, binding = 0) uniform texture2D linearDepthTexture;
+layout(set = 1, binding = 1) uniform texture2D normalTexture;
+layout(set = 1, binding = 2) uniform sampler normalSampler;
+layout(set = 1, binding = 3) uniform texture2D ssaoNoiseTexture;
+
+// layout(set = 1, binding = 4, rgba8) uniform writeonly image2D ssaoOutput;
+layout(set = 1, binding = 4, rgba8) uniform image2D HDRScene;
+
+const int SSAO_KERNEL_SIZE = 16;
+layout(std140, set = 1, binding = 5) buffer readonly KernelBuffer
+{
+	vec4 samples[SSAO_KERNEL_SIZE];
+} kernelBuffer;
+
+layout(local_size_x=8, local_size_y=8) in;
+
+mat3 adjugate(mat3 m)
+{
+    return mat3(
+        cross(m[1], m[2]),
+        cross(m[2], m[0]),
+        cross(m[0], m[1])
+    );
+}
+
+void main()
+{
+	const float SSAO_RADIUS = 0.2; // Seems to help with banding when adjusted
+
+	const uvec2 renderResolution = viewInfo.current.renderAndOutputResolution.xy;
+	ivec2 index =  ivec2(gl_GlobalInvocationID.xy);
+	vec2 inTexCoord = vec2(index) / vec2(renderResolution);
+
+	vec4 outColor = vec4(0.0, 0.0, 0.0, 0.0);
+	const float sampledDepth = texelFetch(linearDepthTexture, index, 0).r;
+    vec4 HDRSceneColor = imageLoad(HDRScene, index);
+	if(sampledDepth <= 0.0)
+	{
+		outColor.r = 1.0;
+		// imageStore( ssaoOutput, index, outColor );
+        imageStore( HDRScene, index, vec4(outColor.r * HDRSceneColor.rgb, HDRSceneColor.a));
+		return;
+	}
+
+	const vec4 projectedFragPos = viewInfo.current.invertedViewProjectionMatrix * vec4(inTexCoord * 2.0 - 1.0, sampledDepth, 1.0);
+	const vec3 fragPos = projectedFragPos.xyz / projectedFragPos.w;
+	const vec3 fragPosViewSpace = vec3(viewInfo.current.viewMatrix * vec4(fragPos, 1.0));
+
+	const vec3 sampledNormal = textureLod(sampler2D(normalTexture, normalSampler), inTexCoord, 0.0).rgb;
+	vec3 normal = normalize(sampledNormal * 2.0 - 1.0);
+	normal = normalize(adjugate(mat3(viewInfo.current.viewMatrix)) * normal); // Normals are in world space when sampled
+
+	// Get a random vector using a noise lookup
+	ivec2 noiseSize = textureSize(ssaoNoiseTexture, 0);
+	vec2 noiseUV = vec2(index % noiseSize) / vec2(noiseSize);
+vec3 randomVec = texelFetch(ssaoNoiseTexture, ivec2(noiseUV * vec2(noiseSize)), 0).xyz * 2.0 - 1.0;
+
+	// Create TBN matrix
+	vec3 tangent = normalize(randomVec - normal * dot(randomVec, normal));
+	vec3 bitangent = cross(tangent, normal);
+	mat3 TBN = mat3(tangent, bitangent, normal);
+
+	// Calculate occlusion value
+	float occlusion = 0.0f;
+	// remove banding
+	const float bias = 0.025f;
+	const float fallOffDistance = 50;
+
+	for(int i = 0; i < SSAO_KERNEL_SIZE; i++)
+	{
+		vec3 samplePos = TBN * kernelBuffer.samples[i].xyz;
+		samplePos = fragPosViewSpace.rgb + samplePos * SSAO_RADIUS;
+
+		// project
+		vec4 offset = vec4(samplePos, 1.0f);
+		offset = viewInfo.current.projectionMatrix * offset;
+		offset.xyz /= offset.w;
+		offset.xyz = offset.xyz * 0.5f + 0.5f;
+
+		const float offsetSampledDepth = texelFetch(linearDepthTexture, ivec2(offset.xy * renderResolution.xy), 0).r;
+		const vec4 offsetProjectedFragPos = viewInfo.current.invertedViewProjectionMatrix * vec4(inTexCoord * 2.0 - 1.0, offsetSampledDepth, 1.0);
+		const vec3 offsetFragPos = offsetProjectedFragPos.xyz / offsetProjectedFragPos.w;
+		const vec3 adjustedSamplePosViewSpace = vec3(viewInfo.current.viewMatrix * vec4(offsetFragPos, 1.0));
+
+		float rangeCheck = smoothstep(0.0f, 1.0f, SSAO_RADIUS / abs(fragPosViewSpace.z - adjustedSamplePosViewSpace.z));
+		float localOcclusion = (adjustedSamplePosViewSpace.z >= samplePos.z + bias ? 1.0f : 0.0f) * rangeCheck;
+		//localOcclusion *= 1.0 - pow(fragPosViewSpace.z / fallOffDistance, 2.0);
+		occlusion += localOcclusion;
+	}
+	
+	occlusion *= 1.0 - min(abs(fragPosViewSpace.z) / fallOffDistance, 1.0);
+	occlusion = 1.0 - (occlusion / float(SSAO_KERNEL_SIZE));
+
+	outColor.r = occlusion * occlusion;
+
+	// imageStore( ssaoOutput, index, outColor );
+    imageStore( HDRScene, index, vec4(outColor.r * HDRSceneColor.rgb, HDRSceneColor.a));
+}

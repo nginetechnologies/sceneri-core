@@ -1,0 +1,7 @@
+{
+    "guid": "606f4275-485c-4626-aad1-ac51f7edc5cf",
+    "source": "Source/Line.frag",
+    "definitions": [
+        "TEXTURE_COORDINATES"
+    ]
+}

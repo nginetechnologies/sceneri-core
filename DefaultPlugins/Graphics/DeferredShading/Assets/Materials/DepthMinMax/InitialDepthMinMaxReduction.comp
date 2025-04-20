@@ -1,0 +1,56 @@
+#version 450
+#extension GL_EXT_samplerless_texture_functions : enable
+
+layout(binding = 0) uniform texture2D depthBuffer;
+layout(binding = 1, rg32f) uniform writeonly image2D depthMinMaxNextMip;
+
+void ProcessSample( ivec2 coord, inout vec2 depthMinMax, inout float minDepthSum )
+{
+	float sampleDepth = texelFetch(depthBuffer, coord, 0).x;
+
+	minDepthSum += sampleDepth;
+
+	depthMinMax.x = min( depthMinMax.x, sampleDepth == 0.0 ? 1.0 : sampleDepth ); //ignore far clip plane
+	depthMinMax.y = max( depthMinMax.y, sampleDepth );
+}
+
+layout(local_size_x=8, local_size_y=8) in;
+void main()
+{
+	ivec2 thisLevelTexelCoord = ivec2(gl_GlobalInvocationID.xy);
+	ivec2 previousLevelBaseTexelCoord = 2 * thisLevelTexelCoord;
+
+	vec2 depthMinMax = vec2( 1.0, 0.0 );
+	float minDepthSum = 0.0; //used to handle case where all samples are on far clip plane
+
+	ProcessSample( previousLevelBaseTexelCoord, depthMinMax, minDepthSum );
+	ProcessSample( previousLevelBaseTexelCoord + ivec2(1, 0), depthMinMax, minDepthSum);
+	ProcessSample( previousLevelBaseTexelCoord + ivec2(1, 1), depthMinMax, minDepthSum);
+	ProcessSample( previousLevelBaseTexelCoord + ivec2(0, 1), depthMinMax, minDepthSum);
+
+    // Incorporate additional texels if the previous level's width or height (or both)
+    // are odd.
+	ivec2 previousLevelDimensions = textureSize(depthBuffer,0);
+
+	bool shouldIncludeExtraColumnFromPreviousLevel = ((previousLevelDimensions.x & 1) != 0);
+	bool shouldIncludeExtraRowFromPreviousLevel = ((previousLevelDimensions.y & 1) != 0);
+
+	if (shouldIncludeExtraColumnFromPreviousLevel) {
+		ProcessSample( previousLevelBaseTexelCoord + ivec2(2, 0), depthMinMax, minDepthSum);
+		ProcessSample( previousLevelBaseTexelCoord + ivec2(2, 1), depthMinMax, minDepthSum);
+
+		// In the case where the width and height are both odd, need to include the
+        // 'corner' value as well.
+		if (shouldIncludeExtraRowFromPreviousLevel) {
+			ProcessSample( previousLevelBaseTexelCoord + ivec2(2, 2), depthMinMax, minDepthSum);
+		}
+	}
+	if (shouldIncludeExtraRowFromPreviousLevel) {
+		ProcessSample( previousLevelBaseTexelCoord + ivec2(0, 2), depthMinMax, minDepthSum);
+		ProcessSample( previousLevelBaseTexelCoord + ivec2(1, 2), depthMinMax, minDepthSum);
+	}
+
+	depthMinMax.x = minDepthSum == 0.0 ? 0.0 : depthMinMax.x;
+
+	imageStore( depthMinMaxNextMip, thisLevelTexelCoord, vec4(depthMinMax, 0.0, 0.0) );
+}

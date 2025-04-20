@@ -1,0 +1,507 @@
+#pragma clang diagnostic ignored "-Wmissing-prototypes"
+
+#include <metal_stdlib>
+#include <simd/simd.h>
+#if __METAL_VERSION__ >= 230
+#include <metal_raytracing>
+using namespace metal::raytracing;
+#endif
+
+using namespace metal;
+
+intersection_params spvMakeIntersectionParams(uint flags)
+{
+    intersection_params ip;
+    if ((flags & 1) != 0)
+        ip.force_opacity(forced_opacity::opaque);
+    if ((flags & 2) != 0)
+        ip.force_opacity(forced_opacity::non_opaque);
+    if ((flags & 4) != 0)
+        ip.accept_any_intersection(true);
+    if ((flags & 16) != 0)
+        ip.set_triangle_cull_mode(triangle_cull_mode::back);
+    if ((flags & 32) != 0)
+        ip.set_triangle_cull_mode(triangle_cull_mode::front);
+    if ((flags & 64) != 0)
+        ip.set_opacity_cull_mode(opacity_cull_mode::opaque);
+    if ((flags & 128) != 0)
+        ip.set_opacity_cull_mode(opacity_cull_mode::non_opaque);
+    if ((flags & 256) != 0)
+        ip.set_geometry_cull_mode(geometry_cull_mode::triangle);
+    if ((flags & 512) != 0)
+        ip.set_geometry_cull_mode(geometry_cull_mode::bounding_box);
+    return ip;
+}
+
+struct Indices;
+struct VertexNormals;
+struct VertexTextureCoordinates;
+
+struct RenderItemInstance
+{
+    uint meshIndex;
+    int diffuseTextureId;
+    int roughnessTextureId;
+};
+
+struct RenderItemInstance_1
+{
+    uint meshIndex;
+    int diffuseTextureId;
+    int roughnessTextureId;
+    char _m0_final_padding[4];
+};
+
+struct RenderItemsBuffer
+{
+    RenderItemInstance_1 renderItems[1];
+};
+
+struct Mesh
+{
+    ulong vertexNormalsBufferAddress;
+    ulong vertexTextureCoordinatesBufferAddress;
+    ulong indicesBufferAddress;
+};
+
+struct Mesh_1
+{
+    ulong vertexNormalsBufferAddress;
+    ulong vertexTextureCoordinatesBufferAddress;
+    ulong indicesBufferAddress;
+    char _m0_final_padding[8];
+};
+
+struct MeshesBuffer
+{
+    Mesh_1 meshes[65535];
+};
+
+struct Indices
+{
+    uint indices[1];
+};
+
+struct VertexNormals
+{
+    float4 normals[1];
+};
+
+struct VertexTextureCoordinates
+{
+    float2 textureCoordinates[1];
+};
+
+struct PerViewInfo
+{
+    float4x4 viewMatrix;
+    float4x4 projectionMatrix;
+    float4x4 viewProjectionMatrix;
+    float4x4 viewProjectionMatrixCylinderBillboard;
+    float4x4 viewProjectionMatrixSphericalBillboard;
+    float4x4 invertedViewProjectionMatrix;
+    float4x4 invertedViewMatrix;
+    float4x4 invertedProjectionMatrix;
+    float4 viewLocationAndTime;
+    float3x3 viewRotation;
+    float3x3 invertedViewRotation;
+    uint4 renderAndOutputResolution;
+    float4 jitterOffset;
+};
+
+struct ViewInfo
+{
+    PerViewInfo current;
+    PerViewInfo previous;
+};
+
+struct PointLight
+{
+    float4 positionAndInfluenceRadius;
+    float4 colorAndInverseSquareInfluenceRadius;
+    int shadowMapIndex;
+    float4x4 viewMatrices[6];
+};
+
+struct LightBuffer
+{
+    PointLight lights[1];
+};
+
+struct SpotLight
+{
+    float4 positionAndInfluenceRadius;
+    float4 colorAndInverseSquareInfluenceRadius;
+    int shadowMapIndex;
+    float4x4 viewMatrix;
+};
+
+struct SpotLightBuffer
+{
+    SpotLight lights[1];
+};
+
+struct DirectionalLight
+{
+    packed_float3 direction;
+    uint cascadeCount;
+    packed_float3 color;
+    int shadowMapIndex;
+    uint shadowMatrixIndex;
+    char _m0_final_padding[12];
+};
+
+struct DirectionalLightBuffer
+{
+    DirectionalLight lights[1];
+};
+
+struct spvDescriptorSetBuffer0
+{
+    texture2d<float> brdfTexture [[id(0)]];
+    sampler brdfSampler [[id(1)]];
+    texture2d<uint> tilesTexture [[id(2)]];
+    sampler tilesSampler [[id(3)]];
+    texture2d<float> inputAlbedo [[id(4)]];
+    texture2d<float> inputNormal [[id(5)]];
+    texture2d<float> inputMaterialProperties [[id(6)]];
+    texture2d<float> inputDepth [[id(7)]];
+    raytracing::acceleration_structure<raytracing::instancing> topLevelAccelerationStructure [[id(8)]];
+    texturecube<float> irradianceTexture [[id(9)]];
+    sampler irradianceSampler [[id(10)]];
+    texturecube<float> prefilteredMapTexture [[id(11)]];
+    sampler prefilteredMapSampler [[id(12)]];
+    const device LightBuffer* pointLightBuffer [[id(13)]];
+    const device SpotLightBuffer* spotLightBuffer [[id(14)]];
+    const device DirectionalLightBuffer* directionalLightBuffer [[id(15)]];
+    const device RenderItemsBuffer* renderItemsBuffer [[id(16)]];
+};
+
+struct spvDescriptorSetBuffer1
+{
+    constant ViewInfo* viewInfo [[id(0)]];
+};
+
+struct spvDescriptorSetBuffer2
+{
+    array<texture2d<float>, 65535> textures [[id(0)]];
+    array<sampler, 65535> textureSamplers [[id(65535)]];
+};
+
+struct spvDescriptorSetBuffer3
+{
+    const device MeshesBuffer* meshesBuffer [[id(0)]];
+};
+
+struct main0_out
+{
+    float4 outColor [[color(0)]];
+};
+
+fragment main0_out main0(const device spvDescriptorSetBuffer0& spvDescriptorSet0 [[buffer(0)]], const device spvDescriptorSetBuffer1& spvDescriptorSet1 [[buffer(1)]], const device spvDescriptorSetBuffer2& spvDescriptorSet2 [[buffer(2)]], const device spvDescriptorSetBuffer3& spvDescriptorSet3 [[buffer(3)]], float4 gl_FragCoord [[position]])
+{
+    main0_out out = {};
+    raytracing::intersection_query<raytracing::instancing, raytracing::triangle_data> rayQuery;
+    raytracing::intersection_query<raytracing::instancing, raytracing::triangle_data> rayQuery_1;
+    raytracing::intersection_query<raytracing::instancing, raytracing::triangle_data> rayQuery_2;
+    raytracing::intersection_query<raytracing::instancing, raytracing::triangle_data> rayQuery_3;
+    do
+    {
+        float2 _584 = gl_FragCoord.xy / float2((*spvDescriptorSet1.viewInfo).current.renderAndOutputResolution.xy);
+        float4 _592 = spvDescriptorSet0.inputDepth.read(uint2(gl_FragCoord.xy));
+        float _593 = _592.x;
+        if (_593 <= 0.0)
+        {
+            out.outColor = float4(0.0);
+            break;
+        }
+        float4 _616 = (*spvDescriptorSet1.viewInfo).current.invertedViewProjectionMatrix * float4((_584 * 2.0) - float2(1.0), _593, 1.0);
+        float3 _623 = _616.xyz / float3(_616.w);
+        float3 _628 = spvDescriptorSet0.inputAlbedo.read(uint2(gl_FragCoord.xy)).xyz;
+        float4 _637 = spvDescriptorSet0.inputMaterialProperties.read(uint2(gl_FragCoord.xy));
+        float _642 = _637.x;
+        float3 _648 = fast::normalize((spvDescriptorSet0.inputNormal.read(uint2(gl_FragCoord.xy)).xyz * 2.0) - float3(1.0));
+        float _653 = fast::clamp(_637.y, 0.039999999105930328369140625, 1.0);
+        float _657 = _653 * _653;
+        float3 _669 = fast::normalize((*spvDescriptorSet1.viewInfo).current.viewLocationAndTime.xyz - _623);
+        float _675 = fast::clamp(abs(dot(_648, _669)), 0.001000000047497451305389404296875, 1.0);
+        float3 _681 = mix(float3(0.039999999105930328369140625), _628, float3(_642));
+        float _688 = 1.0 - _642;
+        float3 _689 = (_628 * float3(0.959999978542327880859375)) * _688;
+        float3 _709 = float3(1.0) * fast::clamp(fast::max(fast::max(_681.x, _681.y), _681.z) * 25.0, 0.0, 1.0);
+        out.outColor.x = 0.0;
+        out.outColor.y = 0.0;
+        out.outColor.z = 0.0;
+        uint4 _740 = spvDescriptorSet0.tilesTexture.read(uint2(int2(_584 * float2(int2(spvDescriptorSet0.tilesTexture.get_width(), spvDescriptorSet0.tilesTexture.get_height())))), 0);
+        uint _744 = _740.x;
+        uint _747 = _744 & 65535u;
+        uint _751 = _744 >> uint(16);
+        for (uint _1993 = _747; _1993 != _751; _1993++)
+        {
+            float3 _775 = (*spvDescriptorSet0.pointLightBuffer).lights[_1993].positionAndInfluenceRadius.xyz - _623;
+            float _778 = length(_775);
+            float3 _783 = _775 / float3(_778);
+            float _786 = dot(_648, _783);
+            if (_786 < 0.0)
+            {
+                continue;
+            }
+            float _1312 = fma(fast::max(_778 - 0.25, 0.0), 4.0, 1.0);
+            float _1331 = (_778 * _778) * ((device float*)&(*spvDescriptorSet0.pointLightBuffer).lights[_1993].colorAndInverseSquareInfluenceRadius)[3u];
+            float _1336 = fast::clamp(fma(-_1331, _1331, 1.0), 0.0, 1.0);
+            float _1323 = (1.0 / (_1312 * _1312)) * (_1336 * _1336);
+            if (_1323 > 0.0)
+            {
+                float3 _1354 = fast::normalize(_783 + _669);
+                float _1358 = fast::clamp(_786, 0.001000000047497451305389404296875, 1.0);
+                float _1362 = fast::clamp(dot(_648, _1354), 0.0, 1.0);
+                float3 _1411 = _681 + ((_709 - _681) * powr(fast::clamp(1.0 - fast::clamp(dot(_669, _1354), 0.0, 1.0), 0.0, 1.0), 5.0));
+                float2 _1416 = float2(_1358, _675);
+                float2 _1430 = (float2(2.0) * _1416) / (_1416 + sqrt(fma(float2(fma(-_653, _653, 1.0)), _1416 * _1416, float2(_657))));
+                float _1442 = fma(fma(_1362, _657, -_1362), _1362, 1.0);
+                float3 _1403 = (((*spvDescriptorSet0.pointLightBuffer).lights[_1993].colorAndInverseSquareInfluenceRadius.xyz * _1358) * _1323) * fma(float3(1.0) - _1411, _689 * float3(0.3183098733425140380859375), ((_1411 * (_1430.x * _1430.y)) * (_657 / ((3.1415927410125732421875 * _1442) * _1442))) / float3((4.0 * _1358) * _675));
+                rayQuery.reset(ray(_623 + _783 * 0.01, _783, 0.05, fast::min(_778, ((device float*)&(*spvDescriptorSet0.pointLightBuffer).lights[_1993].positionAndInfluenceRadius)[3u] * 2.0)), (spvDescriptorSet0.topLevelAccelerationStructure), 255u, spvMakeIntersectionParams(5u));
+                bool _851 = rayQuery.next();
+                uint _853 = uint(rayQuery.get_committed_intersection_type());
+                float3 _2021;
+                if (_853 == 1u)
+                {
+                    _2021 = _1403 * 0.100000001490116119384765625;
+                }
+                else
+                {
+                    _2021 = _1403;
+                }
+                float4 _861 = out.outColor;
+                float3 _863 = _861.xyz + _2021;
+                out.outColor.x = _863.x;
+                out.outColor.y = _863.y;
+                out.outColor.z = _863.z;
+            }
+        }
+        uint _874 = _740.y;
+        uint _877 = _874 & 65535u;
+        uint _880 = _874 >> uint(16);
+        for (uint _1994 = _877; _1994 != _880; _1994++)
+        {
+            float4 _907 = (*spvDescriptorSet0.spotLightBuffer).lights[_1994].viewMatrix * float4(_623, 1.0);
+            float4 _913 = _907 / float4(_907.w);
+            bool _916 = _913.w >= 0.0;
+            bool _925;
+            if (_916)
+            {
+                _925 = fast::min(_913.x, _913.y) >= 0.0;
+            }
+            else
+            {
+                _925 = _916;
+            }
+            bool _934;
+            if (_925)
+            {
+                _934 = fast::max(_913.x, _913.y) <= 1.0;
+            }
+            else
+            {
+                _934 = _925;
+            }
+            if (_934)
+            {
+                float3 _943 = (*spvDescriptorSet0.spotLightBuffer).lights[_1994].positionAndInfluenceRadius.xyz - _623;
+                float _946 = length(_943);
+                float3 _950 = _943 / float3(_946);
+                float _953 = dot(_648, _950);
+                if (_953 < 0.0)
+                {
+                    continue;
+                }
+                float _1464 = fma(fast::max(_946 - 0.25, 0.0), 4.0, 1.0);
+                float _1483 = (_946 * _946) * ((device float*)&(*spvDescriptorSet0.spotLightBuffer).lights[_1994].colorAndInverseSquareInfluenceRadius)[3u];
+                float _1488 = fast::clamp(fma(-_1483, _1483, 1.0), 0.0, 1.0);
+                float _1475 = (1.0 / (_1464 * _1464)) * (_1488 * _1488);
+                if (_1475 > 0.0)
+                {
+                    float3 _1506 = fast::normalize(_950 + _669);
+                    float _1510 = fast::clamp(_953, 0.001000000047497451305389404296875, 1.0);
+                    float _1514 = fast::clamp(dot(_648, _1506), 0.0, 1.0);
+                    float3 _1563 = _681 + ((_709 - _681) * powr(fast::clamp(1.0 - fast::clamp(dot(_669, _1506), 0.0, 1.0), 0.0, 1.0), 5.0));
+                    float2 _1568 = float2(_1510, _675);
+                    float2 _1582 = (float2(2.0) * _1568) / (_1568 + sqrt(fma(float2(fma(-_653, _653, 1.0)), _1568 * _1568, float2(_657))));
+                    float _1594 = fma(fma(_1514, _657, -_1514), _1514, 1.0);
+                    float3 _1555 = (((*spvDescriptorSet0.spotLightBuffer).lights[_1994].colorAndInverseSquareInfluenceRadius.xyz * _1510) * _1475) * fma(float3(1.0) - _1563, _689 * float3(0.3183098733425140380859375), ((_1563 * (_1582.x * _1582.y)) * (_657 / ((3.1415927410125732421875 * _1594) * _1594))) / float3((4.0 * _1510) * _675));
+                    rayQuery_1.reset(ray(_623, _950, 0.00999999977648258209228515625, 1000.0), (spvDescriptorSet0.topLevelAccelerationStructure), 255u, spvMakeIntersectionParams(5u));
+                    bool _1004 = rayQuery_1.next();
+                    uint _1005 = uint(rayQuery_1.get_committed_intersection_type());
+                    float3 _2016;
+                    if (_1005 == 1u)
+                    {
+                        _2016 = _1555 * 0.100000001490116119384765625;
+                    }
+                    else
+                    {
+                        _2016 = _1555;
+                    }
+                    float4 _1012 = out.outColor;
+                    float3 _1014 = _1012.xyz + _2016;
+                    out.outColor.x = _1014.x;
+                    out.outColor.y = _1014.y;
+                    out.outColor.z = _1014.z;
+                }
+            }
+        }
+        uint _1025 = _740.z;
+        uint _1028 = _1025 & 65535u;
+        uint _1031 = _1025 >> uint(16);
+        float3 _1996;
+        _1996 = float3(0.0);
+        float3 _2025;
+        for (uint _1995 = _1028; _1995 != _1031; _1996 = _2025, _1995++)
+        {
+            float _1055 = dot(_648, float3((*spvDescriptorSet0.directionalLightBuffer).lights[_1995].direction));
+            if (_1055 < 0.0)
+            {
+                _2025 = _1996;
+                continue;
+            }
+            float3 _1618 = fast::normalize(float3((*spvDescriptorSet0.directionalLightBuffer).lights[_1995].direction) + _669);
+            float _1622 = fast::clamp(_1055, 0.001000000047497451305389404296875, 1.0);
+            float _1626 = fast::clamp(dot(_648, _1618), 0.0, 1.0);
+            float3 _1675 = _681 + ((_709 - _681) * powr(fast::clamp(1.0 - fast::clamp(dot(_669, _1618), 0.0, 1.0), 0.0, 1.0), 5.0));
+            float2 _1680 = float2(_1622, _675);
+            float2 _1694 = (float2(2.0) * _1680) / (_1680 + sqrt(fma(float2(fma(-_653, _653, 1.0)), _1680 * _1680, float2(_657))));
+            float _1706 = fma(fma(_1626, _657, -_1626), _1626, 1.0);
+            float3 _1667 = ((float3((*spvDescriptorSet0.directionalLightBuffer).lights[_1995].color) * _1622) * 1.0) * fma(float3(1.0) - _1675, _689 * float3(0.3183098733425140380859375), ((_1675 * (_1694.x * _1694.y)) * (_657 / ((3.1415927410125732421875 * _1706) * _1706))) / float3((4.0 * _1622) * _675));
+            rayQuery_2.reset(ray(_623, (*spvDescriptorSet0.directionalLightBuffer).lights[_1995].direction, 0.00999999977648258209228515625, 1000.0), (spvDescriptorSet0.topLevelAccelerationStructure), 255u, spvMakeIntersectionParams(5u));
+            bool _1087 = rayQuery_2.next();
+            uint _1088 = uint(rayQuery_2.get_committed_intersection_type());
+            float3 _2010;
+            if (_1088 == 1u)
+            {
+                _2010 = _1667 * 0.100000001490116119384765625;
+            }
+            else
+            {
+                _2010 = _1667;
+            }
+            _2025 = _1996 + _2010;
+        }
+        float4 _1100 = out.outColor;
+        float3 _1102 = _1100.xyz + _1996;
+        out.outColor.x = _1102.x;
+        out.outColor.y = _1102.y;
+        out.outColor.z = _1102.z;
+        float3 _1114 = fast::normalize(reflect(-_669, _648));
+        float _1129 = fast::max(_675, 0.0);
+        float _1131 = 1.0 - _653;
+        float4 _1133 = spvDescriptorSet0.brdfTexture.sample(spvDescriptorSet0.brdfSampler, float2(_1129, _1131));
+        float3 _1138 = float3x3(float3(1.0, 0.0, 0.0), float3(0.0, 0.0, 1.0), float3(0.0, 1.0, 0.0)) * _1114;
+        float _1729 = float(int(spvDescriptorSet0.prefilteredMapTexture.get_num_mip_levels()));
+        float _1731 = _653 * _1729;
+        float _1733 = floor(_1731);
+        float4 _1154 = spvDescriptorSet0.irradianceTexture.sample(spvDescriptorSet0.irradianceSampler, (float3x3(float3(1.0, 0.0, 0.0), float3(0.0, 0.0, 1.0), float3(0.0, 1.0, 0.0)) * _648));
+        float3 _2007;
+        if (_653 <= 0.4000000059604644775390625)
+        {
+            float3 _1998;
+            float3 _1999;
+            float3 _2002;
+            _2002 = float3(1.0);
+            _1999 = _1114;
+            _1998 = _623;
+            float3 _2008;
+            float3 _2026;
+            float3 _2027;
+            float3 _2028;
+            uint _1997 = 0u;
+            for (;;)
+            {
+                if (_1997 < 1u)
+                {
+                    rayQuery_3.reset(ray(_1998, _1999, 0.00999999977648258209228515625, 10000.0), (spvDescriptorSet0.topLevelAccelerationStructure), 255u, spvMakeIntersectionParams(1u));
+                    bool _1188 = rayQuery_3.next();
+                    uint _1189 = uint(rayQuery_3.get_committed_intersection_type());
+                    if (_1189 == 1u)
+                    {
+                        int _1194 = rayQuery_3.get_committed_user_instance_id();
+                        int _1196 = rayQuery_3.get_committed_primitive_id();
+                        float2 _1198 = rayQuery_3.get_committed_triangle_barycentric_coord();
+                        float _1200 = rayQuery_3.get_committed_distance();
+                        uint _1204 = uint(_1194);
+                        float _1793 = (1.0 - _1198.x) - _1198.y;
+                        RenderItemInstance _1799;
+                        _1799.meshIndex = (*spvDescriptorSet0.renderItemsBuffer).renderItems[_1204].meshIndex;
+                        _1799.diffuseTextureId = (*spvDescriptorSet0.renderItemsBuffer).renderItems[_1204].diffuseTextureId;
+                        _1799.roughnessTextureId = (*spvDescriptorSet0.renderItemsBuffer).renderItems[_1204].roughnessTextureId;
+                        Mesh _1804;
+                        _1804.vertexNormalsBufferAddress = (*spvDescriptorSet3.meshesBuffer).meshes[_1799.meshIndex].vertexNormalsBufferAddress;
+                        _1804.vertexTextureCoordinatesBufferAddress = (*spvDescriptorSet3.meshesBuffer).meshes[_1799.meshIndex].vertexTextureCoordinatesBufferAddress;
+                        _1804.indicesBufferAddress = (*spvDescriptorSet3.meshesBuffer).meshes[_1799.meshIndex].indicesBufferAddress;
+                        device Indices* _1807 = reinterpret_cast<device Indices*>(_1804.indicesBufferAddress);
+                        device VertexNormals* _1810 = reinterpret_cast<device VertexNormals*>(_1804.vertexNormalsBufferAddress);
+                        device VertexTextureCoordinates* _1813 = reinterpret_cast<device VertexTextureCoordinates*>(_1804.vertexTextureCoordinatesBufferAddress);
+                        uint _1814 = uint(_1196) * 3u;
+                        uint _1822 = _1814 + 1u;
+                        uint _1827 = _1814 + 2u;
+                        float3 _1936 = ((_1810->normals[_1807->indices[_1814]].xyz * _1793) + (_1810->normals[_1807->indices[_1822]].xyz * _1198.x)) + (_1810->normals[_1807->indices[_1827]].xyz * _1198.y);
+                        float3 _2000;
+                        if (_1799.diffuseTextureId != (-1))
+                        {
+                            int _1874 = _1799.diffuseTextureId;
+                            _2000 = spvDescriptorSet2.textures[_1874].sample(spvDescriptorSet2.textureSamplers[_1874], (((_1813->textureCoordinates[_1807->indices[_1814]] * _1793) + (_1813->textureCoordinates[_1807->indices[_1822]] * _1198.x)) + (_1813->textureCoordinates[_1807->indices[_1827]] * _1198.y))).xyz;
+                        }
+                        else
+                        {
+                            _2000 = float3(0.0);
+                        }
+                        float3 _1890 = reflect(_1999, _1936);
+                        float _1898 = (dot(_1890, _1936) > 0.0) ? _1200 : (-1.0);
+                        float3 _1218 = _2002 * float4(_2000, _1898).xyz;
+                        if (_1898 < 0.0)
+                        {
+                            _2008 = _1218;
+                            break;
+                        }
+                        _2028 = _1218;
+                        _2027 = _1890;
+                        _2026 = _1998 + (_1999 * _1898);
+                    }
+                    else
+                    {
+                        _2028 = _2002;
+                        _2027 = _1999;
+                        _2026 = _1998;
+                    }
+                    _2002 = _2028;
+                    _1999 = _2027;
+                    _1998 = _2026;
+                    _1997++;
+                    continue;
+                }
+                else
+                {
+                    _2008 = _2002;
+                    break;
+                }
+            }
+            _2007 = _2008;
+        }
+        else
+        {
+            _2007 = mix(spvDescriptorSet0.prefilteredMapTexture.sample(spvDescriptorSet0.prefilteredMapSampler, _1138, level(_1733)).xyz, spvDescriptorSet0.prefilteredMapTexture.sample(spvDescriptorSet0.prefilteredMapSampler, _1138, level(ceil(_1731))).xyz, float3(fma(_653, _1729, -_1733)));
+        }
+        float4 _1258 = out.outColor;
+        float3 _1260 = _1258.xyz + fma((float3(1.0) - (_681 + ((fast::max(float3(_1131), _681) - _681) * powr(1.0 - _1129, 5.0)))) * _688, _1154.xyz * _689, _2007 * ((_681 * _1133.x) + float3(_1133.y)));
+        out.outColor.x = _1260.x;
+        out.outColor.y = _1260.y;
+        out.outColor.z = _1260.z;
+        float4 _1271 = out.outColor;
+        float3 _1273 = _1271.xyz + (_628 * (_637.z * 10000.0));
+        out.outColor.x = _1273.x;
+        out.outColor.y = _1273.y;
+        out.outColor.z = _1273.z;
+        out.outColor.w = (_637.w < 1.0) ? 0.0 : 1.0;
+        break;
+    } while(false);
+    return out;
+}
+

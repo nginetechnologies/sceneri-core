@@ -1,0 +1,9 @@
+{
+    "guid": "b6bb46d3-c2d6-4a5e-957a-da2ab7173e9f",
+    "source": "Source/Rectangle.frag",
+    "definitions": [
+        "CIRCLE",
+        "TEXTURE_COORDINATES",
+        "LINEAR_GRADIENT"
+    ]
+}

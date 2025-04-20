@@ -1,0 +1,8 @@
+{
+    "guid": "{24368A65-DDD7-40DC-9542-1F6B14222616}",
+    "source": "Source/Rectangle.frag",
+    "definitions": [
+        "TEXTURE_COORDINATES",
+        "ROUNDED_CORNERS"
+    ]
+}

@@ -1,0 +1,65 @@
+{
+    "guid": "dc8012a0-9955-47d0-bf4d-cbd98b36effe",
+    "typeGuid": "37deb13a-a642-4122-9880-3850f503d5fa",
+    "children": [
+        {
+            "typeGuid": "B2949DCF-7D3E-4AC7-962A-29685A44D92C",
+            "9f750482-b822-4d4b-be6a-9c135c614328": {
+                "stages": [
+                    "BBA6AD40-E1EE-4F1E-BAF8-608FF9E7D77F"
+                ]
+            },
+            "de0b2bc1-2e72-4739-a749-f5281e0de55a": {
+                "material_instance": "7962add3-c63a-6075-42d3-517305ba3b0b"
+            },
+            "b2949dcf-7d3e-4ac7-962a-29685a44d92c": {
+                "Width": 2.5
+            },
+            "data_components": [
+                {
+                    "typeGuid": "fefa51b8-945d-4f88-8859-356c7546efa7",
+                    "name": "Road"
+                }
+            ]
+        },
+        {
+            "typeGuid": "F3A902A8-4814-4328-927C-2D43C721AC1E",
+            "de8f8da2-d37f-41da-bc6e-580435fe605f": {
+                "position": [
+                    -1.25,
+                    0,
+                    0
+                ]
+            },
+            "f3a902a8-4814-4328-927c-2d43c721ac1e": {
+                "asset": "4fc8601f-ab8a-4992-bd8e-4136beae1b83"
+            },
+            "data_components": [
+                {
+                    "typeGuid": "fefa51b8-945d-4f88-8859-356c7546efa7",
+                    "name": "Left Spheres"
+                }
+            ]
+        },
+        {
+            "typeGuid": "F3A902A8-4814-4328-927C-2D43C721AC1E",
+            "de8f8da2-d37f-41da-bc6e-580435fe605f": {
+                "position": [
+                    1.25,
+                    0,
+                    0
+                ]
+            },
+            "f3a902a8-4814-4328-927c-2d43c721ac1e": {
+                "asset": "4fc8601f-ab8a-4992-bd8e-4136beae1b83"
+            },
+            "data_components": [
+                {
+                    "typeGuid": "fefa51b8-945d-4f88-8859-356c7546efa7",
+                    "name": "Right Spheres"
+                }
+            ]
+        }
+    ],
+    "thumbnailGuid": "090a8ea5-c30a-1fb9-c385-6c9e3f8eb233"
+}

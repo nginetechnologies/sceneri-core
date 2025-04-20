@@ -1,0 +1,29 @@
+{
+    "19f1176b-a487-436f-a9fc-121bff5a5fb6": {
+        "path": "Assets/Shaders/DrawWireframe/Shader.fragshader.nasset"
+    },
+    "52b8a528-11fa-4675-b5ed-a6bbffbbc21b": {
+        "path": "Assets/Shaders/DrawWireframe/Wireframe.vertshader.nasset"
+    },
+    "58dbb0a9-8d79-4e2e-8ebc-bbd09eb694db": {
+        "path": "Assets/Shaders/DrawNormals/Tangents.vertshader.nasset"
+    },
+    "66a3c15a-2f29-4805-aff4-b116888e9dab": {
+        "path": "Assets/Shaders/DrawNormals/Bitangents.vertshader.nasset"
+    },
+    "6e97329b-4e09-460d-9b15-c7c4ef827b41": {
+        "path": "Assets/Shaders/DrawNormals/Shader.geomshader.nasset"
+    },
+    "a302ae57-47a4-4464-a61a-83d596708778": {
+        "path": "Assets/Shaders/DrawNormals/Normals.vertshader.nasset"
+    },
+    "b8c8dfe5-d303-4e2f-a82e-15ae4efa1a4b": {
+        "assetTypeGuid": "926268b2-2d45-4c52-87c9-d76815217359",
+        "path": "RenderDebug.nplugin",
+        "name": "Render Debug"
+    },
+    "f95c89e8-69e2-46b1-bf00-87365a701834": {
+        "path": "Assets/Shaders/DrawNormals/Shader.fragshader.nasset"
+    },
+    "guid": "89f5b18e-e775-b242-da49-adc34babaca5"
+}

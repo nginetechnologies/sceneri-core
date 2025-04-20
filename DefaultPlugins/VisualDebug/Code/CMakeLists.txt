@@ -1,0 +1,11 @@
+cmake_minimum_required (VERSION 3.14)
+
+include("${ENGINE_CMAKE_DIRECTORY}/MakePlugin.cmake")
+include("${ENGINE_CMAKE_DIRECTORY}/LinkPlugin.cmake")
+
+MakePlugin(B0ABCB76-705B-4244-9474-F7B29131FC70 ${CMAKE_CURRENT_LIST_DIR} "VisualDebug" "lib" "bin" "../VisualDebug.nplugin")
+
+if(NOT TARGET 5DC6A146-4AE7-43E8-9B53-69D46FC184AF)
+	add_subdirectory("${CORE_ROOT_DIRECTORY}/DefaultPlugins/Graphics/FontRendering/Code" "${CMAKE_BINARY_DIR}/5DC6A146-4AE7-43E8-9B53-69D46FC184AF")
+endif()
+LinkPlugin(B0ABCB76-705B-4244-9474-F7B29131FC70 5DC6A146-4AE7-43E8-9B53-69D46FC184AF)

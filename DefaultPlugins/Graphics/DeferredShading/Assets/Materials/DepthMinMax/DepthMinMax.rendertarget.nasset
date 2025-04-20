@@ -1,0 +1,18 @@
+{
+    "guid": "27d18593-b651-4ab1-a2a9-eb29adeca68f",
+    "astc_data": {
+        "format": 103
+    },
+    "mipmap_count": 1,
+    "usage_flags": 12,
+    "typeGuid": "c4e01aa2-495d-4eb1-b9be-fe0e30500b07",
+    "preset": 12,
+    "initial_image_layout": 5,
+    "initial_access_flags": 64,
+    "initial_pipeline_stage_flags": 2048,
+    "bc_data": {
+        "format": 103
+    },
+    "assetTypeGuid": "7d2d2421-a875-450f-aedf-15c4c5c91f31",
+    "resolution": []
+}

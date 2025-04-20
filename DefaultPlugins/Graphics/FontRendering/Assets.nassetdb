@@ -1,0 +1,47 @@
+{
+    "1af4b974-d144-44fc-a391-e61fcb2156c0": {
+        "assetTypeGuid": "6717ff80-6896-4396-a66c-b493e5fe634c",
+        "componentTypeGuid": "6717ff80-6896-4396-a66c-b493e5fe634c",
+        "path": "Assets/DrawTextMaterial/DrawTextMaterial.mtl.nasset",
+        "tags": [
+            "66173826-ac7d-44c4-a403-8dfde3fd54a0"
+        ],
+        "dependencies": [
+            "430e001a-7953-4412-9ef2-6d41679d0855",
+            "3aaf6d3d-16d2-4a1d-9d34-ab05bbfcc59c"
+        ]
+    },
+    "279316d6-a4b3-42e4-995a-5d1ac5a95bfa": {
+        "assetTypeGuid": "7d2d2421-a875-450f-aedf-15c4c5c91f31",
+        "componentTypeGuid": "c4e01aa2-495d-4eb1-b9be-fe0e30500b07",
+        "path": "Assets/DrawText.rendertarget.nasset"
+    },
+    "3aaf6d3d-16d2-4a1d-9d34-ab05bbfcc59c": {
+        "path": "Assets/DrawTextMaterial/Shader.fragshader.nasset"
+    },
+    "430e001a-7953-4412-9ef2-6d41679d0855": {
+        "path": "Assets/DrawTextMaterial/Shader.vertshader.nasset"
+    },
+    "58b32f46-5045-496e-8ebe-267473353f3e": {
+        "path": "Assets/Shaders/Font.fragshader.nasset"
+    },
+    "5dc6a146-4ae7-43e8-9b53-69d46fc184af": {
+        "assetTypeGuid": "926268b2-2d45-4c52-87c9-d76815217359",
+        "path": "FontRendering.nplugin",
+        "name": "Font Rendering"
+    },
+    "71bebbba-fb9e-4c2a-b6f5-9a947e8aec97": {
+        "path": "Assets/Shaders/FontGradient.fragshader.nasset"
+    },
+    "7ae3bfe2-5d04-4d3c-b09e-7f282452a40a": {
+        "path": "Assets/Shaders/Font.vertshader.nasset"
+    },
+    "e656bcde-78ce-461b-9cab-3d17c41bb56d": {
+        "assetTypeGuid": "ce3b6c53-1b6d-4bc6-97e6-2ea036c58c0f",
+        "path": "Assets/DrawTextMaterial/DrawTextMaterial.mtli.nasset",
+        "tags": [
+            "66173826-ac7d-44c4-a403-8dfde3fd54a0"
+        ]
+    },
+    "guid": "746bba54-ea06-4734-9ed2-e1c9316d9b75"
+}
