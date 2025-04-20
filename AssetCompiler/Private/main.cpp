@@ -217,7 +217,9 @@ namespace ngine
 			Threading::JobRunnerThread::GetCurrent()->DoRunNextJob();
 		}
 
-		const IO::Path engineDirectory = ProjectSystem::FindEngineDirectoryFromExecutableFolder(IO::Path::GetExecutableDirectory());
+		IO::Path engineConfigFilePath = ProjectSystem::FindEngineConfigPathFromExecutableFolder(IO::Path::GetExecutableDirectory());
+		
+		const IO::Path engineDirectory = IO::Path{engineConfigFilePath.GetParentPath()};
 		EnginePluginDatabase pluginDatabase(IO::Path::Combine(engineDirectory, EnginePluginDatabase::FileName));
 
 		Threading::Atomic<bool> failedAnyTasks = false;
@@ -225,8 +227,11 @@ namespace ngine
 		{
 			if (!pluginDatabase.HasPlugin(AssetCompiler::Plugin::Guid))
 			{
+				EngineInfo engineInfo = EngineInfo{Move(engineConfigFilePath)};
+			
 				LogMessage("Plug-in database was missing asset compiler, registering all plug-ins");
-				pluginDatabase.RegisterAllDefaultPlugins(IO::Path::Combine(engineDirectory, MAKE_PATH("Code")));
+				pluginDatabase.RegisterAllDefaultPlugins(IO::Path::Combine(engineInfo.GetDirectory(), engineInfo.GetRelativeSourceDirectory()));
+				pluginDatabase.RegisterAllDefaultPlugins(engineInfo.GetCoreDirectory());
 				if (!pluginDatabase.Save(Serialization::SavingFlags::HumanReadable))
 				{
 					LogError("Failed to save plug-in database");
@@ -234,8 +239,7 @@ namespace ngine
 				}
 
 				pluginDatabase.IteratePlugins(
-					[&assetLibrary = pApplication->m_assetManager.GetAssetLibrary(),
-				   engineDirectory](const Asset::Guid assetGuid, const IO::Path& assetPath)
+					[&assetLibrary = pApplication->m_assetManager.GetAssetLibrary()](const Asset::Guid assetGuid, const IO::Path& assetPath)
 					{
 						const Asset::Identifier rootFolderAssetIdentifier =
 							assetLibrary.FindOrRegisterFolder(assetPath.GetParentPath(), Asset::Identifier{});
