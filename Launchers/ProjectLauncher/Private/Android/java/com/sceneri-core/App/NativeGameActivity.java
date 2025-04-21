@@ -1,4 +1,4 @@
-package com.sceneri-core.App;
+package com.sceneri_core.App;
 
 import static com.google.android.libraries.identity.googleid.GoogleIdTokenCredential.TYPE_GOOGLE_ID_TOKEN_CREDENTIAL;
 
@@ -50,7 +50,7 @@ public class NativeGameActivity extends GameActivity implements InputManager.Inp
     private static final int MAX_AXIS_COUNT = 48;
 
     private Context context;
-    private com.sceneri-core.App.NativeEngineWrapper engineWrapper;
+    private com.sceneri_core.App.NativeEngineWrapper engineWrapper;
 
     private CredentialManager credentialManager;
 
@@ -103,7 +103,7 @@ public class NativeGameActivity extends GameActivity implements InputManager.Inp
         });
 #endif
 
-        engineWrapper = new com.sceneri-core.App.NativeEngineWrapper();
+        engineWrapper = new com.sceneri_core.App.NativeEngineWrapper();
 
         credentialManager = CredentialManager.create(context);
 

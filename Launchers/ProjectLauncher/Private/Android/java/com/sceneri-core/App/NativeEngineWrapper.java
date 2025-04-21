@@ -1,4 +1,4 @@
-package com.sceneri-core.App;
+package com.sceneri_core.App;
 public class NativeEngineWrapper {
     public native void OnDeviceAdded(int deviceId, long activeAxisIds);
     public native void OnDeviceRemoved(int deviceId);
