@@ -134,7 +134,7 @@ namespace ngine::Tests::Network
 		EXPECT_EQ(rootComponents[0]->FindFirstChildOfType<Session::Host>(), &host);
 		EXPECT_EQ(host.GetParentSafe(), &rootComponents[0]);
 
-		[[maybe_unused]] Session::LocalHost& localHost = *host.CreateDataComponent<Session::LocalHost>(
+		Session::LocalHost& localHost = *host.CreateDataComponent<Session::LocalHost>(
 			sceneRegistries[0],
 			Session::LocalHost::Initializer{
 				Entity::Data::HierarchyComponent::DynamicInitializer{host, sceneRegistries[0]},
@@ -143,6 +143,11 @@ namespace ngine::Tests::Network
 				Network::LocalPeer::UpdateMode::EngineTick
 			}
 		);
+		EXPECT_TRUE(localHost.GetLocalHost().IsValid());
+		if (!localHost.GetLocalHost().IsValid())
+		{
+			return;
+		}
 
 		Session::Client& client = *sceneRegistries[1].GetOrCreateComponentTypeData<Session::Client>()->CreateInstance(
 			Session::Client::Initializer{*rootComponents[1], sceneRegistries[1]}
@@ -387,7 +392,7 @@ namespace ngine::Tests::Network
 		Session::Host& host = *sceneRegistries[0].GetOrCreateComponentTypeData<Session::Host>()->CreateInstance(
 			Session::Host::Initializer{Entity::HierarchyComponentBase::DynamicInitializer{*rootComponents[0], sceneRegistries[0]}}
 		);
-		[[maybe_unused]] Session::LocalHost& localHost = *host.CreateDataComponent<Session::LocalHost>(
+		Session::LocalHost& localHost = *host.CreateDataComponent<Session::LocalHost>(
 			sceneRegistries[0],
 			Session::LocalHost::Initializer{
 				Entity::Data::HierarchyComponent::DynamicInitializer{host, sceneRegistries[0]},
@@ -396,6 +401,11 @@ namespace ngine::Tests::Network
 				Network::LocalPeer::UpdateMode::EngineTick
 			}
 		);
+		EXPECT_TRUE(localHost.GetLocalHost().IsValid());
+		if (!localHost.GetLocalHost().IsValid())
+		{
+			return;
+		}
 
 		Session::Client& client = *sceneRegistries[1].GetOrCreateComponentTypeData<Session::Client>()->CreateInstance(
 			Session::Client::Initializer{*rootComponents[1], sceneRegistries[1]}
@@ -665,7 +675,7 @@ namespace ngine::Tests::Network
 		Session::Host& host = *sceneRegistries[0].GetOrCreateComponentTypeData<Session::Host>()->CreateInstance(
 			Session::Host::Initializer{Entity::HierarchyComponentBase::DynamicInitializer{*rootComponents[0], sceneRegistries[0]}}
 		);
-		[[maybe_unused]] Session::LocalHost& localHost = *host.CreateDataComponent<Session::LocalHost>(
+		Session::LocalHost& localHost = *host.CreateDataComponent<Session::LocalHost>(
 			sceneRegistries[0],
 			Session::LocalHost::Initializer{
 				Entity::Data::HierarchyComponent::DynamicInitializer{host, sceneRegistries[0]},
@@ -674,6 +684,11 @@ namespace ngine::Tests::Network
 				Network::LocalPeer::UpdateMode::EngineTick
 			}
 		);
+		EXPECT_TRUE(localHost.GetLocalHost().IsValid());
+		if (!localHost.GetLocalHost().IsValid())
+		{
+			return;
+		}
 
 		Session::Client& client = *sceneRegistries[1].GetOrCreateComponentTypeData<Session::Client>()->CreateInstance(
 			Session::Client::Initializer{*rootComponents[1], sceneRegistries[1]}
@@ -949,7 +964,7 @@ namespace ngine::Tests::Network
 		Session::Host& host = *sceneRegistries[0].GetOrCreateComponentTypeData<Session::Host>()->CreateInstance(
 			Session::Host::Initializer{Entity::HierarchyComponentBase::DynamicInitializer{*rootComponents[0], sceneRegistries[0]}}
 		);
-		[[maybe_unused]] Session::LocalHost& localHost = *host.CreateDataComponent<Session::LocalHost>(
+		Session::LocalHost& localHost = *host.CreateDataComponent<Session::LocalHost>(
 			sceneRegistries[0],
 			Session::LocalHost::Initializer{
 				Entity::Data::HierarchyComponent::DynamicInitializer{host, sceneRegistries[0]},
@@ -958,6 +973,11 @@ namespace ngine::Tests::Network
 				Network::LocalPeer::UpdateMode::EngineTick
 			}
 		);
+		EXPECT_TRUE(localHost.GetLocalHost().IsValid());
+		if (!localHost.GetLocalHost().IsValid())
+		{
+			return;
+		}
 
 		Session::Client& client = *sceneRegistries[1].GetOrCreateComponentTypeData<Session::Client>()->CreateInstance(
 			Session::Client::Initializer{*rootComponents[1], sceneRegistries[1]}
@@ -1213,7 +1233,7 @@ namespace ngine::Tests::Network
 		Session::Host& host = *sceneRegistries[0].GetOrCreateComponentTypeData<Session::Host>()->CreateInstance(
 			Session::Host::Initializer{Entity::HierarchyComponentBase::DynamicInitializer{*rootComponents[0], sceneRegistries[0]}}
 		);
-		[[maybe_unused]] Session::LocalHost& localHost = *host.CreateDataComponent<Session::LocalHost>(
+		Session::LocalHost& localHost = *host.CreateDataComponent<Session::LocalHost>(
 			sceneRegistries[0],
 			Session::LocalHost::Initializer{
 				Entity::Data::HierarchyComponent::DynamicInitializer{host, sceneRegistries[0]},
@@ -1222,6 +1242,11 @@ namespace ngine::Tests::Network
 				Network::LocalPeer::UpdateMode::EngineTick
 			}
 		);
+		EXPECT_TRUE(localHost.GetLocalHost().IsValid());
+		if (!localHost.GetLocalHost().IsValid())
+		{
+			return;
+		}
 
 		Session::Client& client = *sceneRegistries[1].GetOrCreateComponentTypeData<Session::Client>()->CreateInstance(
 			Session::Client::Initializer{*rootComponents[1], sceneRegistries[1]}
@@ -1437,7 +1462,7 @@ namespace ngine::Tests::Network
 		Session::Host& host = *sceneRegistries[0].GetOrCreateComponentTypeData<Session::Host>()->CreateInstance(
 			Session::Host::Initializer{Entity::HierarchyComponentBase::DynamicInitializer{*rootComponents[0], sceneRegistries[0]}}
 		);
-		[[maybe_unused]] Session::LocalHost& localHost = *host.CreateDataComponent<Session::LocalHost>(
+		Session::LocalHost& localHost = *host.CreateDataComponent<Session::LocalHost>(
 			sceneRegistries[0],
 			Session::LocalHost::Initializer{
 				Entity::Data::HierarchyComponent::DynamicInitializer{host, sceneRegistries[0]},
@@ -1446,6 +1471,11 @@ namespace ngine::Tests::Network
 				Network::LocalPeer::UpdateMode::EngineTick
 			}
 		);
+		EXPECT_TRUE(localHost.GetLocalHost().IsValid());
+		if (!localHost.GetLocalHost().IsValid())
+		{
+			return;
+		}
 
 		Session::Client& client = *sceneRegistries[1].GetOrCreateComponentTypeData<Session::Client>()->CreateInstance(
 			Session::Client::Initializer{*rootComponents[1], sceneRegistries[1]}
@@ -1611,7 +1641,7 @@ namespace ngine::Tests::Network
 		Session::Host& host = *sceneRegistries[0].GetOrCreateComponentTypeData<Session::Host>()->CreateInstance(
 			Session::Host::Initializer{Entity::HierarchyComponentBase::DynamicInitializer{*rootComponents[0], sceneRegistries[0]}}
 		);
-		[[maybe_unused]] Session::LocalHost& localHost = *host.CreateDataComponent<Session::LocalHost>(
+		Session::LocalHost& localHost = *host.CreateDataComponent<Session::LocalHost>(
 			sceneRegistries[0],
 			Session::LocalHost::Initializer{
 				Entity::Data::HierarchyComponent::DynamicInitializer{host, sceneRegistries[0]},
@@ -1620,6 +1650,11 @@ namespace ngine::Tests::Network
 				Network::LocalPeer::UpdateMode::EngineTick
 			}
 		);
+		EXPECT_TRUE(localHost.GetLocalHost().IsValid());
+		if (!localHost.GetLocalHost().IsValid())
+		{
+			return;
+		}
 
 		Array<UniquePtr<Scene>, 2> scenes{
 			UniquePtr<Scene>::Make(

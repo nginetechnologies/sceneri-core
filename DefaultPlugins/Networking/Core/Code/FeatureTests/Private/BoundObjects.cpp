@@ -387,6 +387,11 @@ namespace ngine::Tests::Network
 			outgoingBandwidth,
 			Network::LocalPeer::UpdateMode::EngineTick
 		);
+		EXPECT_TRUE(host.IsValid());
+		if (!host.IsValid())
+		{
+			return;
+		}
 
 		constexpr Guid boundObjectGuid = "b918cde0-272f-4dec-8467-54b2e3c29154"_guid;
 
@@ -723,6 +728,11 @@ namespace ngine::Tests::Network
 			outgoingBandwidth,
 			Network::LocalPeer::UpdateMode::EngineTick
 		);
+		EXPECT_TRUE(host.IsValid());
+		if (!host.IsValid())
+		{
+			return;
+		}
 
 		constexpr Guid boundObjectGuid = "0952ad47-492b-4db7-a519-76af8b79725e"_guid;
 
@@ -1055,6 +1065,11 @@ namespace ngine::Tests::Network
 			outgoingBandwidth,
 			Network::LocalPeer::UpdateMode::EngineTick
 		);
+		EXPECT_TRUE(host.IsValid());
+		if (!host.IsValid())
+		{
+			return;
+		}
 
 		constexpr Guid boundObjectGuid = "0952ad47-492b-4db7-a519-76af8b79725e"_guid;
 

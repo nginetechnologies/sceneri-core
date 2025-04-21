@@ -89,6 +89,11 @@ namespace ngine::Tests::Network
 			outgoingBandwidth,
 			Network::LocalPeer::UpdateMode::EngineTick
 		);
+		EXPECT_TRUE(localHost.IsValid());
+		if (!localHost.IsValid())
+		{
+			return;
+		}
 
 		AtomicEnumFlags<StateFlags> stateFlags{StateFlags::All};
 		ClientIdentifier savedClientIdentifier;
@@ -399,6 +404,11 @@ namespace ngine::Tests::Network
 			outgoingBandwidth,
 			Network::LocalPeer::UpdateMode::EngineTick
 		);
+		EXPECT_TRUE(localHost.IsValid());
+		if (!localHost.IsValid())
+		{
+			return;
+		}
 
 		const MessageTypeIdentifier clientToServerMessageTypeIdentifier = localHost.FindMessageIdentifier<&ClientToServerMessage>();
 		bool once{false};
