@@ -1913,6 +1913,7 @@ namespace ngine::Network
 			rawAddress.port = address.GetPort().Get();
 #if !PLATFORM_WEB
 			m_pNetHost = enet_host_create(&rawAddress, maximumClientCount, maximumChannelCount, incomingBandwidth, outgoingBandwidth);
+#else
 			if (LIKELY(m_pNetHost != nullptr))
 			{
 				if constexpr (PROFILE_BUILD)
@@ -1927,7 +1928,6 @@ namespace ngine::Network
 				}
 				ChangeUpdateMode(updateMode);
 			}
-#else
 			UNUSED(address);
 			UNUSED(maximumClientCount);
 			UNUSED(maximumChannelCount);
