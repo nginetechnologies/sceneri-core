@@ -70,43 +70,43 @@ if(OPTION_PACKAGE)
 			add_custom_command(TARGET ProjectLauncher PRE_LINK
 				COMMAND
 				if [ \"\${IS_MACCATALYST}\" = YES ]\; then :\n
-					${ASSETCOMPILER_PATH} -platform macCatalyst -config $<CONFIG> -engine \"${ENGINE_CONFIG_FILEPATH}\" -package_directory \${CODESIGNING_FOLDER_PATH}/Contents/Resources +package_project_editor ${PROJECT_FILE}\n
+					${ASSETCOMPILER_PATH} -platform macCatalyst -config $<CONFIG> -engine \"${ENGINE_CONFIG_FILEPATH}\" +package_project_editor ${PROJECT_FILE} -package_directory \${CODESIGNING_FOLDER_PATH}/Contents/Resources\n
 				elif  [ \"\${PLATFORM_APPLE_MACOS}\" = 1 ]\; then :\n
-					${ASSETCOMPILER_PATH} -platform macOS -config $<CONFIG> -engine \"${ENGINE_CONFIG_FILEPATH}\" -package_directory \${CODESIGNING_FOLDER_PATH}/Contents/Resources +package_project_editor ${PROJECT_FILE}\n
+					${ASSETCOMPILER_PATH} -platform macOS -config $<CONFIG> -engine \"${ENGINE_CONFIG_FILEPATH}\" +package_project_editor ${PROJECT_FILE} -package_directory \${CODESIGNING_FOLDER_PATH}/Contents/Resources\n
 				else\n
-					${ASSETCOMPILER_PATH} -platform iOS -config $<CONFIG> -engine \"${ENGINE_CONFIG_FILEPATH}\" -package_directory \${CODESIGNING_FOLDER_PATH} +package_project_editor ${PROJECT_FILE}\n
+					${ASSETCOMPILER_PATH} -platform iOS -config $<CONFIG> -engine \"${ENGINE_CONFIG_FILEPATH}\" +package_project_editor ${PROJECT_FILE} -package_directory \${CODESIGNING_FOLDER_PATH}\n
 				fi
 			)
 		else()
 			add_custom_command(TARGET ProjectLauncher PRE_LINK
 				COMMAND
 				if [ \"\${IS_MACCATALYST}\" = YES ]\; then :\n
-					${ASSETCOMPILER_PATH} -platform macCatalyst -config $<CONFIG> -engine \"${ENGINE_CONFIG_FILEPATH}\" -package_directory \${CODESIGNING_FOLDER_PATH}/Contents/Resources +package_editor ${ENGINE_CONFIG_FILEPATH}\n
+					${ASSETCOMPILER_PATH} -platform macCatalyst -config $<CONFIG> -engine \"${ENGINE_CONFIG_FILEPATH}\" +package_editor ${ENGINE_CONFIG_FILEPATH} -package_directory \${CODESIGNING_FOLDER_PATH}/Contents/Resources\n
 				elif  [ ${PLATFORM_APPLE_MACOS} = 1 ]\; then :\n
-					${ASSETCOMPILER_PATH} -platform macOS -config $<CONFIG> -engine \"${ENGINE_CONFIG_FILEPATH}\" -package_directory \${CODESIGNING_FOLDER_PATH}/Contents/Resources +package_editor ${ENGINE_CONFIG_FILEPATH}\n
+					${ASSETCOMPILER_PATH} -platform macOS -config $<CONFIG> -engine \"${ENGINE_CONFIG_FILEPATH}\" +package_editor ${ENGINE_CONFIG_FILEPATH} -package_directory \${CODESIGNING_FOLDER_PATH}/Contents/Resources\n
 				else\n
-					${ASSETCOMPILER_PATH} -platform iOS -config $<CONFIG> -engine \"${ENGINE_CONFIG_FILEPATH}\" -package_directory \${CODESIGNING_FOLDER_PATH} +package_editor ${ENGINE_CONFIG_FILEPATH}\n
+					${ASSETCOMPILER_PATH} -platform iOS -config $<CONFIG> -engine \"${ENGINE_CONFIG_FILEPATH}\" +package_editor ${ENGINE_CONFIG_FILEPATH} -package_directory \${CODESIGNING_FOLDER_PATH}\n
 				fi
 			)
 		endif()
 	elseif(PLATFORM_ANDROID)
 		if(DEFINED PROJECT_FILE)
 			add_custom_command(TARGET ProjectLauncher PRE_LINK
-					COMMAND ${ASSETCOMPILER_PATH} -platform ${PLATFORM_NAME} -config $<CONFIG> -engine \"${ENGINE_CONFIG_FILEPATH}\" -package_directory \"${ANDROID_ASSETS_DIRECTORIES}\" +package_project_editor ${PROJECT_FILE}
+					COMMAND ${ASSETCOMPILER_PATH} -platform ${PLATFORM_NAME} -config $<CONFIG> -engine \"${ENGINE_CONFIG_FILEPATH}\" +package_project_editor ${PROJECT_FILE} -package_directory \"${ANDROID_ASSETS_DIRECTORIES}\"
 			)
 		else()
 			add_custom_command(TARGET ProjectLauncher PRE_LINK
-					COMMAND ${ASSETCOMPILER_PATH} -platform ${PLATFORM_NAME} -config $<CONFIG> -engine \"${ENGINE_CONFIG_FILEPATH}\" -package_directory \"${ANDROID_ASSETS_DIRECTORIES}\" +package_editor ${ENGINE_CONFIG_FILEPATH}
+					COMMAND ${ASSETCOMPILER_PATH} -platform ${PLATFORM_NAME} -config $<CONFIG> -engine \"${ENGINE_CONFIG_FILEPATH}\" +package_editor ${ENGINE_CONFIG_FILEPATH} -package_directory \"${ANDROID_ASSETS_DIRECTORIES}\"
 			)
 		endif()
 	elseif(PLATFORM_EMSCRIPTEN OR PLATFORM_WINDOWS OR PLATFORM_LINUX)
 		if(DEFINED PROJECT_FILE)
 			add_custom_command(TARGET ProjectLauncher PRE_LINK
-					COMMAND ${ASSETCOMPILER_PATH} -platform ${PLATFORM_NAME} -config $<CONFIG> -engine \"${ENGINE_CONFIG_FILEPATH}\" -package_directory \"$<TARGET_FILE_DIR:ProjectLauncher>\" +package_project_editor ${PROJECT_FILE}
+					COMMAND ${ASSETCOMPILER_PATH} -platform ${PLATFORM_NAME} -config $<CONFIG> -engine \"${ENGINE_CONFIG_FILEPATH}\" +package_project_editor ${PROJECT_FILE} -package_directory \"$<TARGET_FILE_DIR:ProjectLauncher>\"
 			)
 		else()
 			add_custom_command(TARGET ProjectLauncher PRE_LINK
-					COMMAND ${ASSETCOMPILER_PATH} -platform ${PLATFORM_NAME} -config $<CONFIG> -engine \"${ENGINE_CONFIG_FILEPATH}\" -package_directory \"$<TARGET_FILE_DIR:ProjectLauncher>\" +package_editor ${ENGINE_CONFIG_FILEPATH}
+					COMMAND ${ASSETCOMPILER_PATH} -platform ${PLATFORM_NAME} -config $<CONFIG> -engine \"${ENGINE_CONFIG_FILEPATH}\" +package_editor ${ENGINE_CONFIG_FILEPATH} -package_directory \"$<TARGET_FILE_DIR:ProjectLauncher>\"
 			)
 		endif()
 	endif()
