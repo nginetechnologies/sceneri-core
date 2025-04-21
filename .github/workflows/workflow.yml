@@ -131,7 +131,7 @@ jobs:
         mkdir IntermediateMacOS
         cmake -S . -B IntermediateMacOS --preset=macos-xcode -DCMAKE_BUILD_TYPE=Debug -DOPTION_BUILD_UNIT_TESTS=ON -DOPTION_BUILD_FEATURE_TESTS=ON -DOPTION_UNITY_BUILD=ON -DOPTION_CCACHE=ON -DOPTION_CONTINUOUS_INTEGRATION=ON -DOPTION_XCODE_DEVELOPMENT_TEAM=${{ secrets.XCODE_DEVELOPMENT_TEAM }}
     - name: build
-      run: xcodebuild -parallelizeTargets -project IntermediateMacOS/sceneri_core.xcodeproj/ -target ALL_BUILD -configuration Debug -allowProvisioningUpdates build
+      run: xcodebuild -parallelizeTargets -project IntermediateMacOS/scenericore.xcodeproj/ -target ALL_BUILD -configuration Debug -allowProvisioningUpdates build
     - name: run tests
       run: |
         cd IntermediateMacOS
@@ -166,7 +166,7 @@ jobs:
         mkdir IntermediateiOS
         cmake -S . -B IntermediateiOS --preset=iOS+macCatalyst-xcode -DCMAKE_BUILD_TYPE=RelWithDebInfo -DOPTION_UNITY_BUILD=ON -DOPTION_CCACHE=ON -DOPTION_CONTINUOUS_INTEGRATION=ON -DOPTION_PACKAGE=OFF
     - name: build
-      run: xcodebuild -parallelizeTargets -project IntermediateiOS/sceneri_core.xcodeproj/ -target ALL_BUILD -configuration RelWithDebInfo -destination generic/platform=iOS -allowProvisioningUpdates build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
+      run: xcodebuild -parallelizeTargets -project IntermediateiOS/scenericore.xcodeproj/ -target ALL_BUILD -configuration RelWithDebInfo -destination generic/platform=iOS -allowProvisioningUpdates build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
 
   build-visionos-release:
     name: "visionOS Profile"
@@ -197,7 +197,7 @@ jobs:
         mkdir IntermediateVisionOS
         cmake -S . -B IntermediateVisionOS --preset=visionOS-xcode -DCMAKE_BUILD_TYPE=Profile -DOPTION_UNITY_BUILD=ON -DOPTION_CCACHE=ON -DOPTION_CONTINUOUS_INTEGRATION=ON -DOPTION_PACKAGE=OFF
     - name: build
-      run: xcodebuild -parallelizeTargets -project IntermediateVisionOS/sceneri_core.xcodeproj/ -target ALL_BUILD -configuration Profile -destination generic/platform=visionOS -allowProvisioningUpdates build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
+      run: xcodebuild -parallelizeTargets -project IntermediateVisionOS/scenericore.xcodeproj/ -target ALL_BUILD -configuration Profile -destination generic/platform=visionOS -allowProvisioningUpdates build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
 
   build-macos-catalyst-release:
     name: "MacOS Catalyst Profile"
@@ -228,7 +228,7 @@ jobs:
         mkdir IntermediateiOS
         cmake -S . -B IntermediateiOS --preset=iOS+macCatalyst-xcode -DCMAKE_BUILD_TYPE=Profile -DOPTION_UNITY_BUILD=ON -DOPTION_CCACHE=ON -DOPTION_CONTINUOUS_INTEGRATION=ON -DOPTION_PACKAGE=OFF
     - name: build
-      run: xcodebuild -parallelizeTargets -project IntermediateiOS/sceneri_core.xcodeproj/ -target ALL_BUILD -configuration Profile -destination generic/platform=iOS -allowProvisioningUpdates build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
+      run: xcodebuild -parallelizeTargets -project IntermediateiOS/scenericore.xcodeproj/ -target ALL_BUILD -configuration Profile -destination generic/platform=iOS -allowProvisioningUpdates build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
 
   build-android-release:
     name: "Android Profile"

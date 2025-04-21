@@ -10,7 +10,7 @@ target_link_directories(ProjectLauncher PRIVATE Editor Renderer)
 
 if (PLATFORM_APPLE)
 	set_target_properties(ProjectLauncher PROPERTIES
-		XCODE_ATTRIBUTE_PRODUCT_NAME "sceneri_core"
+		XCODE_ATTRIBUTE_PRODUCT_NAME "scenericore"
 	)
 endif()
 
@@ -18,14 +18,14 @@ if(PLATFORM_APPLE_MACOS)
 	if (OPTION_SANDBOX)
 		set_target_properties(ProjectLauncher PROPERTIES
 			XCODE_ATTRIBUTE_CODE_SIGN_ENTITLEMENTS "${CMAKE_CURRENT_LIST_DIR}/Private/Apple/macOS_sandboxed.entitlements"
-			XCODE_ATTRIBUTE_PRODUCT_BUNDLE_IDENTIFIER "com.sceneri_core.App"
-			MACOSX_BUNDLE_GUI_IDENTIFIER "com.sceneri_core.App"
+			XCODE_ATTRIBUTE_PRODUCT_BUNDLE_IDENTIFIER "com.scenericore.App"
+			MACOSX_BUNDLE_GUI_IDENTIFIER "com.scenericore.App"
 		)
 	else()
 		set_target_properties(ProjectLauncher PROPERTIES
 			XCODE_ATTRIBUTE_CODE_SIGN_ENTITLEMENTS "${CMAKE_CURRENT_LIST_DIR}/Private/Apple/macOS.entitlements"
-			XCODE_ATTRIBUTE_PRODUCT_BUNDLE_IDENTIFIER "com.sceneri_core.App"
-			MACOSX_BUNDLE_GUI_IDENTIFIER "com.sceneri_core.App"
+			XCODE_ATTRIBUTE_PRODUCT_BUNDLE_IDENTIFIER "com.scenericore.App"
+			MACOSX_BUNDLE_GUI_IDENTIFIER "com.scenericore.App"
 		)
 	endif()
 
@@ -46,8 +46,8 @@ if(PLATFORM_APPLE_MACOS)
 elseif(PLATFORM_APPLE)
 	set_target_properties(ProjectLauncher PROPERTIES
 		XCODE_ATTRIBUTE_CODE_SIGN_ENTITLEMENTS "${CMAKE_CURRENT_LIST_DIR}/Private/Apple/${PLATFORM_NAME}.entitlements"
-		XCODE_ATTRIBUTE_PRODUCT_BUNDLE_IDENTIFIER "com.sceneri_core.App"
-		MACOSX_BUNDLE_GUI_IDENTIFIER "com.sceneri_core.App"
+		XCODE_ATTRIBUTE_PRODUCT_BUNDLE_IDENTIFIER "com.scenericore.App"
+		MACOSX_BUNDLE_GUI_IDENTIFIER "com.scenericore.App"
   )
 endif()
 
