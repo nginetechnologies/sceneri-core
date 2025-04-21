@@ -41,7 +41,10 @@ include("${COMMON_ROOT_DIRECTORY}/CommonLibrary.cmake")
 add_subdirectory(Engine)
 add_subdirectory(Renderer)
 add_subdirectory(Launchers)
-add_subdirectory(AssetCompiler)
+
+if (PLATFORM_DESKTOP)
+	add_subdirectory(AssetCompiler)
+endif()
 
 export(TARGETS CommonAPI Common EngineAPI Engine RendererAPI Renderer FILE EngineConfig.cmake)
 
