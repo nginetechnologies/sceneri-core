@@ -130,6 +130,8 @@ jobs:
       run: |
         mkdir IntermediateMacOS
         cmake -S . -B IntermediateMacOS --preset=macos-xcode -DCMAKE_BUILD_TYPE=Debug -DOPTION_BUILD_UNIT_TESTS=ON -DOPTION_BUILD_FEATURE_TESTS=ON -DOPTION_UNITY_BUILD=ON -DOPTION_CCACHE=ON -DOPTION_CONTINUOUS_INTEGRATION=ON -DOPTION_XCODE_DEVELOPMENT_TEAM=${{ secrets.XCODE_DEVELOPMENT_TEAM }}
+    - name: build asset compiler
+      run: xcodebuild -parallelizeTargets -project IntermediateMacOS/scenericore.xcodeproj/ -target AssetCompiler -configuration Debug -allowProvisioningUpdates build
     - name: build
       run: xcodebuild -parallelizeTargets -project IntermediateMacOS/scenericore.xcodeproj/ -target ALL_BUILD -configuration Debug -allowProvisioningUpdates build
     - name: run tests
