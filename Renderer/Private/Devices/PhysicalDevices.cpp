@@ -7,6 +7,7 @@
 
 #include <Common/Memory/Containers/Vector.h>
 #include <Common/Threading/AtomicBool.h>
+#include <Common/IO/Log.h>
 
 #include <algorithm>
 
@@ -34,6 +35,7 @@ namespace ngine::Rendering
 #if RENDERER_VULKAN
 		uint32 deviceCount;
 		const VkResult result = vkEnumeratePhysicalDevices(instance, &deviceCount, nullptr);
+		Assert(result == VK_SUCCESS, "Failed to enumerate Vulkan physical devices");
 		if (UNLIKELY_ERROR(result != VK_SUCCESS))
 		{
 			return;
@@ -212,6 +214,11 @@ namespace ngine::Rendering
 		}
 
 #endif
+
+		if (UNLIKELY_ERROR(m_devices.IsEmpty() == 0))
+		{
+			LogError("Detected 0 physical vulkan devices!");
+		}
 	}
 
 	Optional<PhysicalDevice*> PhysicalDevices::FindPhysicalDevice(const Rendering::PhysicalDeviceView device)

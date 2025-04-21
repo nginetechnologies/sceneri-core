@@ -298,7 +298,8 @@ namespace ngine::Rendering
 				enabledExtensionsMemory.GetData()
 			};
 
-			vkCreateInstance(&createInfo, nullptr, &m_pInstance);
+			[[maybe_unused]] const bool success = vkCreateInstance(&createInfo, nullptr, &m_pInstance) == VK_SUCCESS;
+			Assert(success, "Failed to create Vulkan instance");
 		}
 
 		if (creationFlags.IsSet(CreationFlags::Validation))
