@@ -791,6 +791,13 @@ namespace ngine::Network
 		Assert(m_flags.AreNoneSet(Flags::Connecting | Flags::Disconnecting) && m_clientIdentifier.IsInvalid());
 #if !PLATFORM_WEB
 		m_pNetHost = enet_host_create(nullptr, maximumOutgoingConnectionCount, maximumChannelCount, incomingBandwidth, outgoingBandwidth);
+#else
+		UNUSED(maximumChannelCount);
+		UNUSED(maximumOutgoingConnectionCount);
+		UNUSED(incomingBandwidth);
+		UNUSED(outgoingBandwidth);
+		m_clientIdentifier = ClientIdentifier::MakeFromValidIndex(0);
+#endif
 		if constexpr (PROFILE_BUILD)
 		{
 			if (IsDebuggerAttached() && m_pNetHost != nullptr)
@@ -801,13 +808,6 @@ namespace ngine::Network
 				}
 			}
 		}
-#else
-		UNUSED(maximumChannelCount);
-		UNUSED(maximumOutgoingConnectionCount);
-		UNUSED(incomingBandwidth);
-		UNUSED(outgoingBandwidth);
-		m_clientIdentifier = ClientIdentifier::MakeFromValidIndex(0);
-#endif
 		return m_pNetHost != nullptr;
 	}
 
@@ -1913,6 +1913,12 @@ namespace ngine::Network
 			rawAddress.port = address.GetPort().Get();
 #if !PLATFORM_WEB
 			m_pNetHost = enet_host_create(&rawAddress, maximumClientCount, maximumChannelCount, incomingBandwidth, outgoingBandwidth);
+#else
+			UNUSED(rawAddress);
+			UNUSED(maximumClientCount);
+			UNUSED(maximumChannelCount);
+			UNUSED(incomingBandwidth);
+			UNUSED(outgoingBandwidth);
 #endif
 			if (LIKELY(m_pNetHost != nullptr))
 			{
@@ -1928,12 +1934,6 @@ namespace ngine::Network
 				}
 				ChangeUpdateMode(updateMode);
 			}
-			UNUSED(address);
-			UNUSED(maximumClientCount);
-			UNUSED(maximumChannelCount);
-			UNUSED(incomingBandwidth);
-			UNUSED(outgoingBandwidth);
-#endif
 		}
 		return m_pNetHost != nullptr;
 	}
