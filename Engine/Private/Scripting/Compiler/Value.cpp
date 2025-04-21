@@ -5,6 +5,8 @@
 #include <Common/Memory/Containers/String.h>
 #include <Common/Memory/Containers/StringView.h>
 
+#include <Common/Math/Vector4/SignNonZero.h>
+
 #include <Common/Memory/Containers/Format/String.h>
 #include <Common/Reflection/Registry.h>
 #include <Common/System/Query.h>
@@ -95,13 +97,13 @@ namespace ngine::Scripting
 				case ValueType::Boolean4:
 					return bool{left.GetBool4() == right.GetBool4()};
 				case ValueType::Integer:
-					return left.GetInteger() == right.GetInteger();
+					return left.GetInteger() == right.GetInteger() && Math::SignNonZero(left.GetInteger()) == Math::SignNonZero(right.GetInteger());
 				case ValueType::Integer4:
-					return bool{left.GetVector4i() == right.GetVector4i()};
+					return bool{left.GetVector4i() == right.GetVector4i()} && Math::SignNonZero(left.GetVector4i()) == Math::SignNonZero(right.GetVector4i());
 				case ValueType::Decimal:
-					return left.GetDecimal() == right.GetDecimal();
+                    return left.GetDecimal() == right.GetDecimal() && Math::SignNonZero(left.GetDecimal()) == Math::SignNonZero(right.GetDecimal());
 				case ValueType::Decimal4:
-					return bool{left.GetVector4f() == right.GetVector4f()};
+					return bool{left.GetVector4f() == right.GetVector4f()} && Math::SignNonZero(left.GetVector4f()) == Math::SignNonZero(right.GetVector4f());
 				case ValueType::Object:
 				{
 					Object* pLeft = left.GetObject();

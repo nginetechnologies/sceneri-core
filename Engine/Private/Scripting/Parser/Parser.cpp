@@ -1921,16 +1921,53 @@ namespace ngine::Scripting
 
 			pExpression = BraceInitializer(*pVariableExpression);
 		}
+        else if (Match(Array{TokenType::Plus}))
+        {
+            if (Match(Array{TokenType::Number, TokenType::Float, TokenType::Integer}))
+            {
+                // Positive number
+                const Token& literal = Previous();
+                pExpression = m_graph.EmplaceNode<AST::Expression::Literal>(literal.ToAny());
+            }
+            else
+            {
+                Error(SCRIPT_STRING_LITERAL("Expected number after +"));
+            }
+        }
 		else if (Match(Array{TokenType::Minus, TokenType::Not, TokenType::Hashtag, TokenType::Tilde}))
 		{
 			const Token& prefix = Previous();
-			const uint8 prefixPrecedence = uint8(GetPrefixPrecedence(prefix.type));
-			if (Optional<AST::Expression::Base*> pRightExpression = Expression(Invalid, prefixPrecedence))
-			{
-				const Types variableTypes = GetPossibleExpressionReturnTypes(*pRightExpression);
-				const PrimitiveType primitiveType = GetPrimitiveType(variableTypes.GetView());
-				pExpression = m_graph.EmplaceNode<AST::Expression::Unary>(Token(prefix), primitiveType, pRightExpression);
-			}
+            if (prefix.type == TokenType::Minus && Match(Array{TokenType::Number, TokenType::Float, TokenType::Integer}))
+            {
+                // Negative number
+                const Token& literal = Previous();
+                Any value = literal.ToAny();
+                switch (literal.type)
+                {
+                    case TokenType::Number:
+                        value = value.Is<FloatType>() ? Any{-value.GetExpected<FloatType>()} : Any{-value.GetExpected<IntegerType>()};
+                        break;
+                    case TokenType::Float:
+                        value = -value.GetExpected<FloatType>();
+                        break;
+                    case TokenType::Integer:
+                        value = -value.GetExpected<IntegerType>();
+                        break;
+                    default:
+                        ExpectUnreachable();
+                }
+                pExpression = m_graph.EmplaceNode<AST::Expression::Literal>(Move(value));
+            }
+            else
+            {
+                const uint8 prefixPrecedence = uint8(GetPrefixPrecedence(prefix.type));
+                if (Optional<AST::Expression::Base*> pRightExpression = Expression(Invalid, prefixPrecedence))
+                {
+                    const Types variableTypes = GetPossibleExpressionReturnTypes(*pRightExpression);
+                    const PrimitiveType primitiveType = GetPrimitiveType(variableTypes.GetView());
+                    pExpression = m_graph.EmplaceNode<AST::Expression::Unary>(Token(prefix), primitiveType, pRightExpression);
+                }
+            }
 		}
 		else if (Check(TokenType::Identifier))
 		{
