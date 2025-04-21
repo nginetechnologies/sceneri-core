@@ -38,7 +38,7 @@
         android:resizeableActivity="true"
         tools:targetApi="33">
 
-        <activity android:name="com.sceneri-core.App.NativeGameActivity"
+        <activity android:name="com.scenericore.App.NativeGameActivity"
             android:configChanges="orientation|keyboardHidden|screenSize|smallestScreenSize"
             android:label="@string/app_name"
             android:screenOrientation="fullSensor"
