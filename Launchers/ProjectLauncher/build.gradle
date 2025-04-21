@@ -6,7 +6,7 @@ plugins {
 ext.vvl_version='1.3.231.1'
 apply from: "../download_vvl.gradle"
 
-def engineJsonFile = file('../../../sceneri.ngine')
+def engineJsonFile = file('../../sceneri.ngine')
 def parsedEngineJson = new groovy.json.JsonSlurper().parseText(engineJsonFile.text)
 
 android {
