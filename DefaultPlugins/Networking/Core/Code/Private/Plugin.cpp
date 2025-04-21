@@ -1913,7 +1913,7 @@ namespace ngine::Network
 			rawAddress.port = address.GetPort().Get();
 #if !PLATFORM_WEB
 			m_pNetHost = enet_host_create(&rawAddress, maximumClientCount, maximumChannelCount, incomingBandwidth, outgoingBandwidth);
-#else
+#endif
 			if (LIKELY(m_pNetHost != nullptr))
 			{
 				if constexpr (PROFILE_BUILD)
