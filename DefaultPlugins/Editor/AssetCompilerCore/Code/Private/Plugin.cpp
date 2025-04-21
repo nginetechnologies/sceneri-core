@@ -1503,6 +1503,7 @@ namespace ngine::AssetCompiler
 				}
 				else if (command.key == MAKE_NATIVE_LITERAL("create_code_plugin"))
 				{
+#if SUPPORT_GENERATE_CODE_PLUGIN
 					IO::Path nativePath = IO::Path(command.value);
 					nativePath.MakeNativeSlashes();
 
@@ -1524,12 +1525,14 @@ namespace ngine::AssetCompiler
 											 .IsValid();
 					}
 					else
+#endif
 					{
 						failedAnyTasks = true;
 					}
 				}
 				else if (command.key == MAKE_NATIVE_LITERAL("create_project_asset_plugin"))
 				{
+#if SUPPORT_GENERATE_CODE_PLUGIN
 					IO::Path nativePath = IO::Path(command.value);
 					nativePath.MakeNativeSlashes();
 
@@ -1552,6 +1555,7 @@ namespace ngine::AssetCompiler
 											 .IsValid();
 					}
 					else
+#endif
 					{
 						failedAnyTasks = true;
 					}
