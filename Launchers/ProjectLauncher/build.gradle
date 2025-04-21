@@ -48,7 +48,7 @@ android {
 
                 def targetEnvironment = project.findProperty("TARGET_ENVIRONMENT") ?: "internal_development"
                 arguments += "-DTARGET_ENVIRONMENT=${targetEnvironment}"
-                targets "Editor"
+                targets "ProjectLauncher"
             }
         }
     }
