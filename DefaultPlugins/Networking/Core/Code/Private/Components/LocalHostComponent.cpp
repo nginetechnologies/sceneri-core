@@ -24,7 +24,17 @@ namespace ngine::Network::Session
 	{
 		m_localHost.SetEntitySceneRegistry(initializer.GetSceneRegistry());
 
-		[[maybe_unused]] const bool wasStarted = m_localHost.Start(initializer.m_address, initializer.m_maximumClientCount);
+		const uint8 maximumChannelCount = 2;
+		const uint32 incomingBandwidth = 0;
+		const uint32 outgoingBandwidth = 0;
+		[[maybe_unused]] const bool wasStarted = m_localHost.Start(
+			initializer.m_address,
+			initializer.m_maximumClientCount,
+			maximumChannelCount,
+			incomingBandwidth,
+			outgoingBandwidth,
+			initializer.m_updateMode
+		);
 		Assert(wasStarted);
 
 		Host& host = initializer.GetParent().AsExpected<Host>();
@@ -91,10 +101,13 @@ namespace ngine::Network::Session
 		);
 	}
 
-	void LocalHost::Restart(const Network::Address address, const uint32 maximumClientCount)
+	void LocalHost::Restart(const Network::Address address, const uint32 maximumClientCount, const Network::LocalPeer::UpdateMode updateMode)
 	{
 		m_localHost.Stop();
-		m_localHost.Start(address, maximumClientCount);
+		const uint8 maximumChannelCount = 2;
+		const uint32 incomingBandwidth = 0;
+		const uint32 outgoingBandwidth = 0;
+		m_localHost.Start(address, maximumClientCount, maximumChannelCount, incomingBandwidth, outgoingBandwidth, updateMode);
 	}
 
 	void LocalHost::Stop(ParentType&)

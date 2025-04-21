@@ -27,7 +27,15 @@ namespace ngine::Network::Session
 		using Initializer = DynamicInitializer;
 		LocalClient(Initializer&& initializer);
 
-		bool Connect(Client& owner, const Address address, const uint8 maximumChannelCount = 2, const uint32 connectionUserData = 0);
+		void OnDestroying();
+
+		bool Connect(
+			Client& owner,
+			const Address address,
+			const uint8 maximumChannelCount = 2,
+			const uint32 connectionUserData = 0,
+			const Network::LocalPeer::UpdateMode updateMode = Network::LocalPeer::DefaultUpdateMode
+		);
 		void Disconnect(Client& owner);
 
 		[[nodiscard]] bool IsConnecting() const

@@ -28,19 +28,30 @@ namespace ngine::Network::Session
 
 		struct Initializer : public DynamicInitializer
 		{
-			Initializer(DynamicInitializer&& baseObject, const Network::Address address, const uint32 maximumClientCount)
+			Initializer(
+				DynamicInitializer&& baseObject,
+				const Network::Address address,
+				const uint32 maximumClientCount,
+				const Network::LocalPeer::UpdateMode updateMode = Network::LocalPeer::DefaultUpdateMode
+			)
 				: DynamicInitializer(Forward<DynamicInitializer>(baseObject))
 				, m_address(address)
 				, m_maximumClientCount(maximumClientCount)
+				, m_updateMode(updateMode)
 			{
 			}
 
 			Network::Address m_address;
 			uint32 m_maximumClientCount;
+			Network::LocalPeer::UpdateMode m_updateMode;
 		};
 		LocalHost(Initializer&& initializer);
 
-		void Restart(const Network::Address address, const uint32 maximumClientCount);
+		void Restart(
+			const Network::Address address,
+			const uint32 maximumClientCount,
+			const Network::LocalPeer::UpdateMode updateMode = Network::LocalPeer::DefaultUpdateMode
+		);
 		void Stop(ParentType& owner);
 
 		[[nodiscard]] bool IsLocalClient(const ClientIdentifier clientIdentifier) const

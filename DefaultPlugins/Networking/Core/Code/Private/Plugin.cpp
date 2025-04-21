@@ -309,18 +309,21 @@ namespace ngine::Network
 		return Result::AwaitExternalFinish;
 	}
 
-	inline static constexpr bool EnableAsyncNetUpdate = false;
-
 	void LocalPeer::OnAwaitExternalFinish(Threading::JobRunnerThread& thread)
 	{
 		SignalExecutionFinished(thread);
 
-		if constexpr (EnableAsyncNetUpdate)
+		switch (m_updateMode)
 		{
-			if (m_asyncUpdateTimerHandle.IsValid())
-			{
-				thread.GetJobManager().ScheduleAsyncJob(m_asyncUpdateTimerHandle, UpdateFrequency, *this);
-			}
+			case UpdateMode::Asynchronous:
+				if (m_asyncUpdateTimerHandle.IsValid())
+				{
+					thread.GetJobManager().ScheduleAsyncJob(m_asyncUpdateTimerHandle, UpdateFrequency, *this);
+				}
+				break;
+			case UpdateMode::EngineTick:
+			case UpdateMode::Disabled:
+				break;
 		}
 	}
 
@@ -813,7 +816,10 @@ namespace ngine::Network
 		Assert(m_flags.AreNoneSet(Flags::Connecting | Flags::Disconnecting) && !m_remoteHost.IsValid());
 		if (m_pNetHost != nullptr)
 		{
-			DisableUpdate();
+			if (m_updateMode != UpdateMode::Disabled)
+			{
+				ChangeUpdateMode(UpdateMode::Disabled);
+			}
 			enet_host_destroy(m_pNetHost);
 			m_pNetHost = nullptr;
 		}
@@ -822,73 +828,89 @@ namespace ngine::Network
 	LocalClient::~LocalClient()
 	{
 		Assert(m_flags.AreNoneSet(Flags::Connecting | Flags::Disconnecting) && m_clientIdentifier.IsInvalid());
-		LocalPeer::DisableUpdate();
-	}
-
-	void LocalPeer::EnableUpdate()
-	{
-		Assert(m_pNetHost != nullptr);
-		Assert(!m_asyncUpdateTimerHandle.IsValid());
-		if constexpr (EnableAsyncNetUpdate)
+		if (m_updateMode != UpdateMode::Disabled)
 		{
-			m_asyncUpdateTimerHandle = System::Get<Threading::JobManager>().ScheduleAsyncJob(UpdateFrequency, *this);
-		}
-		else
-		{
-			Engine& engine = System::Get<Engine>();
-			engine.ModifyFrameGraph(
-				[this, &engine]()
-				{
-					engine.GetStartTickStage().AddSubsequentStage(*this);
-					AddSubsequentStage(engine.GetEndTickStage());
-				}
-			);
+			LocalPeer::ChangeUpdateMode(UpdateMode::Disabled);
 		}
 	}
 
-	void LocalPeer::DisableUpdate()
+	void LocalPeer::ChangeUpdateMode(const UpdateMode mode)
 	{
-		if (m_pNetHost != nullptr)
+		Assert(m_updateMode != mode);
+
+		switch (mode)
 		{
-			if constexpr (EnableAsyncNetUpdate)
+			case UpdateMode::Asynchronous:
 			{
-				const Threading::TimerHandle timerHandle = m_asyncUpdateTimerHandle;
-				m_asyncUpdateTimerHandle = {};
-				if (timerHandle.IsValid())
-				{
-					System::Get<Threading::JobManager>().CancelAsyncJob(timerHandle);
-				}
+				Assert(m_pNetHost != nullptr);
+				Assert(!m_asyncUpdateTimerHandle.IsValid());
+				m_asyncUpdateTimerHandle = System::Get<Threading::JobManager>().ScheduleAsyncJob(UpdateFrequency, *this);
 			}
-			else
+			break;
+			case UpdateMode::EngineTick:
 			{
+				Assert(m_pNetHost != nullptr);
 				Engine& engine = System::Get<Engine>();
-				if (engine.GetStartTickStage().IsDirectlyFollowedBy(*this))
+				engine.ModifyFrameGraph(
+					[this, &engine]()
+					{
+						engine.GetStartTickStage().AddSubsequentStage(*this);
+						AddSubsequentStage(engine.GetEndTickStage());
+					}
+				);
+			}
+			break;
+			case UpdateMode::Disabled:
+			{
+				switch (m_updateMode)
 				{
-					engine.ModifyFrameGraph(
-						[this, &engine]()
+					case UpdateMode::Disabled:
+						break;
+					case UpdateMode::Asynchronous:
+					{
+						const Threading::TimerHandle timerHandle = m_asyncUpdateTimerHandle;
+						m_asyncUpdateTimerHandle = {};
+						if (timerHandle.IsValid())
 						{
-							Threading::JobRunnerThread& thread = *Threading::JobRunnerThread::GetCurrent();
-							engine.GetStartTickStage().RemoveSubsequentStage(*this, thread, Threading::Job::RemovalFlags{});
-							RemoveSubsequentStage(engine.GetEndTickStage(), thread, Threading::Job::RemovalFlags{});
+							System::Get<Threading::JobManager>().CancelAsyncJob(timerHandle);
 						}
-					);
+					}
+					break;
+					case UpdateMode::EngineTick:
+					{
+						Engine& engine = System::Get<Engine>();
+						if (engine.GetStartTickStage().IsDirectlyFollowedBy(*this))
+						{
+							engine.ModifyFrameGraph(
+								[this, &engine]()
+								{
+									Threading::JobRunnerThread& thread = *Threading::JobRunnerThread::GetCurrent();
+									engine.GetStartTickStage().RemoveSubsequentStage(*this, thread, Threading::Job::RemovalFlags{});
+									RemoveSubsequentStage(engine.GetEndTickStage(), thread, Threading::Job::RemovalFlags{});
+								}
+							);
+						}
+					}
+					break;
 				}
 			}
+			break;
+		}
+		m_updateMode = mode;
+	}
+
+	void LocalClient::ChangeUpdateMode(const UpdateMode mode)
+	{
+		LocalPeer::ChangeUpdateMode(mode);
+		if (mode == UpdateMode::Disabled)
+		{
+			Assert(m_flags.AreNoneSet(Flags::Connecting | Flags::Disconnecting) && !m_remoteHost.IsValid());
 		}
 	}
 
-	void LocalClient::EnableUpdate()
-	{
-		LocalPeer::EnableUpdate();
-	}
-
-	void LocalClient::DisableUpdate()
-	{
-		Assert(m_flags.AreNoneSet(Flags::Connecting | Flags::Disconnecting) && !m_remoteHost.IsValid());
-		LocalPeer::DisableUpdate();
-	}
-
-	RemoteHost LocalClient::Connect(const Address address, const uint32 maximumChannelCount, const uint32 connectionUserData)
+	RemoteHost LocalClient::Connect(
+		const Address address, const uint32 maximumChannelCount, const uint32 connectionUserData, const UpdateMode updateMode
+	)
 	{
 		Assert(m_pNetHost != nullptr);
 		if (LIKELY(m_pNetHost != nullptr))
@@ -907,7 +929,7 @@ namespace ngine::Network
 
 				if (LIKELY(remoteHost.IsValid()))
 				{
-					EnableUpdate();
+					ChangeUpdateMode(updateMode);
 				}
 				else
 				{
@@ -983,7 +1005,7 @@ namespace ngine::Network
 		{
 			m_remoteHost = {};
 
-			LocalPeer::DisableUpdate();
+			LocalPeer::ChangeUpdateMode(UpdateMode::Disabled);
 
 			OnDisconnectedInternal();
 		}
@@ -1005,9 +1027,9 @@ namespace ngine::Network
 			m_remoteHost.Disconnect(0);
 			m_remoteHost = {};
 
-			OnDisconnectedInternal();
+			ChangeUpdateMode(UpdateMode::Disabled);
 
-			DisableUpdate();
+			OnDisconnectedInternal();
 		}
 		else
 		{
@@ -1044,9 +1066,9 @@ namespace ngine::Network
 			m_remoteHost.ForceDisconnect();
 			m_remoteHost = {};
 
-			OnDisconnectedInternal();
+			ChangeUpdateMode(UpdateMode::Disabled);
 
-			DisableUpdate();
+			OnDisconnectedInternal();
 		}
 	}
 
@@ -1867,7 +1889,10 @@ namespace ngine::Network
 
 	LocalHost::~LocalHost()
 	{
-		LocalPeer::DisableUpdate();
+		if (m_updateMode != UpdateMode::Disabled)
+		{
+			LocalPeer::ChangeUpdateMode(UpdateMode::Disabled);
+		}
 	}
 
 	bool LocalHost::Start(
@@ -1875,7 +1900,8 @@ namespace ngine::Network
 		const uint32 maximumClientCount,
 		const uint8 maximumChannelCount,
 		const uint32 incomingBandwidth,
-		const uint32 outgoingBandwidth
+		const uint32 outgoingBandwidth,
+		const UpdateMode updateMode
 	)
 	{
 		Assert(!IsValid());
@@ -1899,7 +1925,7 @@ namespace ngine::Network
 						}
 					}
 				}
-				EnableUpdate();
+				ChangeUpdateMode(updateMode);
 			}
 #else
 			UNUSED(address);
@@ -1912,14 +1938,9 @@ namespace ngine::Network
 		return m_pNetHost != nullptr;
 	}
 
-	void LocalHost::EnableUpdate()
+	void LocalHost::ChangeUpdateMode(const UpdateMode mode)
 	{
-		LocalPeer::EnableUpdate();
-	}
-
-	void LocalHost::DisableUpdate()
-	{
-		LocalPeer::DisableUpdate();
+		LocalPeer::ChangeUpdateMode(mode);
 	}
 
 	void LocalHost::OnPeerConnected(RemotePeer peer)
@@ -2154,7 +2175,10 @@ namespace ngine::Network
 
 	void LocalHost::Stop()
 	{
-		DisableUpdate();
+		if (m_updateMode != UpdateMode::Disabled)
+		{
+			ChangeUpdateMode(UpdateMode::Disabled);
+		}
 
 		Assert(m_pNetHost != nullptr);
 		if (LIKELY(m_pNetHost != nullptr))

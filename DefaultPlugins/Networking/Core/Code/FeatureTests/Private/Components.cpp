@@ -139,7 +139,8 @@ namespace ngine::Tests::Network
 			Session::LocalHost::Initializer{
 				Entity::Data::HierarchyComponent::DynamicInitializer{host, sceneRegistries[0]},
 				Network::AnyIPAddress,
-				maximumClientCount
+				maximumClientCount,
+				Network::LocalPeer::UpdateMode::EngineTick
 			}
 		);
 
@@ -208,7 +209,15 @@ namespace ngine::Tests::Network
 			EXPECT_FALSE(sessionModules[1].IsValid());
 			EXPECT_FALSE(client.HasDataComponentOfType<SessionModule>(sceneRegistries[1]));
 
-			localClientComponent.Connect(client, Address(IO::URI(MAKE_URI("localhost"))));
+			const uint8 maximumChannelCount = 2;
+			const uint32 connectionUserData = 0;
+			localClientComponent.Connect(
+				client,
+				Address(IO::URI(MAKE_URI("localhost"))),
+				maximumChannelCount,
+				connectionUserData,
+				Network::LocalPeer::UpdateMode::EngineTick
+			);
 
 			// Start binding the client's equivalent of this component
 			boundComponents[1] = *components[1]->CreateDataComponent<Session::BoundComponent>(
@@ -227,7 +236,7 @@ namespace ngine::Tests::Network
 			EXPECT_TRUE(sessionModules[0]->m_hasConnectedToRemoteClient);
 
 			sessionModules[1] = client.FindDataComponentOfType<SessionModule>(sceneRegistries[1]);
-			EXPECT_TRUE(sessionModules[1]);
+			EXPECT_TRUE(sessionModules[1].IsValid());
 
 			// EXPECT_FALSE(sessionModules[1]->m_hasConnectedToRemoteServer);
 			// EXPECT_FALSE(sessionModules[1]->m_hasConnectedToRemoteClient);
@@ -245,6 +254,9 @@ namespace ngine::Tests::Network
 					return localClientComponent.IsConnected();
 				}
 			);
+
+			// Perform one last tick for the disconnect to finish
+			engine.DoTick();
 		}
 
 		EXPECT_FALSE(sessionModules[0]->m_hasConnectedToRemoteServer);
@@ -380,7 +392,8 @@ namespace ngine::Tests::Network
 			Session::LocalHost::Initializer{
 				Entity::Data::HierarchyComponent::DynamicInitializer{host, sceneRegistries[0]},
 				Network::AnyIPAddress,
-				maximumClientCount
+				maximumClientCount,
+				Network::LocalPeer::UpdateMode::EngineTick
 			}
 		);
 
@@ -439,7 +452,15 @@ namespace ngine::Tests::Network
 		EXPECT_TRUE(components[0].IsValid());
 
 		{
-			localClientComponent.Connect(client, Address(IO::URI(MAKE_URI("localhost"))));
+			const uint8 maximumChannelCount = 2;
+			const uint32 connectionUserData = 0;
+			localClientComponent.Connect(
+				client,
+				Address(IO::URI(MAKE_URI("localhost"))),
+				maximumChannelCount,
+				connectionUserData,
+				Network::LocalPeer::UpdateMode::EngineTick
+			);
 
 			// Start binding the client's equivalent of this component
 			boundComponents[1] = *components[1]->CreateDataComponent<Session::BoundComponent>(
@@ -480,8 +501,12 @@ namespace ngine::Tests::Network
 
 		{
 			Channel channel{0};
-			const bool wasSent =
-				boundComponents[0]->BroadcastToAllClients<&Bound3DComponent::ServerToClient>(*components[0], sceneRegistries[0], channel, MessageData{4321, 4.321f});
+			const bool wasSent = boundComponents[0]->BroadcastToAllClients<&Bound3DComponent::ServerToClient>(
+				*components[0],
+				sceneRegistries[0],
+				channel,
+				MessageData{4321, 4.321f}
+			);
 			EXPECT_TRUE(wasSent);
 		}
 
@@ -503,6 +528,9 @@ namespace ngine::Tests::Network
 					return localClientComponent.IsConnected();
 				}
 			);
+
+			// Perform one last tick for the disconnect to finish
+			engine.DoTick();
 		}
 	}
 
@@ -642,7 +670,8 @@ namespace ngine::Tests::Network
 			Session::LocalHost::Initializer{
 				Entity::Data::HierarchyComponent::DynamicInitializer{host, sceneRegistries[0]},
 				Network::AnyIPAddress,
-				maximumClientCount
+				maximumClientCount,
+				Network::LocalPeer::UpdateMode::EngineTick
 			}
 		);
 
@@ -712,7 +741,15 @@ namespace ngine::Tests::Network
 		EXPECT_TRUE(components[0].IsValid());
 
 		{
-			localClientComponent.Connect(client, Address(IO::URI(MAKE_URI("localhost"))));
+			const uint8 maximumChannelCount = 2;
+			const uint32 connectionUserData = 0;
+			localClientComponent.Connect(
+				client,
+				Address(IO::URI(MAKE_URI("localhost"))),
+				maximumChannelCount,
+				connectionUserData,
+				Network::LocalPeer::UpdateMode::EngineTick
+			);
 
 			// Start binding the client's equivalent of this component
 			boundComponents[1] = *components[1]->CreateDataComponent<Session::BoundComponent>(
@@ -753,8 +790,12 @@ namespace ngine::Tests::Network
 
 		{
 			Channel channel{0};
-			const bool wasSent =
-				boundComponents[0]->BroadcastToAllClients<&BoundDataComponent::ServerToClient>(*components[0], sceneRegistries[0], channel, MessageData{4321, 4.321f});
+			const bool wasSent = boundComponents[0]->BroadcastToAllClients<&BoundDataComponent::ServerToClient>(
+				*components[0],
+				sceneRegistries[0],
+				channel,
+				MessageData{4321, 4.321f}
+			);
 			EXPECT_TRUE(wasSent);
 		}
 
@@ -776,6 +817,9 @@ namespace ngine::Tests::Network
 					return localClientComponent.IsConnected();
 				}
 			);
+
+			// Perform one last tick for the disconnect to finish
+			engine.DoTick();
 		}
 	}
 
@@ -910,7 +954,8 @@ namespace ngine::Tests::Network
 			Session::LocalHost::Initializer{
 				Entity::Data::HierarchyComponent::DynamicInitializer{host, sceneRegistries[0]},
 				Network::AnyIPAddress,
-				maximumClientCount
+				maximumClientCount,
+				Network::LocalPeer::UpdateMode::EngineTick
 			}
 		);
 
@@ -969,7 +1014,15 @@ namespace ngine::Tests::Network
 		EXPECT_TRUE(components[0].IsValid());
 
 		{
-			localClientComponent.Connect(client, Address(IO::URI(MAKE_URI("localhost"))));
+			const uint8 maximumChannelCount = 2;
+			const uint32 connectionUserData = 0;
+			localClientComponent.Connect(
+				client,
+				Address(IO::URI(MAKE_URI("localhost"))),
+				maximumChannelCount,
+				connectionUserData,
+				Network::LocalPeer::UpdateMode::EngineTick
+			);
 
 			// Start binding the client's equivalent of this component
 			boundComponents[1] = *components[1]->CreateDataComponent<Session::BoundComponent>(
@@ -992,8 +1045,10 @@ namespace ngine::Tests::Network
 			components[0]->m_propagatedServerToClientFlags.Set(PropagatedFlags::Sixteen);
 			EXPECT_TRUE(components[1]->m_propagatedServerToClientFlags.AreNoneSet());
 
-			const bool wasInvalidated =
-				boundComponents[0]->InvalidateProperties<&Bound3DComponentPropagation::m_propagatedServerToClientFlags>(*components[0], sceneRegistries[0]);
+			const bool wasInvalidated = boundComponents[0]->InvalidateProperties<&Bound3DComponentPropagation::m_propagatedServerToClientFlags>(
+				*components[0],
+				sceneRegistries[0]
+			);
 			EXPECT_TRUE(wasInvalidated);
 
 			// Run the main thread job runner until we received the message
@@ -1034,8 +1089,10 @@ namespace ngine::Tests::Network
 			components[1]->m_propagatedClientToServerFlags.Set(PropagatedFlags::ThirtyTwo);
 			EXPECT_TRUE(components[0]->m_propagatedClientToServerFlags.AreNoneSet());
 
-			const bool wasInvalidated =
-				boundComponents[1]->InvalidateProperties<&Bound3DComponentPropagation::m_propagatedClientToServerFlags>(*components[1], sceneRegistries[1]);
+			const bool wasInvalidated = boundComponents[1]->InvalidateProperties<&Bound3DComponentPropagation::m_propagatedClientToServerFlags>(
+				*components[1],
+				sceneRegistries[1]
+			);
 			EXPECT_TRUE(wasInvalidated);
 
 			// Run the main thread job runner until we received the message
@@ -1059,6 +1116,9 @@ namespace ngine::Tests::Network
 					return localClientComponent.IsConnected();
 				}
 			);
+
+			// Perform one last tick for the disconnect to finish
+			engine.DoTick();
 		}
 	}
 
@@ -1158,7 +1218,8 @@ namespace ngine::Tests::Network
 			Session::LocalHost::Initializer{
 				Entity::Data::HierarchyComponent::DynamicInitializer{host, sceneRegistries[0]},
 				Network::AnyIPAddress,
-				maximumClientCount
+				maximumClientCount,
+				Network::LocalPeer::UpdateMode::EngineTick
 			}
 		);
 
@@ -1228,7 +1289,15 @@ namespace ngine::Tests::Network
 		EXPECT_TRUE(components[0].IsValid());
 
 		{
-			localClientComponent.Connect(client, Address(IO::URI(MAKE_URI("localhost"))));
+			const uint8 maximumChannelCount = 2;
+			const uint32 connectionUserData = 0;
+			localClientComponent.Connect(
+				client,
+				Address(IO::URI(MAKE_URI("localhost"))),
+				maximumChannelCount,
+				connectionUserData,
+				Network::LocalPeer::UpdateMode::EngineTick
+			);
 
 			// Start binding the client's equivalent of this component
 			boundComponents[1] = *components[1]->CreateDataComponent<Session::BoundComponent>(
@@ -1251,8 +1320,10 @@ namespace ngine::Tests::Network
 			boundDataComponents[0]->m_propagatedServerToClientFlags.Set(PropagatedFlags::Sixteen);
 			EXPECT_TRUE(boundDataComponents[1]->m_propagatedServerToClientFlags.AreNoneSet());
 
-			const bool wasInvalidated =
-				boundComponents[0]->InvalidateProperties<&BoundDataPropagationComponent::m_propagatedServerToClientFlags>(*components[0], sceneRegistries[0]);
+			const bool wasInvalidated = boundComponents[0]->InvalidateProperties<&BoundDataPropagationComponent::m_propagatedServerToClientFlags>(
+				*components[0],
+				sceneRegistries[0]
+			);
 			EXPECT_TRUE(wasInvalidated);
 
 			// Run the main thread job runner until we received the message
@@ -1293,8 +1364,10 @@ namespace ngine::Tests::Network
 			boundDataComponents[1]->m_propagatedClientToServerFlags.Set(PropagatedFlags::ThirtyTwo);
 			EXPECT_TRUE(boundDataComponents[0]->m_propagatedClientToServerFlags.AreNoneSet());
 
-			const bool wasInvalidated =
-				boundComponents[1]->InvalidateProperties<&BoundDataPropagationComponent::m_propagatedClientToServerFlags>(*components[1], sceneRegistries[1]);
+			const bool wasInvalidated = boundComponents[1]->InvalidateProperties<&BoundDataPropagationComponent::m_propagatedClientToServerFlags>(
+				*components[1],
+				sceneRegistries[1]
+			);
 			EXPECT_TRUE(wasInvalidated);
 
 			// Run the main thread job runner until we received the message
@@ -1318,6 +1391,9 @@ namespace ngine::Tests::Network
 					return localClientComponent.IsConnected();
 				}
 			);
+
+			// Perform one last tick for the disconnect to finish
+			engine.DoTick();
 		}
 	}
 
@@ -1366,7 +1442,8 @@ namespace ngine::Tests::Network
 			Session::LocalHost::Initializer{
 				Entity::Data::HierarchyComponent::DynamicInitializer{host, sceneRegistries[0]},
 				Network::AnyIPAddress,
-				maximumClientCount
+				maximumClientCount,
+				Network::LocalPeer::UpdateMode::EngineTick
 			}
 		);
 
@@ -1425,7 +1502,15 @@ namespace ngine::Tests::Network
 		EXPECT_TRUE(components[0].IsValid());
 
 		{
-			localClientComponent.Connect(client, Address(IO::URI(MAKE_URI("localhost"))));
+			const uint8 maximumChannelCount = 2;
+			const uint32 connectionUserData = 0;
+			localClientComponent.Connect(
+				client,
+				Address(IO::URI(MAKE_URI("localhost"))),
+				maximumChannelCount,
+				connectionUserData,
+				Network::LocalPeer::UpdateMode::EngineTick
+			);
 
 			// Start binding the client's equivalent of this component
 			boundComponents[1] = *components[1]->CreateDataComponent<Session::BoundComponent>(
@@ -1441,8 +1526,11 @@ namespace ngine::Tests::Network
 			);
 		}
 
-		const Optional<Entity::HierarchyComponentBase*> pLocalComponent =
-			boundComponents[0]->SpawnBoundChildOnAllClients(*components[0], sceneRegistries[0], *sceneRegistries[0].FindComponentTypeData<Entity::Component3D>());
+		const Optional<Entity::HierarchyComponentBase*> pLocalComponent = boundComponents[0]->SpawnBoundChildOnAllClients(
+			*components[0],
+			sceneRegistries[0],
+			*sceneRegistries[0].FindComponentTypeData<Entity::Component3D>()
+		);
 		EXPECT_TRUE(pLocalComponent.IsValid());
 		EXPECT_TRUE(pLocalComponent->Is<Entity::Component3D>());
 		EXPECT_TRUE(pLocalComponent->HasDataComponentOfType<Session::BoundComponent>(sceneRegistries[0]));
@@ -1469,6 +1557,9 @@ namespace ngine::Tests::Network
 					return localClientComponent.IsConnected();
 				}
 			);
+
+			// Perform one last tick for the disconnect to finish
+			engine.DoTick();
 		}
 	}
 
@@ -1525,7 +1616,8 @@ namespace ngine::Tests::Network
 			Session::LocalHost::Initializer{
 				Entity::Data::HierarchyComponent::DynamicInitializer{host, sceneRegistries[0]},
 				Network::AnyIPAddress,
-				maximumClientCount
+				maximumClientCount,
+				Network::LocalPeer::UpdateMode::EngineTick
 			}
 		);
 
@@ -1576,7 +1668,15 @@ namespace ngine::Tests::Network
 		EXPECT_TRUE(components[0].IsValid());
 
 		{
-			localClientComponent.Connect(client, Address(IO::URI(MAKE_URI("localhost"))));
+			const uint8 maximumChannelCount = 2;
+			const uint32 connectionUserData = 0;
+			localClientComponent.Connect(
+				client,
+				Address(IO::URI(MAKE_URI("localhost"))),
+				maximumChannelCount,
+				connectionUserData,
+				Network::LocalPeer::UpdateMode::EngineTick
+			);
 
 			// Start binding the client's equivalent of this component
 			boundComponents[1] = *components[1]->CreateDataComponent<Session::BoundComponent>(
@@ -1592,8 +1692,11 @@ namespace ngine::Tests::Network
 			);
 		}
 
-		const Optional<Entity::Data::Component*> pLocalComponent =
-			boundComponents[0]->AddDataComponent(*components[0], sceneRegistries[0], *sceneRegistries[0].GetOrCreateComponentTypeData<BoundDataComponent>());
+		const Optional<Entity::Data::Component*> pLocalComponent = boundComponents[0]->AddDataComponent(
+			*components[0],
+			sceneRegistries[0],
+			*sceneRegistries[0].GetOrCreateComponentTypeData<BoundDataComponent>()
+		);
 		EXPECT_TRUE(pLocalComponent.IsValid());
 		EXPECT_TRUE(components[0]->HasDataComponentOfType<BoundDataComponent>(sceneRegistries[0]));
 
@@ -1615,6 +1718,9 @@ namespace ngine::Tests::Network
 					return localClientComponent.IsConnected();
 				}
 			);
+
+			// Perform one last tick for the disconnect to finish
+			engine.DoTick();
 		}
 	}
 }

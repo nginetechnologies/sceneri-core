@@ -78,7 +78,17 @@ namespace ngine::Tests::Network
 		[[maybe_unused]] Manager& networkManager = *System::FindPlugin<Manager>();
 		LocalHost localHost;
 		constexpr uint8 maximumClientCount = 1;
-		localHost.Start(Network::AnyIPAddress, maximumClientCount);
+		const uint8 maximumChannelCount = 2;
+		const uint32 incomingBandwidth = 0;
+		const uint32 outgoingBandwidth = 0;
+		localHost.Start(
+			Network::AnyIPAddress,
+			maximumClientCount,
+			maximumChannelCount,
+			incomingBandwidth,
+			outgoingBandwidth,
+			Network::LocalPeer::UpdateMode::EngineTick
+		);
 
 		AtomicEnumFlags<StateFlags> stateFlags{StateFlags::All};
 		ClientIdentifier savedClientIdentifier;
@@ -130,18 +140,36 @@ namespace ngine::Tests::Network
 		);
 
 		localClient.Start();
-		Network::RemoteHost remoteHost = localClient.Connect(Address(IO::URI(MAKE_URI("localhost"))));
+		const uint32 connectionUserData = 0;
+		Network::RemoteHost remoteHost = localClient.Connect(
+			Address(IO::URI(MAKE_URI("localhost"))),
+			maximumChannelCount,
+			connectionUserData,
+			Network::LocalPeer::UpdateMode::EngineTick
+		);
 		EXPECT_TRUE(remoteHost.IsValid());
 
 		// Run the main thread job runner until we finished loading
 		RunMainThreadJobRunner(
-			[&stateFlags]()
+			[&stateFlags, &localClient]()
 			{
-				return stateFlags.AreAnySet(StateFlags::All);
+				return stateFlags.AreAnySet(StateFlags::All) || localClient.IsQueuedOrExecuting();
 			}
 		);
 
 		EXPECT_EQ(stateFlags, StateFlags{});
+
+		// Perform one last tick for the disconnect to finish
+		engine.DoTick();
+
+		localHost.Stop();
+		// Run the main thread job runner until the host is ready to shut down
+		RunMainThreadJobRunner(
+			[&localHost]()
+			{
+				return localHost.IsQueuedOrExecuting();
+			}
+		);
 	}
 
 	struct ClientToServerMessageData
@@ -360,7 +388,17 @@ namespace ngine::Tests::Network
 		[[maybe_unused]] Manager& networkManager = *System::FindPlugin<Manager>();
 		LocalHost localHost;
 		constexpr uint8 maximumClientCount = 1;
-		localHost.Start(Address(IPAddress::Any()), maximumClientCount);
+		const uint8 maximumChannelCount = 2;
+		const uint32 incomingBandwidth = 0;
+		const uint32 outgoingBandwidth = 0;
+		localHost.Start(
+			Network::AnyIPAddress,
+			maximumClientCount,
+			maximumChannelCount,
+			incomingBandwidth,
+			outgoingBandwidth,
+			Network::LocalPeer::UpdateMode::EngineTick
+		);
 
 		const MessageTypeIdentifier clientToServerMessageTypeIdentifier = localHost.FindMessageIdentifier<&ClientToServerMessage>();
 		bool once{false};
@@ -384,7 +422,13 @@ namespace ngine::Tests::Network
 		);
 
 		localClient.Start();
-		Network::RemoteHost remoteHost = localClient.Connect(Address(IO::URI(MAKE_URI("localhost"))));
+		const uint32 connectionUserData = 0;
+		Network::RemoteHost remoteHost = localClient.Connect(
+			Address(IO::URI(MAKE_URI("localhost"))),
+			maximumChannelCount,
+			connectionUserData,
+			Network::LocalPeer::UpdateMode::EngineTick
+		);
 		EXPECT_TRUE(remoteHost.IsValid());
 
 		// Run the main thread job runner until we finished loading
@@ -403,9 +447,21 @@ namespace ngine::Tests::Network
 			RunMainThreadJobRunner(
 				[&localClient]()
 				{
-					return localClient.IsConnected();
+					return localClient.IsConnected() || localClient.IsQueuedOrExecuting();
 				}
 			);
 		}
+
+		// Perform one last tick for the disconnect to finish
+		engine.DoTick();
+
+		localHost.Stop();
+		// Run the main thread job runner until the host is ready to shut down
+		RunMainThreadJobRunner(
+			[&localHost]()
+			{
+				return localHost.IsQueuedOrExecuting();
+			}
+		);
 	}
 }

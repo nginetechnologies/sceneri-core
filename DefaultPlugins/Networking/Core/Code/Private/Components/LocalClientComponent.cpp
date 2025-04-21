@@ -112,7 +112,18 @@ namespace ngine::Network::Session
 		);
 	}
 
-	bool LocalClient::Connect(Client& owner, const Network::Address address, const uint8 maximumChannelCount, const uint32 connectionUserData)
+	void LocalClient::OnDestroying()
+	{
+		m_localClient.ForceDisconnect();
+	}
+
+	bool LocalClient::Connect(
+		Client& owner,
+		const Network::Address address,
+		const uint8 maximumChannelCount,
+		const uint32 connectionUserData,
+		const Network::LocalPeer::UpdateMode updateMode
+	)
 	{
 		if (m_localClient.IsConnectingOrConnected() || m_localClient.IsConnected())
 		{
@@ -122,7 +133,7 @@ namespace ngine::Network::Session
 
 		[[maybe_unused]] const bool wasStarted = m_localClient.Start(maximumChannelCount);
 		Assert(wasStarted);
-		const bool connected = m_localClient.Connect(address, maximumChannelCount, connectionUserData).IsValid();
+		const bool connected = m_localClient.Connect(address, maximumChannelCount, connectionUserData, updateMode).IsValid();
 		owner.SetClientIdentifier(m_localClient.GetIdentifier());
 		return connected;
 	}

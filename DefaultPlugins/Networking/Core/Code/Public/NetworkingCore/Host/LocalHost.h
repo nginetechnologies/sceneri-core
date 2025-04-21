@@ -30,7 +30,8 @@ namespace ngine::Network
 			const uint32 maximumClientCount,
 			const uint8 maximumChannelCount = 2,
 			const uint32 incomingBandwidth = 0,
-			const uint32 outgoingBandwidth = 0
+			const uint32 outgoingBandwidth = 0,
+			const UpdateMode updateMode = DefaultUpdateMode
 		);
 		void Stop();
 
@@ -746,8 +747,7 @@ namespace ngine::Network
 			const BoundObjectIdentifier boundObjectIdentifier, const RemotePeer remotePeer, const EnumFlags<MessageTypeFlags> messageTypeFlags
 		) const override final;
 	private:
-		void EnableUpdate();
-		void DisableUpdate();
+		void ChangeUpdateMode(const UpdateMode mode);
 
 		void OnReceivedPropertyStream(
 			const MessageTypeIdentifier messageTypeIdentifier, const RemoteClient remoteHost, const Channel, ConstBitView& messageView

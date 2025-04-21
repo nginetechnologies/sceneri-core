@@ -67,7 +67,7 @@ namespace ngine::Network
 
 	//! Represents a local host or local client
 	//! Must be registered for updates to function
-	struct LocalPeer : public LocalPeerView, protected Threading::Job
+	struct LocalPeer : public LocalPeerView, public Threading::Job
 	{
 		LocalPeer()
 			: Job(Threading::JobPriority::RealtimeNetworking)
@@ -84,6 +84,16 @@ namespace ngine::Network
 		{
 		}
 		~LocalPeer();
+
+		enum class UpdateMode : uint8
+		{
+			Disabled,
+			//! Network updates are done completely asynchronously on a fixed update rate
+			Asynchronous,
+			//! Network updates are 1:1 tied to engine ticks
+			EngineTick
+		};
+		inline static constexpr UpdateMode DefaultUpdateMode{UpdateMode::EngineTick};
 
 		virtual void OnAwaitExternalFinish(Threading::JobRunnerThread& thread) override final;
 
@@ -631,9 +641,9 @@ namespace ngine::Network
 			const BoundObjectIdentifier boundObjectIdentifier, const Guid typeGuid, const EnumFlags<MessageTypeFlags> messageTypeFlags
 		);
 
-		void EnableUpdate();
-		void DisableUpdate();
+		void ChangeUpdateMode(const UpdateMode mode);
 	protected:
+		UpdateMode m_updateMode{UpdateMode::Disabled};
 		Threading::Mutex m_updateMutex;
 
 		TIdentifierArray<MessageType, MessageTypeIdentifier> m_messageTypes{Memory::Zeroed};

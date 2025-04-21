@@ -376,7 +376,17 @@ namespace ngine::Tests::Network
 
 		Network::LocalHost host;
 		constexpr uint8 maximumClientCount = 1;
-		host.Start(Network::AnyIPAddress, maximumClientCount);
+		const uint8 maximumChannelCount = 2;
+		const uint32 incomingBandwidth = 0;
+		const uint32 outgoingBandwidth = 0;
+		host.Start(
+			Network::AnyIPAddress,
+			maximumClientCount,
+			maximumChannelCount,
+			incomingBandwidth,
+			outgoingBandwidth,
+			Network::LocalPeer::UpdateMode::EngineTick
+		);
 
 		constexpr Guid boundObjectGuid = "b918cde0-272f-4dec-8467-54b2e3c29154"_guid;
 
@@ -413,7 +423,13 @@ namespace ngine::Tests::Network
 				}
 			);
 
-			Network::RemoteHost remoteHost = localClient.Connect(Address(IO::URI(MAKE_URI("localhost"))));
+			const uint32 connectionUserData = 0;
+			Network::RemoteHost remoteHost = localClient.Connect(
+				Address(IO::URI(MAKE_URI("localhost"))),
+				maximumChannelCount,
+				connectionUserData,
+				Network::LocalPeer::UpdateMode::EngineTick
+			);
 			EXPECT_TRUE(remoteHost.IsValid());
 
 			BoundObjectIdentifier clientBoundObjectIdentifier;
@@ -453,12 +469,24 @@ namespace ngine::Tests::Network
 
 			// Run the main thread job runner until we finished disconnecting
 			RunMainThreadJobRunner(
-				[&hasDisconnected]()
+				[&hasDisconnected, &localClient]()
 				{
-					return !hasDisconnected;
+					return !hasDisconnected || localClient.IsQueuedOrExecuting();
 				}
 			);
+
+			// Perform one last tick for the disconnect to finish
+			engine.DoTick();
 		}
+
+		host.Stop();
+		// Run the main thread job runner until the host is ready to shut down
+		RunMainThreadJobRunner(
+			[&host]()
+			{
+				return host.IsQueuedOrExecuting();
+			}
+		);
 	}
 
 	FEATURE_TEST(Networking, BindObjectAndMessageStandaloneServer)
@@ -497,7 +525,17 @@ namespace ngine::Tests::Network
 
 		Network::LocalHost host;
 		constexpr uint8 maximumClientCount = 1;
-		host.Start(Network::AnyIPAddress, maximumClientCount);
+		const uint8 maximumChannelCount = 2;
+		const uint32 incomingBandwidth = 0;
+		const uint32 outgoingBandwidth = 0;
+		host.Start(
+			Network::AnyIPAddress,
+			maximumClientCount,
+			maximumChannelCount,
+			incomingBandwidth,
+			outgoingBandwidth,
+			Network::LocalPeer::UpdateMode::EngineTick
+		);
 
 		constexpr Guid boundObjectGuid = "0952ad47-492b-4db7-a519-76af8b79725e"_guid;
 
@@ -534,7 +572,13 @@ namespace ngine::Tests::Network
 				}
 			);
 
-			Network::RemoteHost remoteHost = localClient.Connect(Address(IO::URI(MAKE_URI("localhost"))));
+			const uint32 connectionUserData = 0;
+			Network::RemoteHost remoteHost = localClient.Connect(
+				Address(IO::URI(MAKE_URI("localhost"))),
+				maximumChannelCount,
+				connectionUserData,
+				Network::LocalPeer::UpdateMode::EngineTick
+			);
 			EXPECT_TRUE(remoteHost.IsValid());
 
 			BoundObjectIdentifier clientBoundObjectIdentifier;
@@ -612,12 +656,24 @@ namespace ngine::Tests::Network
 
 			// Run the main thread job runner until we finished disconnecting
 			RunMainThreadJobRunner(
-				[&hasDisconnected]()
+				[&hasDisconnected, &localClient]()
 				{
-					return !hasDisconnected;
+					return !hasDisconnected || localClient.IsQueuedOrExecuting();
 				}
 			);
+
+			// Perform one last tick for the disconnect to finish
+			engine.DoTick();
 		}
+
+		host.Stop();
+		// Run the main thread job runner until the host is ready to shut down
+		RunMainThreadJobRunner(
+			[&host]()
+			{
+				return host.IsQueuedOrExecuting();
+			}
+		);
 	}
 
 	FEATURE_TEST(Networking, BindObjectAndDelegateAuthorityStandaloneServer)
@@ -656,7 +712,17 @@ namespace ngine::Tests::Network
 
 		Network::LocalHost host;
 		constexpr uint8 maximumClientCount = 2;
-		host.Start(Network::AnyIPAddress, maximumClientCount);
+		const uint8 maximumChannelCount = 2;
+		const uint32 incomingBandwidth = 0;
+		const uint32 outgoingBandwidth = 0;
+		host.Start(
+			Network::AnyIPAddress,
+			maximumClientCount,
+			maximumChannelCount,
+			incomingBandwidth,
+			outgoingBandwidth,
+			Network::LocalPeer::UpdateMode::EngineTick
+		);
 
 		constexpr Guid boundObjectGuid = "0952ad47-492b-4db7-a519-76af8b79725e"_guid;
 
@@ -698,7 +764,13 @@ namespace ngine::Tests::Network
 				}
 			);
 
-			Network::RemoteHost remoteHost = localClient.Connect(Address(IO::URI(MAKE_URI("localhost"))));
+			const uint32 connectionUserData = 0;
+			Network::RemoteHost remoteHost = localClient.Connect(
+				Address(IO::URI(MAKE_URI("localhost"))),
+				maximumChannelCount,
+				connectionUserData,
+				Network::LocalPeer::UpdateMode::EngineTick
+			);
 			EXPECT_TRUE(remoteHost.IsValid());
 
 			BoundObjectIdentifier clientBoundObjectIdentifier;
@@ -925,11 +997,14 @@ namespace ngine::Tests::Network
 
 			// Run the main thread job runner until we finished disconnecting
 			RunMainThreadJobRunner(
-				[&hasDisconnected]()
+				[&hasDisconnected, &localClient, &host]()
 				{
-					return !hasDisconnected;
+					return !hasDisconnected || localClient.IsQueuedOrExecuting() || host.IsQueuedOrExecuting();
 				}
 			);
+
+			// Perform one last tick for the disconnect to finish
+			engine.DoTick();
 		}
 	}
 
@@ -969,7 +1044,17 @@ namespace ngine::Tests::Network
 
 		Network::LocalHost host;
 		constexpr uint8 maximumClientCount = 2;
-		host.Start(Network::AnyIPAddress, maximumClientCount);
+		const uint8 maximumChannelCount = 2;
+		const uint32 incomingBandwidth = 0;
+		const uint32 outgoingBandwidth = 0;
+		host.Start(
+			Network::AnyIPAddress,
+			maximumClientCount,
+			maximumChannelCount,
+			incomingBandwidth,
+			outgoingBandwidth,
+			Network::LocalPeer::UpdateMode::EngineTick
+		);
 
 		constexpr Guid boundObjectGuid = "0952ad47-492b-4db7-a519-76af8b79725e"_guid;
 
@@ -1012,7 +1097,13 @@ namespace ngine::Tests::Network
 				}
 			);
 
-			Network::RemoteHost remoteHost = localClient.Connect(Address(IO::URI(MAKE_URI("localhost"))));
+			const uint32 connectionUserData = 0;
+			Network::RemoteHost remoteHost = localClient.Connect(
+				Address(IO::URI(MAKE_URI("localhost"))),
+				maximumChannelCount,
+				connectionUserData,
+				Network::LocalPeer::UpdateMode::EngineTick
+			);
 			EXPECT_TRUE(remoteHost.IsValid());
 
 			BoundObjectIdentifier clientBoundObjectIdentifier;
@@ -1223,11 +1314,23 @@ namespace ngine::Tests::Network
 
 			// Run the main thread job runner until we finished disconnecting
 			RunMainThreadJobRunner(
-				[&hasDisconnected]()
+				[&hasDisconnected, &localClient]()
 				{
-					return !hasDisconnected;
+					return !hasDisconnected || localClient.IsQueuedOrExecuting();
 				}
 			);
+
+			// Perform one last tick for the disconnect to finish
+			engine.DoTick();
 		}
+
+		host.Stop();
+		// Run the main thread job runner until the host is ready to shut down
+		RunMainThreadJobRunner(
+			[&host]()
+			{
+				return host.IsQueuedOrExecuting();
+			}
+		);
 	}
 }

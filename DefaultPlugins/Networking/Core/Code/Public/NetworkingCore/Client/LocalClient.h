@@ -34,7 +34,12 @@ namespace ngine::Network
 		);
 		void Stop();
 
-		RemoteHost Connect(const Address address, const uint32 maximumChannelCount = 2, const uint32 connectionUserData = 0);
+		RemoteHost Connect(
+			const Address address,
+			const uint32 maximumChannelCount = 2,
+			const uint32 connectionUserData = 0,
+			const UpdateMode updateMode = DefaultUpdateMode
+		);
 		void Disconnect();
 		void ForceDisconnect();
 
@@ -404,8 +409,7 @@ namespace ngine::Network
 	private:
 		void RegisterDefaultMessages();
 
-		void EnableUpdate();
-		void DisableUpdate();
+		void ChangeUpdateMode(const UpdateMode mode);
 	protected:
 		AtomicEnumFlags<Flags> m_flags;
 
