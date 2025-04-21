@@ -131,11 +131,17 @@ namespace ngine::Network::Session
 			m_localClient.Stop();
 		}
 
-		[[maybe_unused]] const bool wasStarted = m_localClient.Start(maximumChannelCount);
-		Assert(wasStarted);
-		const bool connected = m_localClient.Connect(address, maximumChannelCount, connectionUserData, updateMode).IsValid();
-		owner.SetClientIdentifier(m_localClient.GetIdentifier());
-		return connected;
+		const bool wasStarted = m_localClient.Start(maximumChannelCount);
+		if (Ensure(wasStarted))
+		{
+			const bool connected = m_localClient.Connect(address, maximumChannelCount, connectionUserData, updateMode).IsValid();
+			owner.SetClientIdentifier(m_localClient.GetIdentifier());
+			return connected;
+		}
+		else
+		{
+			return false;
+		}
 	}
 
 	void LocalClient::Disconnect(Client&)

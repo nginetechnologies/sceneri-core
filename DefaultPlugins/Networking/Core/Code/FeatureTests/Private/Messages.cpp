@@ -145,6 +145,12 @@ namespace ngine::Tests::Network
 		);
 
 		localClient.Start();
+		EXPECT_TRUE(localClient.IsValid());
+		if (!localClient.IsValid())
+		{
+			return;
+		}
+
 		const uint32 connectionUserData = 0;
 		Network::RemoteHost remoteHost = localClient.Connect(
 			Address(IO::URI(MAKE_URI("localhost"))),
@@ -432,6 +438,12 @@ namespace ngine::Tests::Network
 		);
 
 		localClient.Start();
+		EXPECT_TRUE(localClient.IsValid());
+		if (!localClient.IsValid())
+		{
+			return;
+		}
+
 		const uint32 connectionUserData = 0;
 		Network::RemoteHost remoteHost = localClient.Connect(
 			Address(IO::URI(MAKE_URI("localhost"))),

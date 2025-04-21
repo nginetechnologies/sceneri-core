@@ -416,6 +416,11 @@ namespace ngine::Tests::Network
 
 		Network::LocalClient localClient;
 		localClient.Start();
+		EXPECT_TRUE(localClient.IsValid());
+		if (!localClient.IsValid())
+		{
+			return;
+		}
 
 		{
 			Threading::Atomic<bool> hasConnected{0};
@@ -565,6 +570,11 @@ namespace ngine::Tests::Network
 
 		LocalClient localClient;
 		localClient.Start();
+		EXPECT_TRUE(localClient.IsValid());
+		if (!localClient.IsValid())
+		{
+			return;
+		}
 
 		{
 			Threading::Atomic<bool> hasConnected{0};
@@ -759,6 +769,11 @@ namespace ngine::Tests::Network
 		for (LocalClient& localClient : localClients)
 		{
 			localClient.Start();
+			EXPECT_TRUE(localClient.IsValid());
+			if (!localClient.IsValid())
+			{
+				return;
+			}
 		}
 
 		for (LocalClient& localClient : localClients)
@@ -1097,6 +1112,11 @@ namespace ngine::Tests::Network
 		for (LocalClient& localClient : localClients)
 		{
 			localClient.Start();
+			EXPECT_TRUE(localClient.IsValid());
+			if (!localClient.IsValid())
+			{
+				return;
+			}
 		}
 
 		for (LocalClient& localClient : localClients)

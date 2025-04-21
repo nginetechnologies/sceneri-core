@@ -216,13 +216,18 @@ namespace ngine::Tests::Network
 
 			const uint8 maximumChannelCount = 2;
 			const uint32 connectionUserData = 0;
-			localClientComponent.Connect(
+			const bool startedConnecting = localClientComponent.Connect(
 				client,
 				Address(IO::URI(MAKE_URI("localhost"))),
 				maximumChannelCount,
 				connectionUserData,
 				Network::LocalPeer::UpdateMode::EngineTick
 			);
+			EXPECT_TRUE(startedConnecting);
+			if (!startedConnecting)
+			{
+				return;
+			}
 
 			// Start binding the client's equivalent of this component
 			boundComponents[1] = *components[1]->CreateDataComponent<Session::BoundComponent>(
@@ -464,13 +469,18 @@ namespace ngine::Tests::Network
 		{
 			const uint8 maximumChannelCount = 2;
 			const uint32 connectionUserData = 0;
-			localClientComponent.Connect(
+			const bool startedConnecting = localClientComponent.Connect(
 				client,
 				Address(IO::URI(MAKE_URI("localhost"))),
 				maximumChannelCount,
 				connectionUserData,
 				Network::LocalPeer::UpdateMode::EngineTick
 			);
+			EXPECT_TRUE(startedConnecting);
+			if (!startedConnecting)
+			{
+				return;
+			}
 
 			// Start binding the client's equivalent of this component
 			boundComponents[1] = *components[1]->CreateDataComponent<Session::BoundComponent>(
@@ -758,13 +768,18 @@ namespace ngine::Tests::Network
 		{
 			const uint8 maximumChannelCount = 2;
 			const uint32 connectionUserData = 0;
-			localClientComponent.Connect(
+			const bool startedConnecting = localClientComponent.Connect(
 				client,
 				Address(IO::URI(MAKE_URI("localhost"))),
 				maximumChannelCount,
 				connectionUserData,
 				Network::LocalPeer::UpdateMode::EngineTick
 			);
+			EXPECT_TRUE(startedConnecting);
+			if (!startedConnecting)
+			{
+				return;
+			}
 
 			// Start binding the client's equivalent of this component
 			boundComponents[1] = *components[1]->CreateDataComponent<Session::BoundComponent>(
@@ -1036,13 +1051,18 @@ namespace ngine::Tests::Network
 		{
 			const uint8 maximumChannelCount = 2;
 			const uint32 connectionUserData = 0;
-			localClientComponent.Connect(
+			const bool startedConnecting = localClientComponent.Connect(
 				client,
 				Address(IO::URI(MAKE_URI("localhost"))),
 				maximumChannelCount,
 				connectionUserData,
 				Network::LocalPeer::UpdateMode::EngineTick
 			);
+			EXPECT_TRUE(startedConnecting);
+			if (!startedConnecting)
+			{
+				return;
+			}
 
 			// Start binding the client's equivalent of this component
 			boundComponents[1] = *components[1]->CreateDataComponent<Session::BoundComponent>(
@@ -1316,13 +1336,18 @@ namespace ngine::Tests::Network
 		{
 			const uint8 maximumChannelCount = 2;
 			const uint32 connectionUserData = 0;
-			localClientComponent.Connect(
+			const bool startedConnecting = localClientComponent.Connect(
 				client,
 				Address(IO::URI(MAKE_URI("localhost"))),
 				maximumChannelCount,
 				connectionUserData,
 				Network::LocalPeer::UpdateMode::EngineTick
 			);
+			EXPECT_TRUE(startedConnecting);
+			if (!startedConnecting)
+			{
+				return;
+			}
 
 			// Start binding the client's equivalent of this component
 			boundComponents[1] = *components[1]->CreateDataComponent<Session::BoundComponent>(
@@ -1534,13 +1559,18 @@ namespace ngine::Tests::Network
 		{
 			const uint8 maximumChannelCount = 2;
 			const uint32 connectionUserData = 0;
-			localClientComponent.Connect(
+			const bool startedConnecting = localClientComponent.Connect(
 				client,
 				Address(IO::URI(MAKE_URI("localhost"))),
 				maximumChannelCount,
 				connectionUserData,
 				Network::LocalPeer::UpdateMode::EngineTick
 			);
+			EXPECT_TRUE(startedConnecting);
+			if (!startedConnecting)
+			{
+				return;
+			}
 
 			// Start binding the client's equivalent of this component
 			boundComponents[1] = *components[1]->CreateDataComponent<Session::BoundComponent>(
@@ -1705,13 +1735,18 @@ namespace ngine::Tests::Network
 		{
 			const uint8 maximumChannelCount = 2;
 			const uint32 connectionUserData = 0;
-			localClientComponent.Connect(
+			const bool startedConnecting = localClientComponent.Connect(
 				client,
 				Address(IO::URI(MAKE_URI("localhost"))),
 				maximumChannelCount,
 				connectionUserData,
 				Network::LocalPeer::UpdateMode::EngineTick
 			);
+			EXPECT_TRUE(startedConnecting);
+			if (!startedConnecting)
+			{
+				return;
+			}
 
 			// Start binding the client's equivalent of this component
 			boundComponents[1] = *components[1]->CreateDataComponent<Session::BoundComponent>(
