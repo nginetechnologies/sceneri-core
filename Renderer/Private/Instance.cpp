@@ -154,36 +154,36 @@ namespace ngine::Rendering
 			FixedSizeVector<VkExtensionProperties, uint16>
 				supportedExtensions(Memory::ConstructWithSize, Memory::Uninitialized, (uint16)supportedExtensionCount);
 			vkEnumerateInstanceExtensionProperties(nullptr, &supportedExtensionCount, supportedExtensions.GetData());
-
+			
 			constexpr uint8 MaximumVulkanInstanceExtensionCount = 16;
 			FlatVector<String, MaximumVulkanInstanceExtensionCount> enabledExtensions;
-			enabledExtensions.EmplaceBack(VK_KHR_SURFACE_EXTENSION_NAME);
+			
+			auto tryAddExtension = [supportedExtensions = supportedExtensions.GetView(), &enabledExtensions](const ConstStringView requestedExtension) -> bool
+			{
+				const bool isSupported = supportedExtensions.ContainsIf(
+					[requestedExtension](const VkExtensionProperties& extension) -> bool
+					{
+						return ConstStringView(extension.extensionName, (uint32)strlen(extension.extensionName)) ==
+						 requestedExtension;
+					}
+				);
+				if (isSupported)
+				{
+					enabledExtensions.EmplaceBack(requestedExtension);
+				}
+				return isSupported;
+			};
+
+			tryAddExtension(VK_KHR_SURFACE_EXTENSION_NAME);
+			tryAddExtension(VK_EXT_HEADLESS_SURFACE_EXTENSION_NAME);
 
 #if PLATFORM_WINDOWS
-			enabledExtensions.EmplaceBack(VK_KHR_WIN32_SURFACE_EXTENSION_NAME);
+			tryAddExtension(VK_KHR_WIN32_SURFACE_EXTENSION_NAME);
 #elif PLATFORM_ANDROID
-			enabledExtensions.EmplaceBack(VK_KHR_ANDROID_SURFACE_EXTENSION_NAME);
+			tryAddExtension(VK_KHR_ANDROID_SURFACE_EXTENSION_NAME);
 #elif PLATFORM_LINUX
-			if (supportedExtensions.ContainsIf(
-						[](const VkExtensionProperties& extension) -> bool
-						{
-							return ConstStringView(extension.extensionName, (uint32)strlen(extension.extensionName)) ==
-				             VK_KHR_XLIB_SURFACE_EXTENSION_NAME;
-						}
-					))
-			{
-				enabledExtensions.EmplaceBack(VK_KHR_XLIB_SURFACE_EXTENSION_NAME);
-			}
-			if (supportedExtensions.ContainsIf(
-						[](const VkExtensionProperties& extension) -> bool
-						{
-							return ConstStringView(extension.extensionName, (uint32)strlen(extension.extensionName)) ==
-				             VK_KHR_WAYLAND_SURFACE_EXTENSION_NAME;
-						}
-					))
-			{
-				enabledExtensions.EmplaceBack(VK_KHR_WAYLAND_SURFACE_EXTENSION_NAME);
-			}
+			tryAddExtension(VK_KHR_XLIB_SURFACE_EXTENSION_NAME);
+			tryAddExtension(VK_KHR_WAYLAND_SURFACE_EXTENSION_NAME);
 #endif
 
 			constexpr Array<ConstStringView, 1> desiredValidationLayers = {"VK_LAYER_KHRONOS_validation"};
@@ -191,16 +191,8 @@ namespace ngine::Rendering
 
 			if (creationFlags.IsSet(CreationFlags::Validation))
 			{
-				if (supportedExtensions.ContainsIf(
-							[](const VkExtensionProperties& extension) -> bool
-							{
-								return ConstStringView(extension.extensionName, (uint32)strlen(extension.extensionName)) ==
-					             VK_EXT_DEBUG_UTILS_EXTENSION_NAME;
-							}
-						))
+				if (tryAddExtension(VK_EXT_DEBUG_UTILS_EXTENSION_NAME))
 				{
-					enabledExtensions.EmplaceBack(VK_EXT_DEBUG_UTILS_EXTENSION_NAME);
-
 					uint32 layerCount;
 					vkEnumerateInstanceLayerProperties(&layerCount, nullptr);
 
@@ -234,16 +226,7 @@ namespace ngine::Rendering
 
 			if constexpr (ENABLE_NVIDIA_GPU_CHECKPOINTS)
 			{
-				if (supportedExtensions.ContainsIf(
-							[](const VkExtensionProperties& extension) -> bool
-							{
-								return ConstStringView(extension.extensionName, (uint32)strlen(extension.extensionName)) ==
-					             VK_KHR_GET_PHYSICAL_DEVICE_PROPERTIES_2_EXTENSION_NAME;
-							}
-						))
-				{
-					enabledExtensions.EmplaceBack(VK_KHR_GET_PHYSICAL_DEVICE_PROPERTIES_2_EXTENSION_NAME);
-				}
+				tryAddExtension(VK_KHR_GET_PHYSICAL_DEVICE_PROPERTIES_2_EXTENSION_NAME);
 			}
 
 			FixedSizeFlatVector<const char*, MaximumVulkanInstanceExtensionCount>
