@@ -88,21 +88,6 @@ public class NativeGameActivity extends GameActivity implements InputManager.Inp
             }
         }
 
-#if INCLUDE_APPSFLYER
-        AppsFlyerLib.getInstance().init("", null, this);
-        AppsFlyerLib.getInstance().start(this);
-
-        AppsFlyerLib.getInstance().subscribeForDeepLink(new DeepLinkListener() {
-            @Override
-            public void onDeepLinking(DeepLinkResult deepLinkResult) {
-                if (deepLinkResult.getStatus() == DeepLinkResult.Status.FOUND) {
-                    String deepLinkValue = deepLinkResult.getDeepLink().getDeepLinkValue();
-                    engineWrapper.OnReceiveUrlIntent(deepLinkValue);
-                }
-            }
-        });
-#endif
-
         engineWrapper = new com.scenericore.App.NativeEngineWrapper();
 
         credentialManager = CredentialManager.create(context);
