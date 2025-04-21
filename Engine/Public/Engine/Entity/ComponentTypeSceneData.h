@@ -1080,7 +1080,7 @@ namespace ngine::Entity
 						{
 							pComponent = CreateInstanceManualOnCreated(parent.GetIdentifier(), Move(dynamicInitializer));
 
-							if (UNLIKELY(!pComponent.IsInvalid()))
+							if (UNLIKELY(pComponent.IsInvalid()))
 							{
 								[[maybe_unused]] const bool wasRemoved = m_sceneRegistry.OnDataComponentDestroyed(parent.GetIdentifier(), GetIdentifier());
 								Assert(wasRemoved);
@@ -1101,7 +1101,7 @@ namespace ngine::Entity
 						{
 							pComponent = CreateInstanceManualOnCreated(parent.GetIdentifier(), Initializer(Move(dynamicInitializer)));
 
-							if (UNLIKELY(!pComponent.IsInvalid()))
+							if (UNLIKELY(pComponent.IsInvalid()))
 							{
 								[[maybe_unused]] const bool wasRemoved = m_sceneRegistry.OnDataComponentDestroyed(parent.GetIdentifier(), GetIdentifier());
 								Assert(wasRemoved);
@@ -1122,7 +1122,7 @@ namespace ngine::Entity
 						{
 							pComponent = CreateInstanceManualOnCreated(parent.GetIdentifier(), Initializer(dynamicInitializer));
 
-							if (UNLIKELY(!pComponent.IsInvalid()))
+							if (UNLIKELY(pComponent.IsInvalid()))
 							{
 								[[maybe_unused]] const bool wasRemoved = m_sceneRegistry.OnDataComponentDestroyed(parent.GetIdentifier(), GetIdentifier());
 								Assert(wasRemoved);
