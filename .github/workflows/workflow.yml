@@ -129,7 +129,7 @@ jobs:
     - name: configure
       run: |
         mkdir IntermediateMacOS
-        cmake -S . -B IntermediateMacOS --preset=macos-xcode -DCMAKE_BUILD_TYPE=Debug -DOPTION_BUILD_UNIT_TESTS=ON -DOPTION_BUILD_FEATURE_TESTS=ON -DOPTION_UNITY_BUILD=ON -DOPTION_CCACHE=ON -DOPTION_CONTINUOUS_INTEGRATION=ON
+        cmake -S . -B IntermediateMacOS --preset=macos-xcode -DCMAKE_BUILD_TYPE=Debug -DOPTION_BUILD_UNIT_TESTS=ON -DOPTION_BUILD_FEATURE_TESTS=ON -DOPTION_UNITY_BUILD=ON -DOPTION_CCACHE=ON -DOPTION_CONTINUOUS_INTEGRATION=ON -DOPTION_XCODE_DEVELOPMENT_TEAM=${{ secrets.XCODE_DEVELOPMENT_TEAM }}
     - name: build
       run: xcodebuild -parallelizeTargets -project IntermediateMacOS/sceneri-core.xcodeproj/ -target ALL_BUILD -configuration Debug -allowProvisioningUpdates build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
     - name: run tests
@@ -164,7 +164,7 @@ jobs:
     - name: configure
       run: |
         mkdir IntermediateiOS
-        cmake -S . -B IntermediateiOS --preset=iOS+macCatalyst-xcode -DCMAKE_BUILD_TYPE=RelWithDebInfo -DOPTION_UNITY_BUILD=ON -DOPTION_CCACHE=ON -DOPTION_CONTINUOUS_INTEGRATION=ON
+        cmake -S . -B IntermediateiOS --preset=iOS+macCatalyst-xcode -DCMAKE_BUILD_TYPE=RelWithDebInfo -DOPTION_UNITY_BUILD=ON -DOPTION_CCACHE=ON -DOPTION_CONTINUOUS_INTEGRATION=ON -DOPTION_PACKAGE=OFF
     - name: build
       run: xcodebuild -parallelizeTargets -project IntermediateiOS/sceneri-core.xcodeproj/ -target ALL_BUILD -configuration RelWithDebInfo -destination generic/platform=iOS -allowProvisioningUpdates build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
 
@@ -195,7 +195,7 @@ jobs:
     - name: configure
       run: |
         mkdir IntermediateVisionOS
-        cmake -S . -B IntermediateVisionOS --preset=visionOS-xcode -DCMAKE_BUILD_TYPE=Profile -DOPTION_UNITY_BUILD=ON -DOPTION_CCACHE=ON -DOPTION_CONTINUOUS_INTEGRATION=ON
+        cmake -S . -B IntermediateVisionOS --preset=visionOS-xcode -DCMAKE_BUILD_TYPE=Profile -DOPTION_UNITY_BUILD=ON -DOPTION_CCACHE=ON -DOPTION_CONTINUOUS_INTEGRATION=ON -DOPTION_PACKAGE=OFF
     - name: build
       run: xcodebuild -parallelizeTargets -project IntermediateVisionOS/sceneri-core.xcodeproj/ -target ALL_BUILD -configuration Profile -destination generic/platform=visionOS -allowProvisioningUpdates build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
 
@@ -226,7 +226,7 @@ jobs:
     - name: configure
       run: |
         mkdir IntermediateiOS
-        cmake -S . -B IntermediateiOS --preset=iOS+macCatalyst-xcode -DCMAKE_BUILD_TYPE=Profile -DOPTION_UNITY_BUILD=ON -DOPTION_CCACHE=ON -DOPTION_CONTINUOUS_INTEGRATION=ON
+        cmake -S . -B IntermediateiOS --preset=iOS+macCatalyst-xcode -DCMAKE_BUILD_TYPE=Profile -DOPTION_UNITY_BUILD=ON -DOPTION_CCACHE=ON -DOPTION_CONTINUOUS_INTEGRATION=ON -DOPTION_PACKAGE=OFF
     - name: build
       run: xcodebuild -parallelizeTargets -project IntermediateiOS/sceneri-core.xcodeproj/ -target ALL_BUILD -configuration Profile -destination generic/platform=iOS -allowProvisioningUpdates build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
 
@@ -256,7 +256,7 @@ jobs:
       run: git lfs pull
     - name: Build Android
       run: |
-        ./gradlew assembleArm64Profile
+        ./gradlew assembleArm64Profile -PDISABLE_PACKAGE
 
   build-web:
     name: "Web Release"
@@ -284,6 +284,6 @@ jobs:
       shell: cmd
       run: |
         mkdir IntermediateWeb
-        cmake -S . -B IntermediateWeb --preset=windows-web-ninja -DOPTION_UNITY_BUILD=ON -DOPTION_CCACHE=ON -DOPTION_CONTINUOUS_INTEGRATION=ON
+        cmake -S . -B IntermediateWeb --preset=windows-web-ninja -DOPTION_UNITY_BUILD=ON -DOPTION_CCACHE=ON -DOPTION_CONTINUOUS_INTEGRATION=ON -DOPTION_PACKAGE=OFF
     - name: build
       run: cmake --build IntermediateWeb --target ProjectLauncher --config RelWithDebInfo --parallel
