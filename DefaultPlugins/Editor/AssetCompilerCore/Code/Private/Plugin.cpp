@@ -1489,12 +1489,12 @@ namespace ngine::AssetCompiler
 							IO::Path::Merge(MAKE_PATH("MyNewPlugin"), PluginAssetFormat.metadataFileExtension)
 						);
 						failedAnyTasks |= !CreateAssetPlugin(
-																	 MAKE_UNICODE_LITERAL("My New Plugin"),
-																	 Move(newPluginPath),
-																	 engineInfo.GetGuid(),
-																	 Serialization::SavingFlags::HumanReadable
-																 )
-											 .IsValid();
+																 MAKE_UNICODE_LITERAL("My New Plugin"),
+																 Move(newPluginPath),
+																 engineInfo.GetGuid(),
+																 Serialization::SavingFlags::HumanReadable
+						)
+					                       .IsValid();
 					}
 					else
 					{
@@ -1517,12 +1517,12 @@ namespace ngine::AssetCompiler
 							IO::Path::Merge(MAKE_PATH("MyNewPlugin"), PluginAssetFormat.metadataFileExtension)
 						);
 						failedAnyTasks |= !CreateCodePlugin(
-																	 MAKE_UNICODE_LITERAL("My New Plugin"),
-																	 Move(newPluginPath),
-																	 engineInfo,
-																	 Serialization::SavingFlags::HumanReadable
-																 )
-											 .IsValid();
+																 MAKE_UNICODE_LITERAL("My New Plugin"),
+																 Move(newPluginPath),
+																 engineInfo,
+																 Serialization::SavingFlags::HumanReadable
+						)
+					                       .IsValid();
 					}
 					else
 #endif
@@ -1547,12 +1547,12 @@ namespace ngine::AssetCompiler
 						);
 
 						failedAnyTasks |= !CreateAssetPlugin(
-																	 MAKE_UNICODE_LITERAL("My New Plugin"),
-																	 Move(newPluginPath),
-																	 projectInfo,
-																	 Serialization::SavingFlags::HumanReadable
-																 )
-											 .IsValid();
+																 MAKE_UNICODE_LITERAL("My New Plugin"),
+																 Move(newPluginPath),
+																 projectInfo,
+																 Serialization::SavingFlags::HumanReadable
+						)
+					                       .IsValid();
 					}
 					else
 #endif
@@ -1577,12 +1577,12 @@ namespace ngine::AssetCompiler
 							IO::Path::Merge(MAKE_PATH("MyNewPlugin"), PluginAssetFormat.metadataFileExtension)
 						);
 						failedAnyTasks |= !CreateCodePlugin(
-																	 MAKE_UNICODE_LITERAL("My New Plugin"),
-																	 Move(newPluginPath),
-																	 projectInfo,
-																	 Serialization::SavingFlags::HumanReadable
-																 )
-											 .IsValid();
+																 MAKE_UNICODE_LITERAL("My New Plugin"),
+																 Move(newPluginPath),
+																 projectInfo,
+																 Serialization::SavingFlags::HumanReadable
+						)
+					                       .IsValid();
 					}
 					else
 #endif
@@ -1605,7 +1605,7 @@ namespace ngine::AssetCompiler
 					LogMessage("Preparing to package project to {}", buildDirectory);
 
 					const ConstNativeStringView buildConfiguration =
-						commandArguments.GetArgumentValue(MAKE_NATIVE_LITERAL("config"), CommandLine::Prefix::Minus);
+						commandLineArgs.GetArgumentValue(MAKE_NATIVE_LITERAL("config"), CommandLine::Prefix::Minus);
 
 					Asset::Context projectContext{context};
 					projectContext.SetProject(ProjectInfo(IO::Path(nativePath)));
@@ -1618,7 +1618,7 @@ namespace ngine::AssetCompiler
 						EnumFlags<ProjectSystem::PackagingFlags> flags;
 						// Whether to remove the package directory prior to packaging, to create a fully clean build
 						flags |= ProjectSystem::PackagingFlags::CleanBuild *
-								 commandArguments.HasArgument(MAKE_NATIVE_LITERAL("clean"), CommandLine::Prefix::Minus);
+					           commandArguments.HasArgument(MAKE_NATIVE_LITERAL("clean"), CommandLine::Prefix::Minus);
 						PackageProjectLauncher(
 							*this,
 							*Threading::JobRunnerThread::GetCurrent(),
@@ -1651,7 +1651,7 @@ namespace ngine::AssetCompiler
 					LogMessage("Preparing to package project editor to {}", buildDirectory);
 
 					const ConstNativeStringView buildConfiguration =
-						commandArguments.GetArgumentValue(MAKE_NATIVE_LITERAL("config"), CommandLine::Prefix::Minus);
+						commandLineArgs.GetArgumentValue(MAKE_NATIVE_LITERAL("config"), CommandLine::Prefix::Minus);
 
 					Asset::Context projectContext{context};
 					projectContext.SetProject(ProjectInfo(IO::Path(nativePath)));
@@ -1664,7 +1664,7 @@ namespace ngine::AssetCompiler
 						EnumFlags<ProjectSystem::PackagingFlags> flags;
 						// Whether to remove the package directory prior to packaging, to create a fully clean build
 						flags |= ProjectSystem::PackagingFlags::CleanBuild *
-								 commandArguments.HasArgument(MAKE_NATIVE_LITERAL("clean"), CommandLine::Prefix::Minus);
+					           commandArguments.HasArgument(MAKE_NATIVE_LITERAL("clean"), CommandLine::Prefix::Minus);
 						PackageProjectEditor(
 							*this,
 							*Threading::JobRunnerThread::GetCurrent(),
@@ -1697,7 +1697,7 @@ namespace ngine::AssetCompiler
 					LogMessage("Preparing to package standalone editor to {}", buildDirectory);
 
 					const ConstNativeStringView buildConfiguration =
-						commandArguments.GetArgumentValue(MAKE_NATIVE_LITERAL("config"), CommandLine::Prefix::Minus);
+						commandLineArgs.GetArgumentValue(MAKE_NATIVE_LITERAL("config"), CommandLine::Prefix::Minus);
 
 					Asset::Context packagingContext{context};
 					packagingContext.SetEngine(EngineInfo(IO::Path(nativePath)));
@@ -1709,7 +1709,7 @@ namespace ngine::AssetCompiler
 						EnumFlags<ProjectSystem::PackagingFlags> flags;
 						// Whether to remove the package directory prior to packaging, to create a fully clean build
 						flags |= ProjectSystem::PackagingFlags::CleanBuild *
-								 commandArguments.HasArgument(MAKE_NATIVE_LITERAL("clean"), CommandLine::Prefix::Minus);
+					           commandArguments.HasArgument(MAKE_NATIVE_LITERAL("clean"), CommandLine::Prefix::Minus);
 						PackageStandaloneEditor(
 							*this,
 							*Threading::JobRunnerThread::GetCurrent(),
@@ -1742,7 +1742,7 @@ namespace ngine::AssetCompiler
 					LogMessage("Preparing to package standalone launcher to {}", buildDirectory);
 
 					const ConstNativeStringView buildConfiguration =
-						commandArguments.GetArgumentValue(MAKE_NATIVE_LITERAL("config"), CommandLine::Prefix::Minus);
+						commandLineArgs.GetArgumentValue(MAKE_NATIVE_LITERAL("config"), CommandLine::Prefix::Minus);
 
 					Asset::Context packagingContext{context};
 					packagingContext.SetEngine(EngineInfo(IO::Path(nativePath)));
@@ -1754,7 +1754,7 @@ namespace ngine::AssetCompiler
 						EnumFlags<ProjectSystem::PackagingFlags> flags;
 						// Whether to remove the package directory prior to packaging, to create a fully clean build
 						flags |= ProjectSystem::PackagingFlags::CleanBuild *
-								 commandArguments.HasArgument(MAKE_NATIVE_LITERAL("clean"), CommandLine::Prefix::Minus);
+					           commandArguments.HasArgument(MAKE_NATIVE_LITERAL("clean"), CommandLine::Prefix::Minus);
 						PackageStandaloneLauncher(
 							*this,
 							*Threading::JobRunnerThread::GetCurrent(),
@@ -1796,7 +1796,7 @@ namespace ngine::AssetCompiler
 						EnumFlags<ProjectSystem::PackagingFlags> flags;
 						// Whether to remove the package directory prior to packaging, to create a fully clean build
 						flags |= ProjectSystem::PackagingFlags::CleanBuild *
-								 commandArguments.HasArgument(MAKE_NATIVE_LITERAL("clean"), CommandLine::Prefix::Minus);
+					           commandArguments.HasArgument(MAKE_NATIVE_LITERAL("clean"), CommandLine::Prefix::Minus);
 						PackageStandaloneProjectSystem(
 							*this,
 							*Threading::JobRunnerThread::GetCurrent(),
@@ -1837,7 +1837,7 @@ namespace ngine::AssetCompiler
 						EnumFlags<ProjectSystem::PackagingFlags> flags;
 						// Whether to remove the package directory prior to packaging, to create a fully clean build
 						flags |= ProjectSystem::PackagingFlags::CleanBuild *
-								 commandArguments.HasArgument(MAKE_NATIVE_LITERAL("clean"), CommandLine::Prefix::Minus);
+					           commandArguments.HasArgument(MAKE_NATIVE_LITERAL("clean"), CommandLine::Prefix::Minus);
 						PackageStandaloneAssetCompiler(
 							*this,
 							*Threading::JobRunnerThread::GetCurrent(),
@@ -1878,7 +1878,7 @@ namespace ngine::AssetCompiler
 						EnumFlags<ProjectSystem::PackagingFlags> flags;
 						// Whether to remove the package directory prior to packaging, to create a fully clean build
 						flags |= ProjectSystem::PackagingFlags::CleanBuild *
-								 commandArguments.HasArgument(MAKE_NATIVE_LITERAL("clean"), CommandLine::Prefix::Minus);
+					           commandArguments.HasArgument(MAKE_NATIVE_LITERAL("clean"), CommandLine::Prefix::Minus);
 						PackageStandaloneTools(
 							*this,
 							*Threading::JobRunnerThread::GetCurrent(),
@@ -4110,7 +4110,7 @@ namespace ngine::AssetCompiler
 			}
 		}
 	}
-	
+
 	Optional<ProjectInfo> Plugin::CreateProject(
 		UnicodeString&& name,
 		IO::Path&& targetConfigFilePath,
@@ -4202,8 +4202,9 @@ namespace ngine::AssetCompiler
 		Skipped
 	};
 
-	CopyResult
-	CopyPackagingAsset(const IO::PathView sourceMetadataFilePath, const IO::Path& targetMetadataFilePath, const Asset::DatabaseEntry& assetEntry)
+	CopyResult CopyPackagingAsset(
+		const IO::PathView sourceMetadataFilePath, const IO::Path& targetMetadataFilePath, const Asset::DatabaseEntry& assetEntry
+	)
 	{
 		Assert(assetEntry.m_path.IsAbsolute());
 		CopyResult result{CopyResult::Skipped};
@@ -4387,7 +4388,8 @@ namespace ngine::AssetCompiler
 				if (pPreviousThumbnailEntry.IsValid())
 				{
 					IO::Path newAssetPath;
-					const bool couldCopyAsset = CopyPackagingAsset(sourceProject, projectInfo, *pPreviousThumbnailEntry, newAssetPath) == CopyResult::Copied;
+					const bool couldCopyAsset = CopyPackagingAsset(sourceProject, projectInfo, *pPreviousThumbnailEntry, newAssetPath) ==
+					                            CopyResult::Copied;
 
 					Asset::DatabaseEntry thumbnailEntry = *pPreviousThumbnailEntry;
 					thumbnailEntry.m_path = newAssetPath;
@@ -4436,7 +4438,8 @@ namespace ngine::AssetCompiler
 				if (LIKELY(pPreviousSceneEntry.IsValid()))
 				{
 					IO::Path newAssetPath;
-					const bool couldCopyAsset = CopyPackagingAsset(sourceProject, projectInfo, *pPreviousSceneEntry, newAssetPath) == CopyResult::Copied;
+					const bool couldCopyAsset = CopyPackagingAsset(sourceProject, projectInfo, *pPreviousSceneEntry, newAssetPath) ==
+					                            CopyResult::Copied;
 
 					Asset::DatabaseEntry sceneEntry = *pPreviousSceneEntry;
 					sceneEntry.m_path = newAssetPath;
