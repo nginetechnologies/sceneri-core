@@ -538,6 +538,25 @@ namespace ngine::ProjectSystem
 						}
 					}
 				}
+				else if (fileExtension == IO::Library::ApplicationPostfix)
+				{
+					const IO::Path filePath = fileIterator.GetCurrentFilePath();
+					Assert(filePath.IsDirectory());
+					const IO::Path newFilePath = IO::Path::Combine(targetBinaryDirectory, fileIterator.GetCurrentFileName());
+
+					if (filePath.GetLastModifiedTime() > newFilePath.GetLastModifiedTime())
+					{
+						if (filePath.CopyDirectoryTo(newFilePath))
+						{
+							LogMessage("Copying application {} to {}", filePath, newFilePath);
+						}
+						else
+						{
+							LogError("Failed to copy application {} to {}", filePath, newFilePath);
+							failedAny = true;
+						}
+					}
+				}
 			}
 
 			return !failedAny;
@@ -720,7 +739,7 @@ namespace ngine::ProjectSystem
 			LogMessage("Copying executable binaries");
 
 			const IO::Path launcherBinaryPath =
-				IO::Path::Combine(configurationBinaryDirectory, IO::Path::Merge(MAKE_PATH("ProjectLauncher"), IO::Library::ExecutablePostfix));
+				IO::Path::Combine(configurationBinaryDirectory, IO::Path::Merge(MAKE_PATH("ProjectLauncher"), IO::Library::ApplicationPostfix));
 			const IO::Path targetBinaryDirectory =
 				IO::Path::Combine(buildDirectory, sourceContext.GetProject()->GetRelativeBinaryDirectory(), platformName, buildConfiguration);
 
@@ -770,7 +789,7 @@ namespace ngine::ProjectSystem
 		{
 			const IO::Path configurationBinaryDirectory = IO::Path::Combine(binaryDirectory, buildConfiguration);
 			const IO::Path launcherBinaryPath =
-				IO::Path::Combine(configurationBinaryDirectory, IO::Path::Merge(MAKE_PATH("Editor"), IO::Library::ExecutablePostfix));
+				IO::Path::Combine(configurationBinaryDirectory, IO::Path::Merge(MAKE_PATH("Editor"), IO::Library::ApplicationPostfix));
 			const IO::Path targetBinaryDirectory =
 				IO::Path::Combine(buildDirectory, sourceContext.GetProject()->GetRelativeBinaryDirectory(), platformName, buildConfiguration);
 
@@ -781,7 +800,7 @@ namespace ngine::ProjectSystem
 		if constexpr (PLATFORM_DESKTOP && !PLATFORM_APPLE_MACOS)
 		{
 			const IO::Path projectSystemBinaryPath =
-				IO::Path::Combine(binaryDirectory, IO::Path::Merge(MAKE_PATH("ProjectSystem"), IO::Library::ExecutablePostfix));
+				IO::Path::Combine(binaryDirectory, IO::Path::Merge(MAKE_PATH("ProjectSystem"), IO::Library::ApplicationPostfix));
 			const IO::Path targetBinaryDirectory =
 				IO::Path::Combine(buildDirectory, sourceContext.GetProject()->GetRelativeBinaryDirectory(), platformName);
 
@@ -929,7 +948,7 @@ namespace ngine::ProjectSystem
 			LogMessage("Copying executable binaries");
 			{
 				const IO::Path launcherBinaryPath =
-					IO::Path::Combine(configurationBinaryDirectory, IO::Path::Merge(MAKE_PATH("Editor"), IO::Library::ExecutablePostfix));
+					IO::Path::Combine(configurationBinaryDirectory, IO::Path::Merge(MAKE_PATH("Editor"), IO::Library::ApplicationPostfix));
 				const IO::Path targetBinaryDirectory =
 					IO::Path::Combine(buildDirectory, sourceContext.GetEngine()->GetRelativeBinaryDirectory(), platformName, buildConfiguration);
 				targetBinaryDirectory.CreateDirectories();
@@ -941,7 +960,7 @@ namespace ngine::ProjectSystem
 			if constexpr (PLATFORM_DESKTOP && !PLATFORM_APPLE_MACOS)
 			{
 				const IO::Path projectSystemBinaryPath =
-					IO::Path::Combine(binaryDirectory, IO::Path::Merge(MAKE_PATH("ProjectSystem"), IO::Library::ExecutablePostfix));
+					IO::Path::Combine(binaryDirectory, IO::Path::Merge(MAKE_PATH("ProjectSystem"), IO::Library::ApplicationPostfix));
 				const IO::Path targetBinaryDirectory =
 					IO::Path::Combine(buildDirectory, sourceContext.GetEngine()->GetRelativeBinaryDirectory(), platformName);
 
@@ -1149,7 +1168,7 @@ namespace ngine::ProjectSystem
 
 			{
 				const IO::Path launcherBinaryPath =
-					IO::Path::Combine(configurationBinaryDirectory, IO::Path::Merge(MAKE_PATH("ProjectLauncher"), IO::Library::ExecutablePostfix));
+					IO::Path::Combine(configurationBinaryDirectory, IO::Path::Merge(MAKE_PATH("ProjectLauncher"), IO::Library::ApplicationPostfix));
 				const IO::Path targetBinaryDirectory =
 					IO::Path::Combine(buildDirectory, sourceContext.GetEngine()->GetRelativeBinaryDirectory(), platformName, buildConfiguration);
 				targetBinaryDirectory.CreateDirectories();
@@ -1313,7 +1332,7 @@ namespace ngine::ProjectSystem
 		{
 			LogMessage("Copying executable binaries");
 			const IO::Path projectSystemBinaryPath =
-				IO::Path::Combine(binaryDirectory, IO::Path::Merge(MAKE_PATH("ProjectSystem"), IO::Library::ExecutablePostfix));
+				IO::Path::Combine(binaryDirectory, IO::Path::Merge(MAKE_PATH("ProjectSystem"), IO::Library::ApplicationPostfix));
 			failedAnyTasksOut |= !CopyExecutableBinaries(buildDirectory, projectSystemBinaryPath, binaryDirectory);
 		}
 	}
@@ -1454,7 +1473,7 @@ namespace ngine::ProjectSystem
 		{
 			LogMessage("Copying executable binaries");
 			const IO::Path assetCompilerBinaryPath =
-				IO::Path::Combine(binaryDirectory, IO::Path::Merge(MAKE_PATH("AssetCompiler"), IO::Library::ExecutablePostfix));
+				IO::Path::Combine(binaryDirectory, IO::Path::Merge(MAKE_PATH("AssetCompiler"), IO::Library::ApplicationPostfix));
 			failedAnyTasksOut |= !CopyExecutableBinaries(buildDirectory, assetCompilerBinaryPath, binaryDirectory);
 		}
 	}
@@ -1594,11 +1613,11 @@ namespace ngine::ProjectSystem
 		{
 			LogMessage("Copying asset compiler executable binaries");
 			const IO::Path assetCompilerBinaryPath =
-				IO::Path::Combine(binaryDirectory, IO::Path::Merge(MAKE_PATH("AssetCompiler"), IO::Library::ExecutablePostfix));
+				IO::Path::Combine(binaryDirectory, IO::Path::Merge(MAKE_PATH("AssetCompiler"), IO::Library::ApplicationPostfix));
 			failedAnyTasksOut |= !CopyExecutableBinaries(buildDirectory, assetCompilerBinaryPath, binaryDirectory);
 			LogMessage("Copying project system executable binaries");
 			const IO::Path projectSystemBinaryPath =
-				IO::Path::Combine(binaryDirectory, IO::Path::Merge(MAKE_PATH("ProjectSystem"), IO::Library::ExecutablePostfix));
+				IO::Path::Combine(binaryDirectory, IO::Path::Merge(MAKE_PATH("ProjectSystem"), IO::Library::ApplicationPostfix));
 			failedAnyTasksOut |= !CopyExecutableBinaries(buildDirectory, projectSystemBinaryPath, binaryDirectory);
 		}
 	}
