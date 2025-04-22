@@ -500,10 +500,17 @@ namespace ngine::ProjectSystem
 	{
 		targetBinaryDirectory.CreateDirectories();
 
-		bool failedAny = false;
-
 		if (launcherBinaryPath.Exists())
 		{
+			LogMessage(
+				"Copying executable binaries from binary path {} and configuration binary directory {} to {}",
+				launcherBinaryPath,
+				configurationBinaryDirectory,
+				targetBinaryDirectory
+			);
+
+			bool failedAny = false;
+
 			for (IO::FileIterator fileIterator(configurationBinaryDirectory); !fileIterator.ReachedEnd(); fileIterator.Next())
 			{
 				if (fileIterator.GetCurrentFileType() != IO::FileType::File)
@@ -513,14 +520,18 @@ namespace ngine::ProjectSystem
 
 				const IO::PathView fileName = fileIterator.GetCurrentFileName();
 				const IO::PathView fileExtension = fileName.GetAllExtensions();
-				if ((fileExtension == IO::Library::FileNamePostfix) | (fileExtension == IO::Library::ExecutablePostfix))
+				if ((fileExtension == IO::Library::FileNamePostfix) || (fileExtension == IO::Library::ExecutablePostfix))
 				{
 					const IO::Path filePath = fileIterator.GetCurrentFilePath();
 					const IO::Path newFilePath = IO::Path::Combine(targetBinaryDirectory, fileIterator.GetCurrentFileName());
 
 					if (filePath.GetLastModifiedTime() > newFilePath.GetLastModifiedTime())
 					{
-						if (!filePath.CopyFileTo(newFilePath))
+						if (filePath.CopyFileTo(newFilePath))
+						{
+							LogMessage("Copying executable {} to {}", filePath, newFilePath);
+						}
+						else
 						{
 							LogError("Failed to copy executable {} to {}", filePath, newFilePath);
 							failedAny = true;
@@ -528,9 +539,14 @@ namespace ngine::ProjectSystem
 					}
 				}
 			}
-		}
 
-		return !failedAny;
+			return !failedAny;
+		}
+		else
+		{
+			LogMessage("Skipping executable binary copy from {}", launcherBinaryPath);
+			return true;
+		}
 	}
 
 	[[nodiscard]] void PackageProject(
