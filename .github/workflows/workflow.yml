@@ -132,6 +132,11 @@ jobs:
       run: xcodebuild -parallelizeTargets -project IntermediateMacOS/scenericore.xcodeproj/ -target ALL_BUILD -configuration Debug -allowProvisioningUpdates build
     - name: run tests
       run: |
+        # Make sure networking tests (even though it's localhost only) succeed
+        /usr/libexec/ApplicationFirewall/socketfilterfw --remove bin/Debug/NetworkingCoreFeatureTests
+        /usr/libexec/ApplicationFirewall/socketfilterfw --add bin/Debug/NetworkingCoreFeatureTests
+        /usr/libexec/ApplicationFirewall/socketfilterfw --unblock bin/Debug/NetworkingCoreFeatureTests
+
         cd IntermediateMacOS
         ctest -C Debug
 
