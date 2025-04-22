@@ -59,7 +59,7 @@ AppDelegate* _Nullable strongDelegate = nil;
 #endif
 
 #if PLATFORM_APPLE_VISIONOS
-MixedRealityInterface* m_mixedRealityInterface;
+MixedRealityInterface* _Nullable m_mixedRealityInterface = nullptr;
 #endif
 
 NSThread* _Nullable m_mainEngineThread = nil;
@@ -771,29 +771,29 @@ SKProductsRequest* _Nullable m_request = nullptr;
 }
 
 #if PLATFORM_APPLE_VISIONOS
-InitializeLayerRendererCallback m_initializeLayerRendererCallback;
+InitializeLayerRendererCallback _Nullable m_initializeLayerRendererCallback = nullptr;
 
-- (void)setInitializeLayerRendererCallback:(InitializeLayerRendererCallback)callbackBlock
+- (void)setInitializeLayerRendererCallback:(InitializeLayerRendererCallback _Nullable)callbackBlock
 {
 	m_initializeLayerRendererCallback = callbackBlock;
 }
 
-- (void)initializeLayerRenderer:(cp_layer_renderer_t)layerRenderer pLogicalDevice:(void*)pLogicalDevice
+- (void)initializeLayerRenderer:(cp_layer_renderer_t _Nonnull)layerRenderer pLogicalDevice:(void* _Nonnull)pLogicalDevice
 {
 	m_initializeLayerRendererCallback(layerRenderer, pLogicalDevice);
 }
 
-- (void)startFullImmersiveSpace:(ImmersiveSpaceCallback)callbackBlock pLogicalDevice:(void*)pLogicalDevice
+- (void)startFullImmersiveSpace:(ImmersiveSpaceCallback _Nonnull)callbackBlock pLogicalDevice:(void* _Nonnull)pLogicalDevice
 {
 	[m_mixedRealityInterface startFullImmersiveSpaceWithPLogicalDevice:pLogicalDevice completionHandler:callbackBlock];
 }
 
-- (void)startMixedImmersiveSpace:(ImmersiveSpaceCallback)callbackBlock pLogicalDevice:(void*)pLogicalDevice
+- (void)startMixedImmersiveSpace:(ImmersiveSpaceCallback _Nonnull)callbackBlock pLogicalDevice:(void* _Nonnull)pLogicalDevice
 {
 	[m_mixedRealityInterface startMixedImmersiveSpaceWithPLogicalDevice:pLogicalDevice completionHandler:callbackBlock];
 }
 
-- (void)stopImmersiveSpace:(ImmersiveSpaceCallback)callbackBlock
+- (void)stopImmersiveSpace:(ImmersiveSpaceCallback _Nonnull)callbackBlock
 {
 	[m_mixedRealityInterface stopImmersiveSpaceWithCompletionHandler:callbackBlock];
 }
