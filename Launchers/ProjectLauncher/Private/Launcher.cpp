@@ -30,7 +30,7 @@ ngine::UniquePtr<ngine::EngineSystems> CreateEngine(const ngine::CommandLine::In
 			}
 		},
 		Threading::JobPriority::LoadPlugin,
-		"Load editor plug-in"
+		"Load Launcher plug-in"
 	));
 	loadDefaultResourcesBatch.QueueAsNewFinishedStage(finishedPluginLoadStage);
 	pEngineSystems->m_startupJobBatch.QueueAfterStartStage(loadDefaultResourcesBatch);
