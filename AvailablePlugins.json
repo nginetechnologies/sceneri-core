@@ -1,123 +1,155 @@
 {
-    "07a93cc1-5de5-e77b-4b5f-8285cb5a0e20": {
-        "assetTypeGuid": "77b22fc4-d109-4dd3-a922-38388879fc90",
-        "path": "./DefaultPlugins/Editor/Common/Assets.nassetdb"
-    },
-    "07c0f665-fb4d-7672-f1cc-f1be86aa7b17": {
-        "assetTypeGuid": "77b22fc4-d109-4dd3-a922-38388879fc90",
-        "path": "./DefaultPlugins/Animation/Assets.nassetdb"
-    },
-    "0f7c1053-884c-4795-a082-2aecf6ba8032": {
-        "assetTypeGuid": "926268b2-2d45-4c52-87c9-d76815217359",
-        "path": "./DefaultPlugins/Graphics/FlatShadingPipeline/FlatShading.nplugin"
-    },
-    "319db77b-2fa7-e800-562c-9a70713d6792": {
-        "assetTypeGuid": "77b22fc4-d109-4dd3-a922-38388879fc90",
-        "path": "./DefaultPlugins/Graphics/ShaderCommon/Assets.nassetdb"
-    },
-    "4732db7a-619b-421e-8569-bf31f607bbb7": {
-        "assetTypeGuid": "926268b2-2d45-4c52-87c9-d76815217359",
-        "path": "./DefaultPlugins/Networking/Http/Http.nplugin"
-    },
-    "4979ec10-9f8a-40cb-ae11-6f56d06ab2bc": {
-        "assetTypeGuid": "926268b2-2d45-4c52-87c9-d76815217359",
-        "path": "./DefaultPlugins/Graphics/ShaderCommon/ShaderCommon.nplugin"
-    },
-    "4cc21fd4-730f-475d-9807-fbf9e5595308": {
-        "assetTypeGuid": "926268b2-2d45-4c52-87c9-d76815217359",
-        "path": "./DefaultPlugins/Animation/Animation.nplugin"
-    },
-    "4f6b545d-f826-4bae-9a41-cd5149979d8d": {
-        "assetTypeGuid": "926268b2-2d45-4c52-87c9-d76815217359",
-        "path": "./DefaultPlugins/Editor/Common/Common.nplugin"
-    },
-    "5b9d8c98-70fc-8c61-530a-adfe86eb287e": {
-        "assetTypeGuid": "77b22fc4-d109-4dd3-a922-38388879fc90",
-        "path": "./DefaultPlugins/Graphics/FlatShadingPipeline/Assets.nassetdb"
-    },
-    "5dc6a146-4ae7-43e8-9b53-69d46fc184af": {
-        "assetTypeGuid": "926268b2-2d45-4c52-87c9-d76815217359",
-        "path": "./DefaultPlugins/Graphics/FontRendering/FontRendering.nplugin"
-    },
-    "6b3d8e35-af8c-8327-3f92-f4b319a0704d": {
-        "assetTypeGuid": "77b22fc4-d109-4dd3-a922-38388879fc90",
-        "path": "./DefaultPlugins/Physics/PhysicsCore/Assets.nassetdb"
-    },
-    "72d83e65-b5d9-4ccd-8b8b-8227c805570e": {
-        "assetTypeGuid": "926268b2-2d45-4c52-87c9-d76815217359",
-        "path": "./DefaultPlugins/Editor/AssetCompilerCore/AssetCompilerCore.nplugin"
-    },
-    "746bba54-ea06-4734-9ed2-e1c9316d9b75": {
-        "assetTypeGuid": "77b22fc4-d109-4dd3-a922-38388879fc90",
-        "path": "./DefaultPlugins/Graphics/FontRendering/Assets.nassetdb"
-    },
-    "7f333735-7d28-4ede-815b-805aad806b8c": {
-        "assetTypeGuid": "926268b2-2d45-4c52-87c9-d76815217359",
-        "path": "./DefaultPlugins/Primitives/Primitives.nplugin"
-    },
-    "89f5b18e-e775-b242-da49-adc34babaca5": {
-        "assetTypeGuid": "77b22fc4-d109-4dd3-a922-38388879fc90",
-        "path": "./DefaultPlugins/Graphics/RenderDebug/Assets.nassetdb"
-    },
-    "8b2d69a7-da0e-f90e-c9e4-492ebf048a7e": {
-        "assetTypeGuid": "77b22fc4-d109-4dd3-a922-38388879fc90",
-        "path": "./DefaultPlugins/Widgets/Assets.nassetdb"
-    },
-    "9349bfdb-366e-d296-de71-9d079a2222d9": {
-        "assetTypeGuid": "77b22fc4-d109-4dd3-a922-38388879fc90",
-        "path": "./DefaultPlugins/VisualDebug/Assets.nassetdb"
-    },
-    "a4a08680-a61b-7f75-40d9-a043f33d5ed5": {
-        "assetTypeGuid": "77b22fc4-d109-4dd3-a922-38388879fc90",
-        "path": "./DefaultPlugins/Networking/Http/Assets.nassetdb"
-    },
-    "a4bbf061-5f65-43b1-acc0-711f28b3bb56": {
-        "assetTypeGuid": "926268b2-2d45-4c52-87c9-d76815217359",
-        "path": "./DefaultPlugins/Audio/AudioCore/Audio.nplugin"
-    },
-    "aaea95b0-9b18-442d-b043-0629481e8c95": {
-        "assetTypeGuid": "926268b2-2d45-4c52-87c9-d76815217359",
-        "path": "./DefaultPlugins/Widgets/Widgets.nplugin"
-    },
-    "b0abcb76-705b-4244-9474-f7b29131fc70": {
-        "assetTypeGuid": "926268b2-2d45-4c52-87c9-d76815217359",
-        "path": "./DefaultPlugins/VisualDebug/VisualDebug.nplugin"
-    },
-    "b5dff1ec-1e1e-f703-51bc-c3aca826a86a": {
-        "assetTypeGuid": "77b22fc4-d109-4dd3-a922-38388879fc90",
-        "path": "./DefaultPlugins/Primitives/Assets.nassetdb"
-    },
-    "b7921721-4029-47ce-873c-5d356d604aa9": {
-        "assetTypeGuid": "926268b2-2d45-4c52-87c9-d76815217359",
-        "path": "./DefaultPlugins/Graphics/DeferredShading/DeferredShading.nplugin"
-    },
-    "b8c8dfe5-d303-4e2f-a82e-15ae4efa1a4b": {
-        "assetTypeGuid": "926268b2-2d45-4c52-87c9-d76815217359",
-        "path": "./DefaultPlugins/Graphics/RenderDebug/RenderDebug.nplugin"
-    },
-    "cbfe8887-9cb2-4703-9328-94f0b8223ece": {
-        "assetTypeGuid": "926268b2-2d45-4c52-87c9-d76815217359",
-        "path": "./DefaultPlugins/Networking/Core/Core.nplugin"
-    },
-    "ebede1d8-b31e-9cfb-ce6b-8d39a4e1b763": {
-        "assetTypeGuid": "77b22fc4-d109-4dd3-a922-38388879fc90",
-        "path": "./DefaultPlugins/Graphics/DeferredShading/Assets.nassetdb"
-    },
-    "ed873d6d-31ed-9cbe-b491-a3cfaa18d465": {
-        "assetTypeGuid": "77b22fc4-d109-4dd3-a922-38388879fc90",
-        "path": "./DefaultPlugins/Networking/Core/Assets.nassetdb"
-    },
-    "f42ee3c7-dc0b-1dd8-896f-483365f96374": {
-        "assetTypeGuid": "77b22fc4-d109-4dd3-a922-38388879fc90",
-        "path": "./DefaultPlugins/Audio/AudioCore/Assets.nassetdb"
-    },
-    "f6c31290-cb03-452c-b3de-78f19a8cf943": {
-        "assetTypeGuid": "926268b2-2d45-4c52-87c9-d76815217359",
-        "path": "./DefaultPlugins/Physics/PhysicsCore/Physics.nplugin"
-    },
-    "fef2b785-7390-959f-6960-14a0671d3db6": {
-        "assetTypeGuid": "77b22fc4-d109-4dd3-a922-38388879fc90",
-        "path": "./DefaultPlugins/Editor/AssetCompilerCore/Assets.nassetdb"
-    },
-    "guid": "019655a0-74e4-72b9-417c-e8148dac24ae"
+	"07a93cc1-5de5-e77b-4b5f-8285cb5a0e20": {
+		"assetTypeGuid": "77b22fc4-d109-4dd3-a922-38388879fc90",
+		"path": "./DefaultPlugins/Editor/Common/Assets.nassetdb"
+	},
+	"07c0f665-fb4d-7672-f1cc-f1be86aa7b17": {
+		"assetTypeGuid": "77b22fc4-d109-4dd3-a922-38388879fc90",
+		"path": "./DefaultPlugins/Animation/Assets.nassetdb"
+	},
+	"087dee23-94e5-44d9-88e9-af82b784f025": {
+		"assetTypeGuid": "926268b2-2d45-4c52-87c9-d76815217359",
+		"path": "./DefaultPlugins/Networking/Backend/Backend.nplugin"
+	},
+	"0f7c1053-884c-4795-a082-2aecf6ba8032": {
+		"assetTypeGuid": "926268b2-2d45-4c52-87c9-d76815217359",
+		"path": "./DefaultPlugins/Graphics/FlatShadingPipeline/FlatShading.nplugin"
+	},
+	"28b7691c-cd9c-48cb-8873-e450957e57ab": {
+		"assetTypeGuid": "77b22fc4-d109-4dd3-a922-38388879fc90",
+		"path": "./DefaultPlugins/SampleLauncherPlugin/Assets.nassetdb"
+	},
+	"319db77b-2fa7-e800-562c-9a70713d6792": {
+		"assetTypeGuid": "77b22fc4-d109-4dd3-a922-38388879fc90",
+		"path": "./DefaultPlugins/Graphics/ShaderCommon/Assets.nassetdb"
+	},
+	"4732db7a-619b-421e-8569-bf31f607bbb7": {
+		"assetTypeGuid": "926268b2-2d45-4c52-87c9-d76815217359",
+		"path": "./DefaultPlugins/Networking/Http/Http.nplugin"
+	},
+	"4979ec10-9f8a-40cb-ae11-6f56d06ab2bc": {
+		"assetTypeGuid": "926268b2-2d45-4c52-87c9-d76815217359",
+		"path": "./DefaultPlugins/Graphics/ShaderCommon/ShaderCommon.nplugin"
+	},
+	"4cc21fd4-730f-475d-9807-fbf9e5595308": {
+		"assetTypeGuid": "926268b2-2d45-4c52-87c9-d76815217359",
+		"path": "./DefaultPlugins/Animation/Animation.nplugin"
+	},
+	"4f6b545d-f826-4bae-9a41-cd5149979d8d": {
+		"assetTypeGuid": "926268b2-2d45-4c52-87c9-d76815217359",
+		"path": "./DefaultPlugins/Editor/Common/Common.nplugin"
+	},
+	"50472fd7-1240-418b-b988-4bad607632b6": {
+		"assetTypeGuid": "926268b2-2d45-4c52-87c9-d76815217359",
+		"path": "./DefaultPlugins/Networking/Analytics/Analytics.nplugin"
+	},
+	"5b9d8c98-70fc-8c61-530a-adfe86eb287e": {
+		"assetTypeGuid": "77b22fc4-d109-4dd3-a922-38388879fc90",
+		"path": "./DefaultPlugins/Graphics/FlatShadingPipeline/Assets.nassetdb"
+	},
+	"5dc6a146-4ae7-43e8-9b53-69d46fc184af": {
+		"assetTypeGuid": "926268b2-2d45-4c52-87c9-d76815217359",
+		"path": "./DefaultPlugins/Graphics/FontRendering/FontRendering.nplugin"
+	},
+	"6b3d8e35-af8c-8327-3f92-f4b319a0704d": {
+		"assetTypeGuid": "77b22fc4-d109-4dd3-a922-38388879fc90",
+		"path": "./DefaultPlugins/Physics/PhysicsCore/Assets.nassetdb"
+	},
+	"72d83e65-b5d9-4ccd-8b8b-8227c805570e": {
+		"assetTypeGuid": "926268b2-2d45-4c52-87c9-d76815217359",
+		"path": "./DefaultPlugins/Editor/AssetCompilerCore/AssetCompilerCore.nplugin"
+	},
+	"746bba54-ea06-4734-9ed2-e1c9316d9b75": {
+		"assetTypeGuid": "77b22fc4-d109-4dd3-a922-38388879fc90",
+		"path": "./DefaultPlugins/Graphics/FontRendering/Assets.nassetdb"
+	},
+	"7f333735-7d28-4ede-815b-805aad806b8c": {
+		"assetTypeGuid": "926268b2-2d45-4c52-87c9-d76815217359",
+		"path": "./DefaultPlugins/Primitives/Primitives.nplugin"
+	},
+	"84cb6ecd-1f00-4178-8434-5853cebb8601": {
+		"assetTypeGuid": "926268b2-2d45-4c52-87c9-d76815217359",
+		"path": "./DefaultPlugins/SampleLauncherPlugin/SampleLauncher.nplugin"
+	},
+	"89f5b18e-e775-b242-da49-adc34babaca5": {
+		"assetTypeGuid": "77b22fc4-d109-4dd3-a922-38388879fc90",
+		"path": "./DefaultPlugins/Graphics/RenderDebug/Assets.nassetdb"
+	},
+	"8b2d69a7-da0e-f90e-c9e4-492ebf048a7e": {
+		"assetTypeGuid": "77b22fc4-d109-4dd3-a922-38388879fc90",
+		"path": "./DefaultPlugins/Widgets/Assets.nassetdb"
+	},
+	"9349bfdb-366e-d296-de71-9d079a2222d9": {
+		"assetTypeGuid": "77b22fc4-d109-4dd3-a922-38388879fc90",
+		"path": "./DefaultPlugins/VisualDebug/Assets.nassetdb"
+	},
+	"95f29ea6-ce74-dcc5-9342-088dc8fda415": {
+		"assetTypeGuid": "77b22fc4-d109-4dd3-a922-38388879fc90",
+		"path": "./DefaultPlugins/Networking/Backend/Assets.nassetdb"
+	},
+	"a4a08680-a61b-7f75-40d9-a043f33d5ed5": {
+		"assetTypeGuid": "77b22fc4-d109-4dd3-a922-38388879fc90",
+		"path": "./DefaultPlugins/Networking/Http/Assets.nassetdb"
+	},
+	"a4bbf061-5f65-43b1-acc0-711f28b3bb56": {
+		"assetTypeGuid": "926268b2-2d45-4c52-87c9-d76815217359",
+		"path": "./DefaultPlugins/Audio/AudioCore/Audio.nplugin"
+	},
+	"aaea95b0-9b18-442d-b043-0629481e8c95": {
+		"assetTypeGuid": "926268b2-2d45-4c52-87c9-d76815217359",
+		"path": "./DefaultPlugins/Widgets/Widgets.nplugin"
+	},
+	"b0abcb76-705b-4244-9474-f7b29131fc70": {
+		"assetTypeGuid": "926268b2-2d45-4c52-87c9-d76815217359",
+		"path": "./DefaultPlugins/VisualDebug/VisualDebug.nplugin"
+	},
+	"b5dff1ec-1e1e-f703-51bc-c3aca826a86a": {
+		"assetTypeGuid": "77b22fc4-d109-4dd3-a922-38388879fc90",
+		"path": "./DefaultPlugins/Primitives/Assets.nassetdb"
+	},
+	"b7921721-4029-47ce-873c-5d356d604aa9": {
+		"assetTypeGuid": "926268b2-2d45-4c52-87c9-d76815217359",
+		"path": "./DefaultPlugins/Graphics/DeferredShading/DeferredShading.nplugin"
+	},
+	"b8c8dfe5-d303-4e2f-a82e-15ae4efa1a4b": {
+		"assetTypeGuid": "926268b2-2d45-4c52-87c9-d76815217359",
+		"path": "./DefaultPlugins/Graphics/RenderDebug/RenderDebug.nplugin"
+	},
+	"c1e0e96c-2531-6163-d083-5ccce6e5fd07": {
+		"assetTypeGuid": "77b22fc4-d109-4dd3-a922-38388879fc90",
+		"path": "./DefaultPlugins/GameFramework/Assets.nassetdb"
+	},
+	"cbfe8887-9cb2-4703-9328-94f0b8223ece": {
+		"assetTypeGuid": "926268b2-2d45-4c52-87c9-d76815217359",
+		"path": "./DefaultPlugins/Networking/Core/Core.nplugin"
+	},
+	"e57aa3d9-b23e-4b9c-486a-4d34b45f925e": {
+		"assetTypeGuid": "77b22fc4-d109-4dd3-a922-38388879fc90",
+		"path": "./DefaultPlugins/Networking/Analytics/Assets.nassetdb"
+	},
+	"eaf8c037-4adf-4a97-99fd-915341d1854c": {
+		"assetTypeGuid": "926268b2-2d45-4c52-87c9-d76815217359",
+		"path": "./DefaultPlugins/GameFramework/GameFramework.nplugin"
+	},
+	"ebede1d8-b31e-9cfb-ce6b-8d39a4e1b763": {
+		"assetTypeGuid": "77b22fc4-d109-4dd3-a922-38388879fc90",
+		"path": "./DefaultPlugins/Graphics/DeferredShading/Assets.nassetdb"
+	},
+	"ed873d6d-31ed-9cbe-b491-a3cfaa18d465": {
+		"assetTypeGuid": "77b22fc4-d109-4dd3-a922-38388879fc90",
+		"path": "./DefaultPlugins/Networking/Core/Assets.nassetdb"
+	},
+	"f42ee3c7-dc0b-1dd8-896f-483365f96374": {
+		"assetTypeGuid": "77b22fc4-d109-4dd3-a922-38388879fc90",
+		"path": "./DefaultPlugins/Audio/AudioCore/Assets.nassetdb"
+	},
+	"f6c31290-cb03-452c-b3de-78f19a8cf943": {
+		"assetTypeGuid": "926268b2-2d45-4c52-87c9-d76815217359",
+		"path": "./DefaultPlugins/Physics/PhysicsCore/Physics.nplugin"
+	},
+	"fef2b785-7390-959f-6960-14a0671d3db6": {
+		"assetTypeGuid": "77b22fc4-d109-4dd3-a922-38388879fc90",
+		"path": "./DefaultPlugins/Editor/AssetCompilerCore/Assets.nassetdb"
+	},
+	"guid": "01965bf9-4528-77b2-5d3b-b5d61b3e64e8"
 }

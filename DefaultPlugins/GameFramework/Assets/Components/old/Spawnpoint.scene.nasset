@@ -1,0 +1,45 @@
+{
+    "guid": "bcf86453-6016-4c94-b937-b0de08a9f5cf",
+    "assetTypeGuid": "807d69a9-56ec-4032-bb92-d081df336672",
+    "typeGuid": "0c3f4f29-0d53-4878-922a-cca7d6af7bb6",
+    "instanceGuid": "65ceac8c-e647-4fdd-a91f-4d004d892890",
+    "0c3f4f29-0d53-4878-922a-cca7d6af7bb6": {
+        "scene": "bcf86453-6016-4c94-b937-b0de08a9f5cf"
+    },
+    "dependencies": [
+        "db5dc618-2cfe-44e9-a319-69c503d090e7",
+        "7962add3-c63a-6075-42d3-517305ba3b0b",
+        "2e5d6458-f003-4d2a-9a46-0f4926ec9e16"
+    ],
+    "data_components": [
+        {
+            "typeGuid": "fefa51b8-945d-4f88-8859-356c7546efa7",
+            "name": "Spawnpoint"
+        }
+    ],
+    "children": [
+        {
+            "typeGuid": "88a0cdbb-2826-46e3-b372-2a5154eacb61",
+            "instanceGuid": "9c4a0418-f6f9-41b2-bb34-51cde2388042",
+            "88a0cdbb-2826-46e3-b372-2a5154eacb61": {
+                "audio_asset": "2e5d6458-f003-4d2a-9a46-0f4926ec9e16"
+            },
+            "data_components": [
+                {
+                    "typeGuid": "fa5e5929-fdb4-4579-8c03-f3f837cf4905",
+                    "mask": [
+                        "997e9c4d-d494-4a6e-bb6c-620ced5fabde"
+                    ]
+                },
+                {
+                    "typeGuid": "fefa51b8-945d-4f88-8859-356c7546efa7",
+                    "name": "Spawnpoint"
+                },
+                {
+                    "typeGuid": "fefa51b8-945d-4f88-8859-356c7546efa7",
+                    "name": "Box Collider"
+                }
+            ]
+        }
+    ]
+}

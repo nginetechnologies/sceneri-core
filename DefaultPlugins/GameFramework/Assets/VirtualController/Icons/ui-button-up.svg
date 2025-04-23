@@ -1,0 +1,10 @@
+<svg width="96" height="96" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="ui-button">
+<circle id="thumbstick" cx="48" cy="48" r="48" fill="black" fill-opacity="0.16"/>
+<g id="thumbstick_2">
+<circle cx="48" cy="48" r="43" fill="white" fill-opacity="0.32"/>
+<circle cx="48" cy="48" r="41.5" stroke="white" stroke-opacity="0.32" stroke-width="3"/>
+</g>
+<path id="Vector 3" d="M27.3528 58.5884L46.3786 32.245C47.177 31.1396 48.823 31.1396 49.6214 32.245L68.6472 58.5884C69.9039 60.3284 67.9099 62.5567 66.0415 61.5004L48.4922 51.5783C48.1868 51.4056 47.8132 51.4056 47.5078 51.5783L29.9585 61.5004C28.0901 62.5567 26.0961 60.3284 27.3528 58.5884Z" fill="black" fill-opacity="0.32"/>
+</g>
+</svg>

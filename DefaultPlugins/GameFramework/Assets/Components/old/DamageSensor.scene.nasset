@@ -1,0 +1,50 @@
+{
+    "guid": "5520deb5-8144-4af1-8fb0-149031fb795b",
+    "assetTypeGuid": "807d69a9-56ec-4032-bb92-d081df336672",
+    "typeGuid": "0c3f4f29-0d53-4878-922a-cca7d6af7bb6",
+    "instanceGuid": "970356e6-1588-4970-95d5-3d88bdc26ddc",
+    "0c3f4f29-0d53-4878-922a-cca7d6af7bb6": {
+        "scene": "5520deb5-8144-4af1-8fb0-149031fb795b"
+    },
+    "dependencies": [
+        "db5dc618-2cfe-44e9-a319-69c503d090e7",
+        "7962add3-c63a-6075-42d3-517305ba3b0b"
+    ],
+    "data_components": [
+        {
+            "typeGuid": "fefa51b8-945d-4f88-8859-356c7546efa7",
+            "name": "Damage Sensor"
+        }
+    ],
+    "children": [
+        {
+            "typeGuid": "7d07e1f4-1660-4732-9ab0-ca3c4bad63ff",
+            "instanceGuid": "8c900408-70ca-457c-8c59-2d83d8a59f34",
+            "183d677a-b427-4b1d-a276-97b3e6681304": {
+                "mask": [
+                    "d6a09c51-8ccf-416e-8154-66f9404d2a44"
+                ]
+            },
+            "data_components": [
+                {
+                    "typeGuid": "fefa51b8-945d-4f88-8859-356c7546efa7",
+                    "name": "Damage Sensor"
+                }
+            ],
+            "children": [
+                {
+                    "typeGuid": "e81f4e62-fee0-4182-9c1a-a47c053b813f",
+                    "instanceGuid": "850a64b6-6e83-47db-b72d-c720395e130b",
+                    "10dceba7-be9f-4a9d-9902-6f51bed634ab": {
+                        "physical_material": "db5dc618-2cfe-44e9-a319-69c503d090e7"
+                    },
+                    "e81f4e62-fee0-4182-9c1a-a47c053b813f": {
+                        "half_extent": [
+                            0.5
+                        ]
+                    }
+                }
+            ]
+        }
+    ]
+}

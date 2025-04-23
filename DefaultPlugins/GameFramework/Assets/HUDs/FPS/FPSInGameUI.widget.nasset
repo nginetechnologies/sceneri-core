@@ -1,0 +1,283 @@
+{
+    "guid": "09ff2477-5767-4075-a905-29b7ebbf5d57",
+    "name": "InGame UI",
+    "style": "position: absolute; display: flex; flex-direction: column; height: 100%; width: 100%;",
+    "children": [
+        {
+            "name": "UI elements wrapper",
+            "style": "display: flex; flex-direction: column; position: absolute; width: 100%; height: 100%; padding: max(env(safe-area-inset-top),48px) max(env(safe-area-inset-right),48px) max(env(safe-area-inset-bottom),48px) max(env(safe-area-inset-left),48px); box-sizing: border-box",
+            "children": [
+                {
+                    "name": "Top Bar",
+                    "style": "width: 100%; height: 36px; display: flex",
+                    "children": [
+                        {
+                            "name": "top left",
+                            "style": "width: fit-content; height: 36px",
+                            "children": [
+                                {
+                                    "name": "remix button",
+                                    "style": "display: none; width: fit-content; height: 36px; padding: 8px 12px; box-sizing: border-box; align-items: center; gap: 8px; border-radius: 8px; border: 2px solid rgba(255, 255, 255, 0.60); background: rgba(88, 28, 135, 0.60);",
+                                    "children": [
+                                        {
+                                            "name": "icon",
+                                            "style": "width: 20px; height: 20px; background: asset(19b9f6b0-69f7-7fc5-9046-de97b1669159)"
+                                        },
+                                        {
+                                            "style": "width: 60px; height: 24px; line-height: 24px; font-family: asset(73ebe3ce-2911-6273-46f5-122ca2c061f9); text: Remix; font-style: normal; font-weight: 600; font-size: 15px; color: #ffffff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "top center",
+                            "style": "width: 160px; height: 36px; justify-self: center"
+                        },
+                        {
+                            "name": "top right",
+                            "style": "width: 225px; height: 36px; justify-self: flex-end",
+                            "children": [
+                                {
+                                    "name": "self score",
+                                    "style": "display: flex; border-radius: 8px; width: 225px; height: 36px; justify-content: center; background: rgba(0, 0, 0, 0.30);",
+                                    "children": [
+                                        {
+                                            "style": "display: flex; width: 75px; height: 36px; padding: 8px 12px; box-sizing: border-box; justify-content: center; align-items: center; gap: 8px",
+                                            "children": [
+                                                {
+                                                    "name": "wrapper",
+                                                    "style": "width: fit-content; height: 36px; display: flex; align-items: center; gap: 8px",
+                                                    "children": [
+                                                        {
+                                                            "name": "kills icon",
+                                                            "style": "width: 20px; height: 20px; background: asset(1b2a3444-8420-1a3c-d42e-4de473ee05ba)"
+                                                        },
+                                                        {
+                                                            "style": "height: 24px; line-height: 24px; font-family: asset(73ebe3ce-2911-6273-46f5-122ca2c061f9); text-align: center; text: \"16\"; font-style: normal; font-weight: 600; font-size: 20px; color: #ffffff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;",
+                                                            "property_source": "e9a0e0b9-e1d4-45e7-bffa-b015c065138a",
+                                                            "dynamic_style": "text: {kills_value}"
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "style": "display: flex; width: 75px; height: 36px; padding: 8px 12px; box-sizing: border-box; justify-content: center; align-items: center; gap: 8px",
+                                            "children": [
+                                                {
+                                                    "name": "wrapper",
+                                                    "style": "width: fit-content; height: 36px; display: flex; align-items: center; gap: 8px",
+                                                    "children": [
+                                                        {
+                                                            "name": "assists icon",
+                                                            "style": "width: 20px; height: 20px; background: asset(13763099-04e8-cae6-ac83-6b1f0b742cca)"
+                                                        },
+                                                        {
+                                                            "style": "height: 24px; line-height: 24px; font-family: asset(73ebe3ce-2911-6273-46f5-122ca2c061f9); text-align: center; text: \"4\"; font-style: normal; font-weight: 600; font-size: 20px; color: #ffffff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;",
+                                                            "dynamic_style": "text: {assists_value}",
+                                                            "property_source": "e9a0e0b9-e1d4-45e7-bffa-b015c065138a"
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "style": "display: flex; width: 75px; height: 36px; padding: 8px 12px; box-sizing: border-box; justify-content: center; align-items: center; gap: 8px",
+                                            "children": [
+                                                {
+                                                    "name": "wrapper",
+                                                    "style": "width: fit-content; height: 36px; display: flex; align-items: center; gap: 8px",
+                                                    "children": [
+                                                        {
+                                                            "name": "deaths icon",
+                                                            "style": "width: 20px; height: 20px; background: asset(7026f03b-25a6-991a-42c5-03b5c6c90dc0)"
+                                                        },
+                                                        {
+                                                            "style": "height: 24px; line-height: 24px; font-family: asset(73ebe3ce-2911-6273-46f5-122ca2c061f9); text-align: center; text: \"8\"; font-style: normal; font-weight: 600; font-size: 20px; color: #ffffff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;",
+                                                            "dynamic_style": "text: {deaths_value}",
+                                                            "property_source": "e9a0e0b9-e1d4-45e7-bffa-b015c065138a"
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Left Corner Container",
+                            "style": "width: 100%; height: 100%; display: flex; flex-direction: row; justify-content: flex-start; gap: 8px; display: none",
+                            "children": [
+                                {
+                                    "name": "Health",
+                                    "style": "height: 40px; width: fit-content; display: flex; flex-direction: row; align-items: start",
+                                    "data_source": "1792937f-8551-4828-9a1b-4f70e6eb2ec7",
+                                    "data_source_asset": "3a68f58a-1e8d-435c-a63e-deb861e638e2",
+                                    "events": {
+                                        "ae4a7859-02e8-4cd7-8c93-2342b37b849d": [
+                                            "show"
+                                        ]
+                                    },
+                                    "hidden": true
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "bottom bar",
+                    "style": "width: 100%; height: 48px; display: flex; justify-self: flex-end",
+                    "children": [
+                        {
+                            "name": "bottom left",
+                            "style": "width: 160px; height: 48px; display: flex; flex-direction: column; padding: 8px; box-sizing: border-box; gap: 4px; border-radius: 8px; background: rgba(0, 0, 0, 0.30);",
+                            "children": [
+                                {
+                                    "name": "health title",
+                                    "style": "display: flex; gap: 4px",
+                                    "children": [
+                                        {
+                                            "name": "health icon",
+                                            "style": "width: 20px; height: 20px; background: asset(a678be1a-2e3e-1922-4eaa-f6f95209d08a)"
+                                        },
+                                        {
+                                            "style": "height: 20px; line-height: 20px; font-family: asset(73ebe3ce-2911-6273-46f5-122ca2c061f9); text: \"100\"; font-style: normal; font-weight: 600; font-size: 18PX; color: #ffffff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;",
+                                            "property_source": "7909FE50-DBFD-43C7-8FBA-CD3F3FCC2653",
+                                            "dynamic_style": "text: {health_value}"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "healthbar",
+                                    "style": "width: 144px; height: 8px",
+                                    "children": [
+                                        {
+                                            "name": "max health",
+                                            "style": "position: absolute; width: 100%; height: 100%; background: linear-gradient(90deg, #CC051D 0%, #E90715 57.38%, #F70917 84.81%, #FF0953 100%); border-radius: 4px"
+                                        },
+                                        {
+                                            "name": "current health",
+                                            "style": "position: absolute; width: 100%; height: 100%; background: linear-gradient(90deg, #2DCC05 0%, #35E907 57.38%, #3AFF09 100%); border-radius: 4px",
+                                            "property_source": "7909FE50-DBFD-43C7-8FBA-CD3F3FCC2653",
+                                            "dynamic_style": "width: calc(100% * {health_ratio})"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "bottom right",
+                            "style": "width: 136px; height: 48px; display: flex; padding: 8px 8px 8px 12px; align-items: center; justify-content: center; box-sizing: border-box; border-radius: 8px; background: rgba(0, 0, 0, 0.30); justify-self: flex-end",
+                            "children": [
+                                {
+                                    "name": "wrapper",
+                                    "style": "width: fit-content; height: 48px; display: flex; align-items: center; gap: 4px",
+                                    "children": [
+                                        {
+                                            "name": "ammo icon",
+                                            "style": "width: 20px; height: 20px; background: asset(bc0c9f0e-2e2b-0d14-b44e-0e2699892c1f)"
+                                        },
+                                        {
+                                            "name": "spacer",
+                                            "style": "width: 8px"
+                                        },
+                                        {
+                                            "name": "current ammo",
+                                            "style": "height: 24px; line-height: 24px; font-family: asset(73ebe3ce-2911-6273-46f5-122ca2c061f9); text: \"20\"; font-style: normal; font-weight: 600; font-size: 32px; color: #ffffff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;",
+                                            "property_source": "45db6d17-4498-46b8-bdf8-8482f612e60a",
+                                            "dynamic_style": "text: {ammunition_value}"
+                                        },
+                                        {
+                                            "style": "height: 20px; line-height: 20px; font-family: asset(73ebe3ce-2911-6273-46f5-122ca2c061f9); text: \"/\"; font-style: normal; font-weight: 600; font-size: 18px; color: #ffffff; opacity: 0.6; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"
+                                        },
+                                        {
+                                            "name": "max ammo",
+                                            "style": "height: 20px; line-height: 20px; font-family: asset(73ebe3ce-2911-6273-46f5-122ca2c061f9); text: \"45\"; font-style: normal; font-weight: 600; font-size: 18px; color: #ffffff; opacity: 0.6; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;",
+                                            "property_source": "45db6d17-4498-46b8-bdf8-8482f612e60a",
+                                            "dynamic_style": "text: {ammunition_max_value}"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "center display",
+            "style": "display: flex; align-items: center; flex-direction: column; position: absolute; width: 100%; height: 100%; padding: max(env(safe-area-inset-top),48px) max(env(safe-area-inset-right),48px) max(env(safe-area-inset-bottom),48px) max(env(safe-area-inset-left),48px); box-sizing: border-box",
+            "children": [
+                {
+                    "name": "round stats",
+                    "style": "width: 160px; height: 36px; display: flex",
+                    "children": [
+                        {
+                            "name": "team score",
+                            "style": "display: flex; width: 56px; height: 36px; padding: 8px 8px; box-sizing: border-box; align-items: center; justify-content: center; gap: 8px; background: linear-gradient(90deg, #3B82F6 0%, rgba(59, 130, 246, 0.60) 100%); border-radius: 8px 0px 0px 8px;",
+                            "children": [
+                                {
+                                    "name": "wrapper",
+                                    "style": "width: fit-content; height: 36px; display: flex; align-items: center; gap: 8px;",
+                                    "children": [
+                                        {
+                                            "style": "width: 56px; height: 24px; text: 0; line-height: 24px; font-family: asset(73ebe3ce-2911-6273-46f5-122ca2c061f9); text-align: center; font-style: normal; font-weight: 600; font-size: 20px; color: #ffffff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;",
+                                            "dynamic_style": "text: {score_value}",
+                                            "data_source": {
+                                                "guid": "5a62fa86-fa29-45e7-8b62-fbf72e1607a3",
+                                                "inline": true
+                                            },
+                                            "data_max_count": 1,
+                                            "data_required_tags": [
+                                                "44be35b5-5c1c-49b9-a203-784b5b5ea4c6"
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "countdown",
+                            "style": "display: flex; width: 104px; height: 36px; padding: 8px 24px; justify-content: center; align-items: center; box-sizing: border-box; background: rgba(0, 0, 0, 0.30); border-radius: 0px 8px 8px 0px;",
+                            "children": [
+                                {
+                                    "name": "wrapper",
+                                    "style": "width: fit-content; height: 36px; display: flex; align-items: center; gap: 8px",
+                                    "children": [
+                                        {
+                                            "name": "timer icon",
+                                            "style": "width: 20px; height: 20px; background: asset(de38b756-c5c3-dab2-940a-ec7efead60a9)"
+                                        },
+                                        {
+                                            "name": "timer value",
+                                            "style": "height: 24px; line-height: 24px; font-family: asset(73ebe3ce-2911-6273-46f5-122ca2c061f9); text-align: center; text: \"00:00\"; font-style: normal; font-weight: 700; font-size: 20px; color: #ffffff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;",
+                                            "dynamic_style": "text: {countdown_timer}",
+                                            "property_source": "24265b02-bd16-437d-bea1-394f7884802d"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "crosshair",
+            "style": "display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; position: absolute",
+            "children": [
+                {
+                    "style": "width: 90px; height: 90px; background: asset(f9673019-f098-b2bf-dea9-3a2037405fcb); opacity: 0.7"
+                }
+            ]
+        }
+    ],
+    "events": {
+        "cb227531-c2a9-44a1-837c-b903bd2cd994": [
+            "show"
+        ]
+    },
+    "assetTypeGuid": "ded54a50-9829-41c5-a9b7-189387705aa7"
+}

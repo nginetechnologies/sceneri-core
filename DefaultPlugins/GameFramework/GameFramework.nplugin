@@ -1,0 +1,18 @@
+{
+    "name": "Game Framework",
+    "version": "0.0.1",
+    "guid": "eaf8c037-4adf-4a97-99fd-915341d1854c",
+    "database_guid": "c1e0e96c-2531-6163-d083-5ccce6e5fd07",
+    "engine": "3ff049e0-0880-4898-879d-1ccf5583c9c6",
+    "source_directory": "Code",
+    "binary_directory": "bin",
+    "library_directory": "lib",
+    "plugin_dependencies": [
+        "4CC21FD4-730F-475D-9807-FBF9E5595308",
+        "F6C31290-CB03-452C-B3DE-78F19A8CF943",
+        "B0ABCB76-705B-4244-9474-F7B29131FC70",
+        "CBFE8887-9CB2-4703-9328-94F0B8223ECE"
+    ],
+    "source": "GameFramework.nplugin",
+    "assetTypeGuid": "926268b2-2d45-4c52-87c9-d76815217359"
+}

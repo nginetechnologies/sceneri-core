@@ -1,0 +1,35 @@
+{
+    "guid": "e6abe028-09c1-4f66-991f-999c52bb1358",
+    "assetTypeGuid": "807d69a9-56ec-4032-bb92-d081df336672",
+    "typeGuid": "da54462b-1339-4cb3-bb4c-e0f5b68e6005",
+    "instanceGuid": "ce96fdfc-3439-4be6-b773-8c046a7bcc57",
+    "dependencies": [
+        "db5dc618-2cfe-44e9-a319-69c503d090e7"
+    ],
+    "data_components": [
+        {
+            "typeGuid": "fefa51b8-945d-4f88-8859-356c7546efa7",
+            "name": "Impulse Sensor"
+        }
+    ],
+    "children": [
+        {
+            "typeGuid": "e81f4e62-fee0-4182-9c1a-a47c053b813f",
+            "instanceGuid": "82f1de43-f8bd-49f0-9ed1-2ad659012834",
+            "10dceba7-be9f-4a9d-9902-6f51bed634ab": {
+                "physical_material": "db5dc618-2cfe-44e9-a319-69c503d090e7"
+            },
+            "e81f4e62-fee0-4182-9c1a-a47c053b813f": {
+                "half_extent": [
+                    0.5
+                ]
+            },
+            "data_components": [
+                {
+                    "typeGuid": "fefa51b8-945d-4f88-8859-356c7546efa7",
+                    "name": "Box Collider"
+                }
+            ]
+        }
+    ]
+}

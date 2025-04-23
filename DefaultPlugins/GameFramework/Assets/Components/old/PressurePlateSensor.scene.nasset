@@ -1,0 +1,48 @@
+{
+    "guid": "9f651169-3782-4ba1-b714-e75811e0d65c",
+    "assetTypeGuid": "807d69a9-56ec-4032-bb92-d081df336672",
+    "typeGuid": "0c3f4f29-0d53-4878-922a-cca7d6af7bb6",
+    "instanceGuid": "a86fe6d8-a72d-468c-8852-9391673e72f4",
+    "0c3f4f29-0d53-4878-922a-cca7d6af7bb6": {
+        "scene": "9f651169-3782-4ba1-b714-e75811e0d65c"
+    },
+    "dependencies": [
+        "db5dc618-2cfe-44e9-a319-69c503d090e7",
+        "7962add3-c63a-6075-42d3-517305ba3b0b"
+    ],
+    "children": [
+        {
+            "typeGuid": "f65e6195-b9f8-4422-90d9-fea73cbb80c7",
+            "instanceGuid": "39943747-9858-4c17-af7a-8b6179a3e408",
+            "data_components": [
+                {
+                    "typeGuid": "fefa51b8-945d-4f88-8859-356c7546efa7",
+                    "name": "Pressure Plate"
+                },
+                {
+                    "typeGuid": "ef986f60-a987-4434-9e88-254094e36e9c"
+                }
+            ],
+            "children": [
+                {
+                    "typeGuid": "e81f4e62-fee0-4182-9c1a-a47c053b813f",
+                    "instanceGuid": "ab0b312c-5d5f-4bcf-9ee1-b392e6a84313",
+                    "10dceba7-be9f-4a9d-9902-6f51bed634ab": {
+                        "physical_material": "db5dc618-2cfe-44e9-a319-69c503d090e7"
+                    },
+                    "e81f4e62-fee0-4182-9c1a-a47c053b813f": {
+                        "half_extent": [
+                            0.5
+                        ]
+                    },
+                    "data_components": [
+                        {
+                            "typeGuid": "fefa51b8-945d-4f88-8859-356c7546efa7",
+                            "name": "Box Collider"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

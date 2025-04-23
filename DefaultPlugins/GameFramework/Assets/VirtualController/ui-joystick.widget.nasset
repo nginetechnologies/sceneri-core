@@ -1,0 +1,39 @@
+{
+    "name": "ui-joystick",
+    "guid": "cf732505-b1d1-44bd-8cf8-b82bfa86a252",
+    "stylesheet": "c1250283-0f1c-4547-bfb0-493dfc60e7bb",
+    "style": "position: absolute; display: flex; align-items: center; justify-content: center; width: 168px; height: 168px; overflow: visible",
+    "children": [
+        {
+            "name": "ui-pad",
+            "style": "display: flex; align-items: center; justify-content: center; background: asset(db8f274a-f32c-6048-2708-6c71d834a301); width: 144px; height: 144px; overflow: visible",
+            "style_entry": "d26a6195-72ef-4236-afc7-cdb9f159fefa",
+            "data_components": [
+                {
+                    "typeGuid": "692387ca-552c-4398-ac35-832a090a0894",
+                    "guids": [
+                        "cc712c0c-db50-465d-ae76-dd40b1586656",
+                        "81f1c8e0-f3d8-477c-8293-16e90027fe48"
+                    ]
+                }
+            ],
+            "children": [
+                {
+                    "name": "ui-thumbstick",
+                    "style": "position: dynamic; background: asset(933e08ed-9240-6be4-5d97-7d23d24a6a4b); width: 64px; height: 64px",
+                    "style_entry": "d26a6195-72ef-4236-afc7-cdb9f159fefa",
+                    "data_components": [
+                        {
+                            "typeGuid": "692387ca-552c-4398-ac35-832a090a0894",
+                            "guids": [
+                                "cc712c0c-db50-465d-ae76-dd40b1586656",
+                                "81f1c8e0-f3d8-477c-8293-16e90027fe48"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "assetTypeGuid": "ded54a50-9829-41c5-a9b7-189387705aa7"
+}

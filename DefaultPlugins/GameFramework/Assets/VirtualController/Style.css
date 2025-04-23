@@ -1,0 +1,17 @@
+/* virtualcontroller */
+/* button */
+d26a6195-72ef-4236-afc7-cdb9f159fefa {
+	color: #ffffff;
+}
+
+d26a6195-72ef-4236-afc7-cdb9f159fefa:disabled {
+	color: #525252;
+}
+
+d26a6195-72ef-4236-afc7-cdb9f159fefa:hover {
+	color: #626264;
+}
+
+d26a6195-72ef-4236-afc7-cdb9f159fefa:active {
+	color: #2563EB;
+}

@@ -1,0 +1,51 @@
+{
+    "guid": "8ec31ea3-c9b0-4dd2-8e9e-b7d390d2f8c8",
+    "assetTypeGuid": "807d69a9-56ec-4032-bb92-d081df336672",
+    "typeGuid": "0c3f4f29-0d53-4878-922a-cca7d6af7bb6",
+    "instanceGuid": "f408ce02-e01c-a52a-1724-9117c203f1c5",
+    "0c3f4f29-0d53-4878-922a-cca7d6af7bb6": {
+        "scene": "8ec31ea3-c9b0-4dd2-8e9e-b7d390d2f8c8"
+    },
+    "dependencies": [
+        "db5dc618-2cfe-44e9-a319-69c503d090e7",
+        "7962add3-c63a-6075-42d3-517305ba3b0b"
+    ],
+    "data_components": [
+        {
+            "typeGuid": "fefa51b8-945d-4f88-8859-356c7546efa7",
+            "name": "Impulse"
+        }
+    ],
+    "children": [
+        {
+            "typeGuid": "da54462b-1339-4cb3-bb4c-e0f5b68e6005",
+            "instanceGuid": "97f55de3-4e1f-1be0-a9f9-4401f7e81ba4",
+            "data_components": [
+                {
+                    "typeGuid": "fefa51b8-945d-4f88-8859-356c7546efa7",
+                    "name": "Impulse Sensor"
+                }
+            ],
+            "children": [
+                {
+                    "typeGuid": "e81f4e62-fee0-4182-9c1a-a47c053b813f",
+                    "instanceGuid": "b9a8f243-3a32-a4d8-8b86-9294e0731d6e",
+                    "10dceba7-be9f-4a9d-9902-6f51bed634ab": {
+                        "physical_material": "db5dc618-2cfe-44e9-a319-69c503d090e7"
+                    },
+                    "e81f4e62-fee0-4182-9c1a-a47c053b813f": {
+                        "half_extent": [
+                            0.5
+                        ]
+                    },
+                    "data_components": [
+                        {
+                            "typeGuid": "fefa51b8-945d-4f88-8859-356c7546efa7",
+                            "name": "Box Collider"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

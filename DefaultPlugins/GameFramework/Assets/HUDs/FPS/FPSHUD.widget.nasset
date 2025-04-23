@@ -1,0 +1,505 @@
+{
+    "guid": "9fc4ce8c-8bdc-4778-843d-cc0512c5fc86",
+    "style": "position: absolute; height: 100%; width: 100%;",
+    "name": "FPS HUD Root",
+    "children": [
+        {
+            "name": "Finish game success overlay",
+            "style": "display: flex; flex-direction: column; align-items: center; background: linear-gradient(180deg, rgba(0, 163, 255, 1) 0%, rgba(93, 52, 255, 1) 49%, rgba(104, 6, 94, 1) 100%); height: 100%; width: 100%; padding-top: max(env(safe-area-inset-top), 58px); padding-bottom: env(safe-area-inset-bottom); box-sizing: border-box",
+            "children": [
+                {
+                    "name": "header menu",
+                    "style": "display: flex; flex-direction: row; width: 100%; height: 44px; padding: 2px 16px; box-sizing: border-box;",
+                    "children": [
+                        {
+                            "name": "back button",
+                            "style": "display: flex; width: 40px; height: 40px; justify-content: center; align-items: center; gap: 8px; border-radius: 1000px; background: #FFFFFF; opacity: 0.08;",
+                            "children": [
+                                {
+                                    "name": "back icon",
+                                    "style": "background: asset(ee047836-d2f5-d5c1-9673-922d79eb42b5); width: 24px; height: 24px; color: #FFFFFF;"
+                                }
+                            ],
+                            "notify_events": {
+                                "tap": {
+                                    "guid": "c3a1fca6-57b5-41fb-b352-78a68daae200"
+                                }
+                            }
+                        },
+                        {
+                            "name": "spacer",
+                            "style": "flex-grow: 1; height: 40px;"
+                        },
+                        {
+                            "name": "more options button",
+                            "ignored": true,
+                            "style": "display: flex; width: 40px; height: 40px; justify-content: center; align-items: center; gap: 8px; border-radius: 1000px; background: #FFFFFF; opacity: 0.08;",
+                            "children": [
+                                {
+                                    "name": "more icon",
+                                    "style": "background: asset(7841c7df-99cc-9ce5-9cc2-e25e88779187); width: 24px; height: 24px; color: #FFFFFF;"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "spacer",
+                            "style": "width: 12px; height: 40px;"
+                        },
+                        {
+                            "name": "share button",
+                            "style": "display: flex; width: 40px; height: 40px; justify-content: center; align-items: center; gap: 8px; border-radius: 1000px; background: #FFFFFF; opacity: 0.08;",
+                            "children": [
+                                {
+                                    "name": "share icon",
+                                    "style": "background: asset(8111a048-c5ae-d7d7-5c6c-1114a848b8af); width: 24px; height: 24px; color: #FFFFFF;"
+                                }
+                            ],
+                            "notify_events": {
+                                "tap": {
+                                    "guid": "af6312af-4d97-4e05-a8c5-462337c9e892",
+                                    "arguments": {
+                                        "widget": "this",
+                                        "strings": [
+                                            "completion success hud"
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "winner",
+                    "style": "position: absolute; display: flex; flex-direction: column; padding: 32px 0px; align-items: center; width: 100%; height: 100%; box-sizing: border-box; overflow: visible",
+                    "children": [
+                        {
+                            "style": "position: absolute; top: calc(40% - 300px); left: calc(50% - 300px); width: 600px; height: 600px; overflow: visible",
+                            "children": [
+                                {
+                                    "name": "background_shine",
+                                    "style": "position: absolute; background: asset(e5f1f68f-abcd-a124-c34c-a10333fbfb7a); width: 600px; height: 600px; overflow: visible",
+                                    "data_components": [
+                                        {
+                                            "typeGuid": "ED32542E-8C36-455E-B67C-0D0D34D2E68D",
+                                            "speed": 0.1
+                                        }
+                                    ]
+                                },
+                                {
+                                    "style": "position: absolute; top: 184px; left: 164px; background: asset(7286831d-0648-00fc-89ec-42a2a6d24941); width: 16px; height: 16px; overflow: visible",
+                                    "data_components": [
+                                        {
+                                            "typeGuid": "365dc70c-ff2b-484a-8d72-a5bad477804f",
+                                            "speed": 3
+                                        }
+                                    ]
+                                },
+                                {
+                                    "style": "position: absolute; top: 361px; left: 146px; background: asset(7286831d-0648-00fc-89ec-42a2a6d24941); width: 14px; height: 14px; overflow: visible",
+                                    "data_components": [
+                                        {
+                                            "typeGuid": "365dc70c-ff2b-484a-8d72-a5bad477804f",
+                                            "speed": 2.5
+                                        }
+                                    ]
+                                },
+                                {
+                                    "style": "position: absolute; top: 214px; left: 425px; background: asset(7286831d-0648-00fc-89ec-42a2a6d24941); width: 10px; height: 10px; overflow: visible",
+                                    "data_components": [
+                                        {
+                                            "typeGuid": "365dc70c-ff2b-484a-8d72-a5bad477804f",
+                                            "speed": 2
+                                        }
+                                    ]
+                                },
+                                {
+                                    "style": "position: absolute; top: 174px; left: 180px; background: asset(66e39159-c4e1-5153-454e-c2e801802cee); width: 240px; height: 240px; overflow: visible"
+                                }
+                            ]
+                        },
+                        {
+                            "style": "position: absolute; top: 0; text: Winner!; font-family: asset(73ebe3ce-2911-6273-46f5-122ca2c061f9); font-style: normal; font-weight: 800; width: 100%; height: 64px; font-size: 64px; text-align: center; letter-spacing: -1.28px; color: #FFFFFF"
+                        }
+                    ]
+                },
+                {
+                    "name": "bottom buttons",
+                    "style": "position: absolute; bottom: calc(10% + 108px); left: calc(50% - 181px); display: flex; flex-direction: row; padding: 0px 32px; width: 368px; height: 112px; gap: 32px; box-sizing: border-box",
+                    "property_source": "4de6af23-70e6-47b4-93b5-ba7ebe826695",
+                    "children": [
+                        {
+                            "name": "restart button layout",
+                            "style": "display: flex; width: 80px; height: 112px; flex-direction: column; align-items: center; gap: 8px;",
+                            "children": [
+                                {
+                                    "name": "restart button",
+                                    "style": "display: flex; flex-direction: column; align-items: center; justify-content: center; width: 80px; height: 80px; border-radius: 40px; padding: 16px; background: rgba(255, 255, 255, 0.08); border: 4px solid rgba(255, 255, 255, 0.12); box-sizing: border-box",
+                                    "children": [
+                                        {
+                                            "name": "restart icon",
+                                            "style": "background: asset(b618e2c5-fcd7-f5ee-dc27-5d1d17104518); width: 48px; height: 48px; color: #FFFFFF;"
+                                        }
+                                    ],
+                                    "notify_events": {
+                                        "tap": {
+                                            "guid": "cb227531-c2a9-44a1-837c-b903bd2cd994"
+                                        }
+                                    }
+                                },
+                                {
+                                    "style": "text: Play again; font-family: asset(73ebe3ce-2911-6273-46f5-122ca2c061f9); width: 100%; text-align: center; font-style: normal; font-weight: 600; font-size: 13px; letter-spacing: -0.02em; color: #FFFFFF;"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "leaderboard button layout",
+                            "style": "display: flex; width: 80px; height: 112px; flex-direction: column; align-items: center; gap: 8px;",
+                            "ignored": "{is_remixing}",
+                            "children": [
+                                {
+                                    "name": "leaderboard button",
+                                    "style": "display: flex; flex-direction: column; align-items: center; justify-content: center; width: 80px; height: 80px; border-radius: 40px; padding: 16px; background: rgba(255, 255, 255, 0.08); border: 4px solid rgba(255, 255, 255, 0.12); box-sizing: border-box",
+                                    "children": [
+                                        {
+                                            "name": "leaderboard icon",
+                                            "style": "background: asset(362e8d94-2273-f2c4-32e3-159f28885138); width: 48px; height: 48px; color: #FFFFFF;"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "style": "text: Leaderboard; font-family: asset(73ebe3ce-2911-6273-46f5-122ca2c061f9); width: 100%; text-align: center; font-style: normal; font-weight: 600; font-size: 13px; letter-spacing: -0.02em; color: #FFFFFF;"
+                                }
+                            ],
+                            "notify_events": {
+                                "tap": {
+                                    "guid": "e392b935-925b-4f24-a018-4d381aea8a71"
+                                }
+                            }
+                        },
+                        {
+                            "name": "publish button layout",
+                            "style": "display: flex; width: 80px; height: 112px; flex-direction: column; align-items: center; gap: 8px;",
+                            "ignored": "{is_not_remixing}",
+                            "children": [
+                                {
+                                    "name": "publish button",
+                                    "style": "display: flex; flex-direction: column; align-items: center; justify-content: center; width: 80px; height: 80px; border-radius: 40px; padding: 16px; background: rgba(255, 255, 255, 0.08); border: 4px solid rgba(255, 255, 255, 0.12); box-sizing: border-box",
+                                    "children": [
+                                        {
+                                            "name": "publish icon",
+                                            "style": "background: asset(eeb9640a-8869-2a1d-b77d-9e73617cf8c1); width: 48px; height: 48px; color: #FFFFFF;"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "style": "text: Publish; font-family: asset(73ebe3ce-2911-6273-46f5-122ca2c061f9); width: 100%; text-align: center; font-style: normal; font-weight: 600; font-size: 13px; letter-spacing: -0.02em; color: #FFFFFF;"
+                                }
+                            ],
+                            "notify_events": {
+                                "tap": [
+                                    {
+                                        "guid": "2e6a0f28-b3a5-42c5-856b-1b6ff7195251"
+                                    },
+                                    {
+                                        "guid": "22842DFC-EACD-4D55-8215-FA96A872A303"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "name": "remix button layout",
+                            "style": "display: flex; width: 80px; height: 112px; flex-direction: column; align-items: center; gap: 8px;",
+                            "children": [
+                                {
+                                    "name": "remix button",
+                                    "style": "display: flex; flex-direction: column; align-items: center; justify-content: center; width: 80px; height: 80px; border-radius: 40px; padding: 16px; background: rgba(255, 255, 255, 0.08); border: 4px solid rgba(255, 255, 255, 0.12); box-sizing: border-box",
+                                    "children": [
+                                        {
+                                            "name": "remix icon",
+                                            "style": "background: asset(f65bf3b0-6c98-1bdb-5a03-9634e2cfca63); width: 48px; height: 48px; color: #FFFFFF;",
+                                            "dynamic_style": "background: asset({remix_icon})"
+                                        }
+                                    ],
+                                    "notify_events": {
+                                        "tap": {
+                                            "guid": "2e6a0f28-b3a5-42c5-856b-1b6ff7195251"
+                                        }
+                                    }
+                                },
+                                {
+                                    "style": "text: Remix; font-family: asset(73ebe3ce-2911-6273-46f5-122ca2c061f9); width: 100%; text-align: center; font-style: normal; font-weight: 600; font-size: 13px; letter-spacing: -0.02em; color: #FFFFFF;",
+                                    "dynamic_style": "text: {remix_text}"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "leaderboard result",
+                    "style": "position: absolute; bottom: 10%; left: calc(50% - 181px); display: flex; flex-direction: row; align-items: center; width: 360px; height: 76px;",
+                    "ignored": "{is_not_remixing}",
+                    "data_source": {
+                        "guid": "fae3a490-8f9a-4410-b6c2-8cf6fafd3fdb",
+                        "global": true
+                    },
+                    "data_required_tags": [
+                        "44be35b5-5c1c-49b9-a203-784b5b5ea4c6"
+                    ],
+                    "data_source_asset": "d45f765a-a619-4fd0-a3e7-722672ffe19a",
+                    "data_max_count": 1
+                }
+            ],
+            "hidden": true,
+            "events": {
+                "a750198d-7f59-4ed0-8d22-441b56e19b60": [
+                    "show"
+                ],
+                "cb227531-c2a9-44a1-837c-b903bd2cd994": [
+                    "hide"
+                ],
+                "6586a3cf-7f11-4565-8124-4947b40a79bf": [
+                    "hide"
+                ],
+                "c3a1fca6-57b5-41fb-b352-78a68daae200": [
+                    "hide"
+                ],
+                "3dfd9352-de54-4ac8-be73-e53710115797": [
+                    "show"
+                ],
+                "e392b935-925b-4f24-a018-4d381aea8a71": [
+                    "hide"
+                ]
+            }
+        },
+        {
+            "name": "Finish game failure overlay",
+            "style": "position: absolute; display: flex; flex-direction: column; align-items: center; background: linear-gradient(180deg, rgba(169, 60, 255, 0.70) 0%, rgba(239, 68, 68, 0.70) 49.48%, rgba(255, 29, 104, 0.70) 100%), #18181B; height: 100%; width: 100%; padding-top: max(env(safe-area-inset-top), 58px); padding-bottom: env(safe-area-inset-bottom); box-sizing: border-box",
+            "children": [
+                {
+                    "name": "header menu",
+                    "style": "display: flex; flex-direction: row; width: 100%; height: 44px; padding: 2px 16px; box-sizing: border-box;",
+                    "children": [
+                        {
+                            "name": "back button",
+                            "style": "display: flex; width: 40px; height: 40px; justify-content: center; align-items: center; gap: 8px; border-radius: 1000px; background: #FFFFFF; opacity: 0.08;",
+                            "children": [
+                                {
+                                    "name": "back icon",
+                                    "style": "background: asset(ee047836-d2f5-d5c1-9673-922d79eb42b5); width: 24px; height: 24px; color: #FFFFFF;"
+                                }
+                            ],
+                            "notify_events": {
+                                "tap": {
+                                    "guid": "c3a1fca6-57b5-41fb-b352-78a68daae200"
+                                }
+                            }
+                        },
+                        {
+                            "name": "spacer",
+                            "style": "flex-grow: 1; height: 40px;"
+                        },
+                        {
+                            "name": "more options button",
+                            "ignored": true,
+                            "style": "display: flex; width: 40px; height: 40px; justify-content: center; align-items: center; gap: 8px; border-radius: 1000px; background: #FFFFFF; opacity: 0.08;",
+                            "children": [
+                                {
+                                    "name": "more icon",
+                                    "style": "background: asset(7841c7df-99cc-9ce5-9cc2-e25e88779187); width: 24px; height: 24px; color: #FFFFFF;"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "spacer",
+                            "style": "width: 12px; height: 40px;"
+                        },
+                        {
+                            "name": "share button",
+                            "style": "display: flex; width: 40px; height: 40px; justify-content: center; align-items: center; gap: 8px; border-radius: 1000px; background: #FFFFFF; opacity: 0.08;",
+                            "children": [
+                                {
+                                    "name": "share icon",
+                                    "style": "background: asset(8111a048-c5ae-d7d7-5c6c-1114a848b8af); width: 24px; height: 24px; color: #FFFFFF;"
+                                }
+                            ],
+                            "notify_events": {
+                                "tap": {
+                                    "guid": "af6312af-4d97-4e05-a8c5-462337c9e892",
+                                    "arguments": {
+                                        "widget": "this",
+                                        "strings": [
+                                            "completion success hud"
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "loser",
+                    "style": "position: absolute; display: flex; flex-direction: column; padding: 32px 0px; align-items: center; width: 100%; height: 100%; box-sizing: border-box; overflow: visible",
+                    "children": [
+                        {
+                            "style": "position: absolute; top: calc(40% - 300px); left: calc(50% - 300px); width: 600px; height: 600px; overflow: visible",
+                            "children": []
+                        },
+                        {
+                            "style": "position: absolute; top: 0; text: So close!; font-family: asset(73ebe3ce-2911-6273-46f5-122ca2c061f9); font-style: normal; font-weight: 800; width: 100%; height: 64px; font-size: 64px; text-align: center; letter-spacing: -1.28px; color: #FFFFFF"
+                        }
+                    ]
+                },
+                {
+                    "name": "bottom buttons",
+                    "style": "position: absolute; bottom: 10%; left: calc(50% - 128px); display: flex; flex-direction: row; padding: 0px 32px; width: 256px; height: 112px; gap: 32px; box-sizing: border-box",
+                    "property_source": "4de6af23-70e6-47b4-93b5-ba7ebe826695",
+                    "children": [
+                        {
+                            "name": "restart button layout",
+                            "style": "display: flex; width: 80px; height: 112px; flex-direction: column; align-items: center; gap: 8px;",
+                            "children": [
+                                {
+                                    "name": "restart button",
+                                    "style": "display: flex; flex-direction: column; align-items: center; justify-content: center; width: 80px; height: 80px; border-radius: 40px; padding: 16px; background: rgba(255, 255, 255, 0.08); border: 4px solid rgba(255, 255, 255, 0.12); box-sizing: border-box",
+                                    "children": [
+                                        {
+                                            "name": "restart icon",
+                                            "style": "background: asset(b618e2c5-fcd7-f5ee-dc27-5d1d17104518); width: 48px; height: 48px; color: #FFFFFF;"
+                                        }
+                                    ],
+                                    "notify_events": {
+                                        "tap": {
+                                            "guid": "cb227531-c2a9-44a1-837c-b903bd2cd994"
+                                        }
+                                    }
+                                },
+                                {
+                                    "style": "text: Play again; font-family: asset(73ebe3ce-2911-6273-46f5-122ca2c061f9); width: 55px; font-style: normal; font-weight: 600; font-size: 13px; letter-spacing: -0.02em; color: #FFFFFF;"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "remix button layout",
+                            "style": "display: flex; width: 80px; height: 112px; flex-direction: column; align-items: center; gap: 8px;",
+                            "children": [
+                                {
+                                    "name": "remix button",
+                                    "style": "display: flex; flex-direction: column; align-items: center; justify-content: center; width: 80px; height: 80px; border-radius: 40px; padding: 16px; background: rgba(255, 255, 255, 0.08); border: 4px solid rgba(255, 255, 255, 0.12); box-sizing: border-box",
+                                    "children": [
+                                        {
+                                            "name": "remix icon",
+                                            "style": "background: asset(f65bf3b0-6c98-1bdb-5a03-9634e2cfca63); width: 48px; height: 48px; color: #FFFFFF;",
+                                            "dynamic_style": "background: asset({remix_icon})"
+                                        }
+                                    ],
+                                    "notify_events": {
+                                        "tap": {
+                                            "guid": "2e6a0f28-b3a5-42c5-856b-1b6ff7195251"
+                                        }
+                                    }
+                                },
+                                {
+                                    "style": "text: Remix; font-family: asset(73ebe3ce-2911-6273-46f5-122ca2c061f9); width: 35px; font-style: normal; font-weight: 600; font-size: 13px; letter-spacing: -0.02em; color: #FFFFFF;",
+                                    "dynamic_style": "text: {remix_text}"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "hidden": true,
+            "events": {
+                "6586a3cf-7f11-4565-8124-4947b40a79bf": [
+                    "show"
+                ],
+                "a750198d-7f59-4ed0-8d22-441b56e19b60": [
+                    "hide"
+                ],
+                "cb227531-c2a9-44a1-837c-b903bd2cd994": [
+                    "hide"
+                ],
+                "c3a1fca6-57b5-41fb-b352-78a68daae200": [
+                    "hide"
+                ]
+            }
+        },
+        {
+            "name": "Leaderboard overlay",
+            "style": "position: absolute; display: flex; flex-direction: column; align-items: center; background: linear-gradient(180deg, rgba(0, 163, 255, 1) 0%, rgba(93, 52, 255, 1) 49%, rgba(104, 6, 94, 1) 100%); height: 100%; width: 100%; padding-top: max(env(safe-area-inset-top), 58px); padding-bottom: env(safe-area-inset-bottom); box-sizing: border-box",
+            "children": [
+                {
+                    "name": "header menu",
+                    "style": "display: flex; flex-direction: row; width: 100%; height: 44px; padding: 2px 16px; box-sizing: border-box;",
+                    "children": [
+                        {
+                            "name": "back button",
+                            "style": "display: flex; width: 40px; height: 40px; justify-content: center; align-items: center; gap: 8px; border-radius: 1000px; background: #FFFFFF; opacity: 0.08;",
+                            "children": [
+                                {
+                                    "name": "back icon",
+                                    "style": "background: asset(ee047836-d2f5-d5c1-9673-922d79eb42b5); width: 24px; height: 24px; color: #FFFFFF;"
+                                }
+                            ],
+                            "notify_events": {
+                                "tap": {
+                                    "guid": "3dfd9352-de54-4ac8-be73-e53710115797"
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "leaderboard",
+                    "style": "position: absolute; left: max(calc(50% - 231px), 0); top: 60px; width: min(468px, 100%); height: 100%; display: flex; flex-direction: column; align-items: center; padding: 0px 16px; box-sizing: border-box; gap: 8px",
+                    "data_source": {
+                        "guid": "fae3a490-8f9a-4410-b6c2-8cf6fafd3fdb",
+                        "global": true
+                    },
+                    "data_source_asset": "d45f765a-a619-4fd0-a3e7-722672ffe19a",
+                    "data_sort_property": "leaderboard_entry_rank",
+                    "data_sort_order": 1
+                }
+            ],
+            "hidden": true,
+            "events": {
+                "e392b935-925b-4f24-a018-4d381aea8a71": [
+                    "show"
+                ],
+                "3dfd9352-de54-4ac8-be73-e53710115797": [
+                    "hide"
+                ]
+            }
+        },
+        {
+            "name": "Countdown Overlay",
+            "asset": "ed88ce48-9ba4-43df-ab62-ec7da78cc18a",
+            "events": {
+                "6586a3cf-7f11-4565-8124-4947b40a79bf": [
+                    "hide"
+                ],
+                "a750198d-7f59-4ed0-8d22-441b56e19b60": [
+                    "hide"
+                ],
+                "cb227531-c2a9-44a1-837c-b903bd2cd994": [
+                    "show"
+                ]
+            }
+        },
+        {
+            "name": "InGame UI",
+            "asset": "09ff2477-5767-4075-a905-29b7ebbf5d57",
+            "events": {
+                "6586a3cf-7f11-4565-8124-4947b40a79bf": [
+                    "hide"
+                ],
+                "a750198d-7f59-4ed0-8d22-441b56e19b60": [
+                    "hide"
+                ],
+                "cb227531-c2a9-44a1-837c-b903bd2cd994": [
+                    "show"
+                ]
+            }
+        }
+    ],
+    "assetTypeGuid": "ded54a50-9829-41c5-a9b7-189387705aa7"
+}

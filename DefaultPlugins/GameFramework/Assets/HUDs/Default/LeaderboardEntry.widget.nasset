@@ -1,0 +1,35 @@
+{
+    "guid": "d45f765a-a619-4fd0-a3e7-722672ffe19a",
+    "name": "Leaderboard Entry",
+    "style": "width: 100%; height: 76px; box-sizing: border-box; box-sizing: border-box; background: rgba(255, 255, 255, 0.08); border-radius: 20px; padding: 16px; gap: 16px; display: flex; flex-direction: row; align-items: center",
+    "children": [
+        {
+            "style": "text: ?; font-family: asset(73ebe3ce-2911-6273-46f5-122ca2c061f9); font-style: normal; font-weight: 600; height: 20px; font-size: 20px; background: linear-gradient(180deg, #FFF 0%, #826DFF 100%);",
+            "dynamic_style": "text: {leaderboard_entry_rank}"
+        },
+        {
+            "style": "flex-grow: 1; height: 100%; padding: 16px 0px; box-sizing: border-box; align-items: center; gap: 8px; display: flex; flex-direction: row; ",
+            "children": [
+                {
+                    "name": "profile thumbnail",
+                    "style": "display: flex; width: 44px; height: 44px; background: linear-gradient(137deg, #403CFF 0%, #A93CFF 100%); border-radius: 50%; justify-content: center; align-items: center; border: 1px solid rgba(255, 255, 255, 0.12);",
+                    "children": [
+                        {
+                            "style": "width: 44px; height: 44px; border-radius: 50%;",
+                            "dynamic_style": "background: asset({leaderboard_entry_thumbnail_guid})"
+                        }
+                    ]
+                },
+                {
+                    "style": "text: Username; font-family: asset(73ebe3ce-2911-6273-46f5-122ca2c061f9); flex-grow: 1; font-style: normal; font-weight: 600; height: 16px; font-size: 15px; color: #FFF;",
+                    "dynamic_style": "text: {leaderboard_entry_name}"
+                },
+                {
+                    "style": "text: 0; font-family: asset(73ebe3ce-2911-6273-46f5-122ca2c061f9); font-style: normal; font-weight: 500; height: 16px; font-size: 15px; color: rgba(255, 255, 255, 0.64);",
+                    "dynamic_style": "text: {leaderboard_entry_score}"
+                }
+            ]
+        }
+    ],
+    "assetTypeGuid": "ded54a50-9829-41c5-a9b7-189387705aa7"
+}

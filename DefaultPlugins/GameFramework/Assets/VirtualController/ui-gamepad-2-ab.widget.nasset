@@ -1,0 +1,35 @@
+{
+    "name": "ui-gamepad-2-ab",
+    "guid": "c2aacbb4-e0f4-44a2-a274-8c3feffda6dc",
+    "stylesheet": "c1250283-0f1c-4547-bfb0-493dfc60e7bb",
+    "style": "position: absolute; display: flex; flex-direction: column; padding: 20px; width: 168px; height: 168px",
+    "children": [
+        {
+            "name": "ui-button-b",
+            "style": "background: asset(eeb46bf7-5a28-c36b-1550-e94b2caf2e45); align-self: flex-end; width: 64px; height: 64px",
+            "style_entry": "d26a6195-72ef-4236-afc7-cdb9f159fefa",
+            "data_components": [
+                {
+                    "typeGuid": "692387ca-552c-4398-ac35-832a090a0894",
+                    "guids": [
+                        "2a84d8c4-198c-472e-828f-f8a32b0dd0b2"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "ui-button-a",
+            "style": "background: asset(226bae3a-9578-496e-41d4-ba240cd334dd); width: 64px; height: 64px",
+            "style_entry": "d26a6195-72ef-4236-afc7-cdb9f159fefa",
+            "data_components": [
+                {
+                    "typeGuid": "692387ca-552c-4398-ac35-832a090a0894",
+                    "guids": [
+                        "eb5691da-422a-43df-be01-fe9381781b25"
+                    ]
+                }
+            ]
+        }
+    ],
+    "assetTypeGuid": "ded54a50-9829-41c5-a9b7-189387705aa7"
+}

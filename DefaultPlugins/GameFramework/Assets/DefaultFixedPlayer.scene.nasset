@@ -1,0 +1,78 @@
+{
+    "guid": "15b7ef17-55a9-4c14-9ebb-ab6ff82d1780",
+    "typeGuid": "0c3f4f29-0d53-4878-922a-cca7d6af7bb6",
+    "2a2bce0a-6314-481b-a5a0-7d01e1c00b35": {
+        "radius": 1024
+    },
+    "data_components": [
+        {
+            "typeGuid": "fefa51b8-945d-4f88-8859-356c7546efa7",
+            "name": "Default Player"
+        }
+    ],
+    "children": [
+        {
+            "typeGuid": "b0ec7111-5de9-4039-bee2-d915f63f929e",
+            "instanceGuid": "49cffa6d-073d-4387-92f4-7320e64b670f",
+            "de8f8da2-d37f-41da-bc6e-580435fe605f": {
+                "position": [
+                    0,
+                    0,
+                    0
+                ],
+                "rotation": [
+                    0,
+                    0,
+                    0
+                ]
+            },
+            "b0ec7111-5de9-4039-bee2-d915f63f929e": {
+                "fieldOfView": 60,
+                "nearPlane": 0.05,
+                "farPlane": 128
+            },
+            "data_components": [
+                {
+                    "typeGuid": "fefa51b8-945d-4f88-8859-356c7546efa7",
+                    "name": "Camera"
+                }
+            ]
+        }
+    ],
+    "default_camera": {
+        "position": [
+            -9.773,
+            -1.887,
+            4.015
+        ],
+        "rotation": [
+            -22,
+            0,
+            -79.02
+        ],
+        "fieldOfView": 60,
+        "nearPlane": 0.0098,
+        "farPlane": 128
+    },
+    "grid": {
+        "position": [
+            0,
+            0,
+            -0.5082
+        ],
+        "scale": [
+            -1,
+            -1,
+            1
+        ]
+    },
+    "assetTypeGuid": "807d69a9-56ec-4032-bb92-d081df336672",
+    "0c3f4f29-0d53-4878-922a-cca7d6af7bb6": {
+        "scene": "1ca23fef-ddd8-4790-bf50-da8e3efc7a18"
+    },
+    "thumbnailGuid": "4526ed00-73c9-4b89-9920-3f9d0a240d27",
+    "tags": [
+        "66173826-AC7D-44C4-A403-8DFDE3FD54A0",
+        "d6a09c51-8ccf-416e-8154-66f9404d2a44"
+    ]
+}

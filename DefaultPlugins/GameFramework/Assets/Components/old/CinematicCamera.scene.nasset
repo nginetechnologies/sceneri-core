@@ -1,0 +1,51 @@
+{
+    "guid": "47af85e8-4271-48e1-b607-a131be2857f9",
+    "assetTypeGuid": "807d69a9-56ec-4032-bb92-d081df336672",
+    "typeGuid": "0c3f4f29-0d53-4878-922a-cca7d6af7bb6",
+    "instanceGuid": "c363072d-5440-4587-a42b-ff268275ccb9",
+    "0c3f4f29-0d53-4878-922a-cca7d6af7bb6": {
+        "scene": "47af85e8-4271-48e1-b607-a131be2857f9"
+    },
+    "dependencies": [
+        "db5dc618-2cfe-44e9-a319-69c503d090e7",
+        "7962add3-c63a-6075-42d3-517305ba3b0b"
+    ],
+    "data_components": [
+        {
+            "typeGuid": "fefa51b8-945d-4f88-8859-356c7546efa7",
+            "name": "Cinematic Camera"
+        }
+    ],
+    "children": [
+        {
+            "typeGuid": "b0ec7111-5de9-4039-bee2-d915f63f929e",
+            "instanceGuid": "ab3cd955-16d4-493a-ae4f-93121596baf6",
+            "b0ec7111-5de9-4039-bee2-d915f63f929e": {
+                "fieldOfView": 60,
+                "nearPlane": 0.05,
+                "farPlane": 128
+            },
+            "data_components": [
+                {
+                    "typeGuid": "fefa51b8-945d-4f88-8859-356c7546efa7",
+                    "name": "Camera"
+                },
+                {
+                    "typeGuid": "02614ab2-4983-4380-930e-0e6b4ca4bd97"
+                },
+                {
+                    "typeGuid": "a8afbfa1-eba8-4228-b269-86b8ada445ec",
+                    "velocity": 1,
+                    "mode": 0,
+                    "override": true,
+                    "applyRotation": true
+                },
+                {
+                    "typeGuid": "c489ab90-32b2-4d08-a12b-0b515249ee80",
+                    "activation": 0,
+                    "action": 1
+                }
+            ]
+        }
+    ]
+}

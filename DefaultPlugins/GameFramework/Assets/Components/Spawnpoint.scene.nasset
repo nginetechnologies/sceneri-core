@@ -1,0 +1,24 @@
+{
+    "guid": "7a7e41a5-3e9c-4300-9e14-d1c0b5e1e4a9",
+    "assetTypeGuid": "807d69a9-56ec-4032-bb92-d081df336672",
+    "typeGuid": "88a0cdbb-2826-46e3-b372-2a5154eacb61",
+    "instanceGuid": "51f2e099-5c8c-4208-bfa4-0e6c92f4028b",
+    "dependencies": [
+        "2e5d6458-f003-4d2a-9a46-0f4926ec9e16"
+    ],
+    "88a0cdbb-2826-46e3-b372-2a5154eacb61": {
+        "audio_asset": "2e5d6458-f003-4d2a-9a46-0f4926ec9e16"
+    },
+    "data_components": [
+        {
+            "typeGuid": "fa5e5929-fdb4-4579-8c03-f3f837cf4905",
+            "mask": [
+                "997e9c4d-d494-4a6e-bb6c-620ced5fabde"
+            ]
+        },
+        {
+            "typeGuid": "fefa51b8-945d-4f88-8859-356c7546efa7",
+            "name": "Spawnpoint"
+        }
+    ]
+}

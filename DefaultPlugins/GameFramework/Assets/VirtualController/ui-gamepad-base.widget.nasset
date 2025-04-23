@@ -1,0 +1,22 @@
+{
+    "name": "ui-gamepad-base",
+    "guid": "638119c4-b28a-4642-9392-74f141a0570a",
+    "style": "position: absolute; display: flex; width: 100%; height: 100%; padding: min(5%,64px); align-items: flex-end; overflow: visible; box-sizing: border-box",
+    "children": [
+        {
+            "name": "module-slot-left",
+            "tags": [
+                "52870dfe-e23a-49f4-a005-1e50d6f1d55b"
+            ],
+            "style": "width: 168px; height: 168px; justify-self: flex-start; overflow: visible"
+        },
+        {
+            "name": "module-slot-right",
+            "tags": [
+                "38b95ebd-8063-4829-b2f8-0128ba448591"
+            ],
+            "style": "width: 168px; height: 168px; justify-self: flex-end; overflow: visible"
+        }
+    ],
+    "assetTypeGuid": "ded54a50-9829-41c5-a9b7-189387705aa7"
+}

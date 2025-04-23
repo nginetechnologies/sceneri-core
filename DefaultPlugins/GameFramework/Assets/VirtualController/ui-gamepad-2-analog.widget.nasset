@@ -1,0 +1,35 @@
+{
+    "name": "ui-gamepad-2-analog",
+    "guid": "8d4b596d-faa9-4ed8-8a6d-9d5526ec4afb",
+    "stylesheet": "c1250283-0f1c-4547-bfb0-493dfc60e7bb",
+    "style": "position: absolute; display: flex; flex-direction: column; gap: -12px; padding: 12px; width: 168px; height: 168px",
+    "children": [
+        {
+            "name": "ui-button-brake",
+            "style": "background: asset(c2eee8ca-41e0-6bd3-b7ec-78cb5a01a15c); width: 64px; height: 64px",
+            "style_entry": "d26a6195-72ef-4236-afc7-cdb9f159fefa",
+            "data_components": [
+                {
+                    "typeGuid": "692387ca-552c-4398-ac35-832a090a0894",
+                    "guids": [
+                        "6dc70ae2-c2e5-4425-8575-328cb5424f6d"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "ui-button-accelerate",
+            "style": "background: asset(5f9dfe41-997f-44f3-9905-593114a2f2bf); align-self: flex-end; width: 96px; height: 96px",
+            "style_entry": "d26a6195-72ef-4236-afc7-cdb9f159fefa",
+            "data_components": [
+                {
+                    "typeGuid": "692387ca-552c-4398-ac35-832a090a0894",
+                    "guids": [
+                        "85f23fba-1e8b-4df5-8792-2045118716c7"
+                    ]
+                }
+            ]
+        }
+    ],
+    "assetTypeGuid": "ded54a50-9829-41c5-a9b7-189387705aa7"
+}

@@ -1,0 +1,186 @@
+{
+    "guid": "07be4f44-6aa2-412b-83de-12c0e01e8f01",
+    "typeGuid": "807D69A9-56EC-4032-BB92-D081DF336672",
+    "D2B5D801-01EE-43B4-A8BB-77797A1C8214": {
+        "name": "jump",
+        "binary_bindings": {
+            "D757AEE0-C9BB-48F8-845F-3E13C5D45846": [
+                {
+                    "key": 32
+                }
+            ],
+            "00B29F74-775C-46BA-96E4-BEC2CDE4387A": [
+                {
+                    "button": 1
+                }
+            ]
+        }
+    },
+    "9D3B1AE9-4757-4029-B23E-A564D0CC6D4B": {
+        "name": "sprint",
+        "binary_bindings": {
+            "D757AEE0-C9BB-48F8-845F-3E13C5D45846": [
+                {
+                    "key": 160
+                }
+            ]
+        }
+    },
+    "49899D2E-E735-464A-8D5C-3CD526AA8974": {
+        "name": "movement",
+        "axis_bindings": {
+            "00B29F74-775C-46BA-96E4-BEC2CDE4387A": [
+                {
+                    "axis": 0
+                },
+                {
+                    "button": 4096,
+                    "direction": [
+                        -1,
+                        0,
+                        0
+                    ]
+                },
+                {
+                    "button": 8192,
+                    "direction": [
+                        1,
+                        0,
+                        0
+                    ]
+                },
+                {
+                    "button": 32768,
+                    "direction": [
+                        0,
+                        1,
+                        0
+                    ]
+                },
+                {
+                    "button": 65536,
+                    "direction": [
+                        0,
+                        -1,
+                        0
+                    ]
+                }
+            ],
+            "D757AEE0-C9BB-48F8-845F-3E13C5D45846": [
+                {
+                    "key": 87,
+                    "direction": [
+                        0,
+                        0.5,
+                        0
+                    ]
+                },
+                {
+                    "key": 65,
+                    "direction": [
+                        -0.5,
+                        0,
+                        0
+                    ]
+                },
+                {
+                    "key": 83,
+                    "direction": [
+                        0,
+                        -0.5,
+                        0
+                    ]
+                },
+                {
+                    "key": 68,
+                    "direction": [
+                        0.5,
+                        0,
+                        0
+                    ]
+                }
+            ]
+        }
+    },
+    "53DAE2CE-41C1-4524-A35F-2ADF812201D1": {
+        "name": "camera_movement",
+        "axis_bindings": {
+            "00B29F74-775C-46BA-96E4-BEC2CDE4387A": [
+                {
+                    "axis": 1
+                }
+            ]
+        }
+    },
+    "467965DA-1724-4522-BE85-B936D5030887": {
+        "name": "mouselook",
+        "delta_bindings": {
+            "66EB037F-94AC-407C-A69C-A4DB55EA5A8D": [
+                {
+                    "motion": 1
+                },
+                {
+                    "motion": 2
+                }
+            ]
+        }
+    },
+    "3888f0f7-8186-4a64-ba99-f00ba8087dab": {
+        "name": "attack",
+        "binary_bindings": {
+            "00B29F74-775C-46BA-96E4-BEC2CDE4387A": [
+                {
+                    "analog": 1
+                },
+                {
+                    "button": 2
+                }
+            ],
+            "66EB037F-94AC-407C-A69C-A4DB55EA5A8D": [
+                {
+                    "button": 0,
+                    "pressed": true
+                },
+                {
+                    "button": 0,
+                    "pressed": false
+                }
+            ]
+        }
+    },
+    "7d4b1398-7348-418e-bb0d-29889c69fd2e": {
+        "name": "secondary",
+        "binary_bindings": {
+            "00B29F74-775C-46BA-96E4-BEC2CDE4387A": [
+                {
+                    "analog": 0
+                }
+            ],
+            "66EB037F-94AC-407C-A69C-A4DB55EA5A8D": [
+                {
+                    "button": 2,
+                    "pressed": true
+                },
+                {
+                    "button": 2,
+                    "pressed": false
+                }
+            ]
+        }
+    },
+    "5DF8BC49-6D19-4718-8B92-B820564EEB0E": {
+        "name": "reload",
+        "binary_bindings": {
+            "D757AEE0-C9BB-48F8-845F-3E13C5D45846": [
+                {
+                    "key": 82
+                }
+            ],
+            "00B29F74-775C-46BA-96E4-BEC2CDE4387A": [
+                {
+                    "button": 4
+                }
+            ]
+        }
+    }
+}

@@ -28,21 +28,6 @@ if(PLATFORM_APPLE_MACOS)
 			MACOSX_BUNDLE_GUI_IDENTIFIER "com.scenericore.App"
 		)
 	endif()
-
-	if(PLATFORM_APPLE_MACOS)
-		#add_custom_command(TARGET ProjectLauncher PRE_LINK
-		#	COMMAND ${CMAKE_COMMAND} -E copy_directory_if_different ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/vulkan \${CODESIGNING_FOLDER_PATH}/Contents/MacOS/vulkan
-		#)
-		#add_custom_command(TARGET ProjectLauncher PRE_LINK
-		#	COMMAND ${CMAKE_COMMAND} -E copy_directory_if_different ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/tint \${CODESIGNING_FOLDER_PATH}/Contents/MacOS/tint
-		#)
-
-		if (USE_STEAM_SDK)
-			add_custom_command(TARGET ProjectLauncher PRE_LINK
-				COMMAND ${CMAKE_COMMAND} -E copy_if_different ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/libsteam_api.dylib \${CODESIGNING_FOLDER_PATH}/Contents/MacOS/libsteam_api.dylib
-			)
-		endif()
-	endif()
 elseif(PLATFORM_APPLE)
 	set_target_properties(ProjectLauncher PROPERTIES
 		XCODE_ATTRIBUTE_CODE_SIGN_ENTITLEMENTS "${CMAKE_CURRENT_LIST_DIR}/Private/Apple/${PLATFORM_NAME}.entitlements"
@@ -117,5 +102,5 @@ if(PLATFORM_APPLE)
 endif()
 
 # Include the sample plug-in
-add_subdirectory(SampleLauncherPlugin/Code)
+add_subdirectory("${CORE_ROOT_DIRECTORY}/DefaultPlugins/SampleLauncherPlugin/Code" "${CMAKE_BINARY_DIR}/SampleLauncherPlugin")
 LinkPlugin(ProjectLauncher 84cb6ecd-1f00-4178-8434-5853cebb8601)

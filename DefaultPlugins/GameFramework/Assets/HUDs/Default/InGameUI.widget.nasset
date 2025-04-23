@@ -1,0 +1,124 @@
+{
+    "guid": "3abfbc10-9aa5-491d-8d7b-0e6f1d36c1a0",
+    "name": "InGame UI",
+    "style": "position: absolute; padding: max(env(safe-area-inset-top),16px) max(env(safe-area-inset-right),16px) max(env(safe-area-inset-bottom),8px) max(env(safe-area-inset-left),16px); display: flex; flex-direction: column; justify-content: flex-start; height: 100%; width: 100%; overflow: visible;",
+    "children": [
+        {
+            "name": "Top Bar",
+            "style": "width: 100%; height: 40px; display: flex; flex-direction: row; overflow: visible; overflow: visible;",
+            "children": [
+                {
+                    "name": "Left Corner Container",
+                    "style": "width: 100%; height: 100%; display: flex; flex-direction: row; justify-content: flex-start; gap: 8px; overflow: visible;",
+                    "children": [
+                        {
+                            "name": "Health",
+                            "style": "height: 40px; width: fit-content; display: flex; flex-direction: row; align-items: start; overflow: visible;",
+                            "data_source": "1792937f-8551-4828-9a1b-4f70e6eb2ec7",
+                            "data_source_asset": "3a68f58a-1e8d-435c-a63e-deb861e638e2",
+                            "events": {
+                                "ae4a7859-02e8-4cd7-8c93-2342b37b849d": [
+                                    "show"
+                                ]
+                            },
+                            "hidden": true
+                        },
+                        {
+                            "name": "Time Container",
+                            "style": "display: flex; flex-direction: row; height: 100%; width: 120px; overflow: visible;",
+                            "children": [
+                                {
+                                    "name": "Time Background",
+                                    "style": "display: flex; flex-direction: row; position: relative; top: 15%; width: 80px; height: 80%; background: #000000; opacity: 0.3; border-radius: 10px;",
+                                    "children": [
+                                        {
+                                            "name": "Time Value",
+                                            "style": "width: 100%; height: 100%; text-align: center; font-family: asset(73ebe3ce-2911-6273-46f5-122ca2c061f9); font-style: normal; font-weight: 600; font-size: 18px; letter-spacing: -1.28px; color: #ffffff;",
+                                            "dynamic_style": "text: {countdown_timer}",
+                                            "property_source": "24265b02-bd16-437d-bea1-394f7884802d"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Time Icon",
+                                    "style": "background: asset(a72fc22e-677e-8519-16d4-31a5c6b61150); height: 40px; width: 40px; overflow: visible",
+                                    "children": [
+                                        {
+                                            "name": "Time Icon Hand",
+                                            "style": "background: asset(ed1872d6-fdbe-5159-8ccd-644c05d2f9f5); width: 100%; height: 100%;",
+                                            "data_components": [
+                                                {
+                                                    "typeGuid": "ED32542E-8C36-455E-B67C-0D0D34D2E68D",
+                                                    "speed": 2
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ],
+                            "events": {
+                                "83794BA2-0790-429C-85F1-4B18FDB18A83": [
+                                    "show"
+                                ]
+                            },
+                            "hidden": true
+                        },
+                        {
+                            "name": "Score Container",
+                            "style": "display: flex; flex-direction: row; height: 100%; width: 120px; overflow: visible;",
+                            "children": [
+                                {
+                                    "name": "Score Background",
+                                    "style": "display: flex; flex-direction: row; position: relative; top: 15%; width: 80px; height: 80%; background: #000000; opacity: 0.3; border-radius: 10px;",
+                                    "children": [
+                                        {
+                                            "name": "Score Value",
+                                            "style": "width: 100%; height: 100%; text: 0; text-align: center; font-family: asset(73ebe3ce-2911-6273-46f5-122ca2c061f9); font-style: normal; font-weight: 600; font-size: 18px; letter-spacing: -1.28px; color: #ffffff;",
+                                            "data_source": {
+                                                "guid": "5a62fa86-fa29-45e7-8b62-fbf72e1607a3",
+                                                "inline": true
+                                            },
+                                            "data_max_count": 1,
+                                            "data_required_tags": [
+                                                "44be35b5-5c1c-49b9-a203-784b5b5ea4c6"
+                                            ],
+                                            "dynamic_style": "text: {score_value}"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Score Icon",
+                                    "style": "background: asset(06e37518-e856-e728-7ac0-7e7e1b2e2684); height: 40px; width: 40px; overflow: visible;",
+                                    "data_components": [
+                                        {
+                                            "typeGuid": "9d2427cb-47d1-4c5f-a12a-f60e300b7770",
+                                            "speed": 20,
+                                            "duration": 0.2,
+                                            "event": "af809f18-0c52-441b-9c7d-ed30206914b4",
+                                            "maximum": [
+                                                0,
+                                                -20
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ],
+                            "events": {
+                                "22038124-1fc7-4b12-867c-96e9ca9d36f4": [
+                                    "show"
+                                ]
+                            },
+                            "hidden": true
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "events": {
+        "cb227531-c2a9-44a1-837c-b903bd2cd994": [
+            "show"
+        ]
+    },
+    "assetTypeGuid": "ded54a50-9829-41c5-a9b7-189387705aa7"
+}

@@ -1,0 +1,7 @@
+{
+    "guid": "3a68f58a-1e8d-435c-a63e-deb861e638e2",
+    "name": "Heart",
+    "style": "width: 40px; height: 40px;",
+    "dynamic_style": "background-image: asset({health_icon_guid})",
+    "assetTypeGuid": "ded54a50-9829-41c5-a9b7-189387705aa7"
+}

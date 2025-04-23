@@ -102,7 +102,7 @@
 				<string>public.content</string>
 			</array>
 			<key>UTTypeIdentifier</key>
-			<string>com.sceneri-core.App-project</string>
+			<string>com.scenericore.App-project</string>
 			<key>UTTypeDescription</key>
 			<string>sceneri Project</string>
 			<key>UTTypeTagSpecification</key>
@@ -120,7 +120,7 @@
 				<string>public.content</string>
 			</array>
 			<key>UTTypeIdentifier</key>
-			<string>com.sceneri-core.App-plugin</string>
+			<string>com.scenericore.App-plugin</string>
 			<key>UTTypeDescription</key>
 			<string>sceneri Plug-in</string>
 			<key>UTTypeTagSpecification</key>
@@ -133,7 +133,7 @@
 		</dict>
 		<dict>
 			<key>UTTypeIdentifier</key>
-			<string>com.sceneri-core.App-asset</string>
+			<string>com.scenericore.App-asset</string>
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.json</string>
@@ -162,7 +162,7 @@
 			<string>Owner</string>
 			<key>LSItemContentTypes</key>
 			<array>
-				<string>com.sceneri-core.App-project</string>
+				<string>com.scenericore.App-project</string>
 			</array>
 		</dict>
 		<dict>
@@ -174,7 +174,7 @@
 			<string>Owner</string>
 			<key>LSItemContentTypes</key>
 			<array>
-				<string>com.sceneri-core.App-asset</string>
+				<string>com.scenericore.App-asset</string>
 			</array>
 		</dict>
 	</array>
@@ -188,7 +188,7 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>com.sceneri-core.App-ngineurl</string>
+			<string>com.scenericore.App-ngineurl</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>ngine</string>

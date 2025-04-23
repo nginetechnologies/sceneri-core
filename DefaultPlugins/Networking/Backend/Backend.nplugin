@@ -1,0 +1,16 @@
+{
+    "name": "Backend",
+    "version": "0.0.1",
+    "guid": "087dee23-94e5-44d9-88e9-af82b784f025",
+    "database_guid": "95f29ea6-ce74-dcc5-9342-088dc8fda415",
+    "engine": "3ff049e0-0880-4898-879d-1ccf5583c9c6",
+    "asset_directory": "Assets",
+    "source_directory": "Code",
+    "binary_directory": "bin",
+    "library_directory": "lib",
+    "plugin_dependencies": [
+        "4732DB7A-619B-421E-8569-BF31F607BBB7"
+    ],
+    "source": "Backend.nplugin",
+    "assetTypeGuid": "926268b2-2d45-4c52-87c9-d76815217359"
+}

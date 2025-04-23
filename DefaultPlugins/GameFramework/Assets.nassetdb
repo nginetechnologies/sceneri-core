@@ -1,0 +1,485 @@
+{
+    "04e0fb6b-9189-45fa-9b0b-313cac133110": {
+        "assetTypeGuid": "ded54a50-9829-41c5-a9b7-189387705aa7",
+        "path": "Assets/HUDs/Default/Countdown.widget.nasset",
+        "name": "Countdown Overlay"
+    },
+    "06e37518-e856-e728-7ac0-7e7e1b2e2684": {
+        "assetTypeGuid": "c4e01aa2-495d-4eb1-b9be-fe0e30500b07",
+        "path": "Assets/Graphics/coin.tex.nasset"
+    },
+    "07be4f44-6aa2-412b-83de-12c0e01e8f01": {
+        "componentTypeGuid": "807d69a9-56ec-4032-bb92-d081df336672",
+        "path": "Assets/DefaultFPSCharacter.actionmap.nasset"
+    },
+    "09ff2477-5767-4075-a905-29b7ebbf5d57": {
+        "assetTypeGuid": "ded54a50-9829-41c5-a9b7-189387705aa7",
+        "path": "Assets/HUDs/FPS/FPSInGameUI.widget.nasset",
+        "name": "InGame UI"
+    },
+    "12184ddc-ff19-618e-9992-21e04c294f49": {
+        "assetTypeGuid": "c4e01aa2-495d-4eb1-b9be-fe0e30500b07",
+        "path": "Assets/VirtualController/Icons/ui-button-arrow-down.tex.nasset"
+    },
+    "13763099-04e8-cae6-ac83-6b1f0b742cca": {
+        "assetTypeGuid": "c4e01aa2-495d-4eb1-b9be-fe0e30500b07",
+        "path": "Assets/HUDs/FPS/icon-assists.tex.nasset"
+    },
+    "15b7ef17-55a9-4c14-9ebb-ab6ff82d1780": {
+        "assetTypeGuid": "807d69a9-56ec-4032-bb92-d081df336672",
+        "componentTypeGuid": "0c3f4f29-0d53-4878-922a-cca7d6af7bb6",
+        "path": "Assets/DefaultFixedPlayer.scene.nasset",
+        "thumbnail": "4526ed00-73c9-4b89-9920-3f9d0a240d27",
+        "tags": [
+            "66173826-ac7d-44c4-a403-8dfde3fd54a0",
+            "d6a09c51-8ccf-416e-8154-66f9404d2a44"
+        ]
+    },
+    "19b9f6b0-69f7-7fc5-9046-de97b1669159": {
+        "assetTypeGuid": "c4e01aa2-495d-4eb1-b9be-fe0e30500b07",
+        "path": "Assets/HUDs/FPS/icon-edit.tex.nasset"
+    },
+    "1b2a3444-8420-1a3c-d42e-4de473ee05ba": {
+        "assetTypeGuid": "c4e01aa2-495d-4eb1-b9be-fe0e30500b07",
+        "path": "Assets/HUDs/FPS/icon-kills.tex.nasset"
+    },
+    "1ca23fef-ddd8-4790-bf50-da8e3efc7a18": {
+        "assetTypeGuid": "807d69a9-56ec-4032-bb92-d081df336672",
+        "componentTypeGuid": "0c3f4f29-0d53-4878-922a-cca7d6af7bb6",
+        "path": "Assets/DefaultPlayer.scene.nasset",
+        "thumbnail": "4526ed00-73c9-4b89-9920-3f9d0a240d27",
+        "tags": [
+            "66173826-ac7d-44c4-a403-8dfde3fd54a0"
+        ]
+    },
+    "1cb6a239-dba3-42f6-82d2-02a5aa0c0966": {
+        "assetTypeGuid": "807d69a9-56ec-4032-bb92-d081df336672",
+        "componentTypeGuid": "f65e6195-b9f8-4422-90d9-fea73cbb80c7",
+        "path": "Assets/Components/PressurePlateSensor.scene.nasset",
+        "dependencies": [
+            "db5dc618-2cfe-44e9-a319-69c503d090e7"
+        ]
+    },
+    "21bef3ef-60cd-5a1f-137a-450a02b16076": {
+        "assetTypeGuid": "c4e01aa2-495d-4eb1-b9be-fe0e30500b07",
+        "path": "Assets/Graphics/icon-star-empty.tex.nasset"
+    },
+    "226bae3a-9578-496e-41d4-ba240cd334dd": {
+        "assetTypeGuid": "c4e01aa2-495d-4eb1-b9be-fe0e30500b07",
+        "path": "Assets/VirtualController/Icons/ui-button-a.tex.nasset"
+    },
+    "23b28532-67f0-448b-b395-709c233dfedd": {
+        "assetTypeGuid": "807d69a9-56ec-4032-bb92-d081df336672",
+        "componentTypeGuid": "0c3f4f29-0d53-4878-922a-cca7d6af7bb6",
+        "path": "Assets/Components/old/FinishSensor.scene.nasset",
+        "dependencies": [
+            "db5dc618-2cfe-44e9-a319-69c503d090e7",
+            "7962add3-c63a-6075-42d3-517305ba3b0b"
+        ]
+    },
+    "2620c4b6-a74e-427f-a036-8b8004557127": {
+        "assetTypeGuid": "807d69a9-56ec-4032-bb92-d081df336672",
+        "componentTypeGuid": "d0879fbb-891e-494d-bba9-d36fabcad38a",
+        "path": "Assets/Components/DestroySensor.scene.nasset",
+        "dependencies": [
+            "db5dc618-2cfe-44e9-a319-69c503d090e7"
+        ]
+    },
+    "35d3e5a4-a41c-59b2-944b-b2c37601522a": {
+        "assetTypeGuid": "c4e01aa2-495d-4eb1-b9be-fe0e30500b07",
+        "path": "Assets/VirtualController/Icons/ui-button-x.tex.nasset"
+    },
+    "362e8d94-2273-f2c4-32e3-159f28885138": {
+        "assetTypeGuid": "c4e01aa2-495d-4eb1-b9be-fe0e30500b07",
+        "path": "Assets/Icon/icon-leaderboard.tex.nasset"
+    },
+    "3a68f58a-1e8d-435c-a63e-deb861e638e2": {
+        "assetTypeGuid": "ded54a50-9829-41c5-a9b7-189387705aa7",
+        "path": "Assets/Heart.widget.nasset"
+    },
+    "3a7d2cff-eb77-4264-9564-e71b84f93b3e": {
+        "assetTypeGuid": "807d69a9-56ec-4032-bb92-d081df336672",
+        "componentTypeGuid": "67b6e2f9-bedc-4dc7-87ff-2ab7b27ab463",
+        "path": "Assets/Components/HealthCollectible.scene.nasset",
+        "dependencies": [
+            "db5dc618-2cfe-44e9-a319-69c503d090e7"
+        ]
+    },
+    "3abfbc10-9aa5-491d-8d7b-0e6f1d36c1a0": {
+        "assetTypeGuid": "ded54a50-9829-41c5-a9b7-189387705aa7",
+        "path": "Assets/HUDs/Default/InGameUI.widget.nasset",
+        "name": "InGame UI"
+    },
+    "3d7b1a60-9c4c-4365-9e0f-6f9e9c89c6f8": {
+        "assetTypeGuid": "807d69a9-56ec-4032-bb92-d081df336672",
+        "componentTypeGuid": "93a30ea5-1b2f-4261-a73c-d0302e0bed33",
+        "path": "Assets/Components/TeleportSensor.scene.nasset",
+        "dependencies": [
+            "db5dc618-2cfe-44e9-a319-69c503d090e7"
+        ]
+    },
+    "42f7fd1a-a792-3c14-9ef5-1f543f752352": {
+        "assetTypeGuid": "c4e01aa2-495d-4eb1-b9be-fe0e30500b07",
+        "path": "Assets/Graphics/icon-star-filled.tex.nasset"
+    },
+    "43fe3b35-57af-49f7-9aee-b93182accf7a": {
+        "assetTypeGuid": "ded54a50-9829-41c5-a9b7-189387705aa7",
+        "path": "Assets/VirtualController/ui-gamepad-2-lr.widget.nasset"
+    },
+    "451fe5aa-a6c6-492e-93c1-8a93d879f48c": {
+        "assetTypeGuid": "807d69a9-56ec-4032-bb92-d081df336672",
+        "componentTypeGuid": "97f5d985-8b59-4864-82d8-0856b85b8c68",
+        "path": "Assets/Components/Collectible.scene.nasset",
+        "dependencies": [
+            "db5dc618-2cfe-44e9-a319-69c503d090e7"
+        ]
+    },
+    "47af85e8-4271-48e1-b607-a131be2857f9": {
+        "assetTypeGuid": "807d69a9-56ec-4032-bb92-d081df336672",
+        "componentTypeGuid": "0c3f4f29-0d53-4878-922a-cca7d6af7bb6",
+        "path": "Assets/Components/old/CinematicCamera.scene.nasset",
+        "dependencies": [
+            "db5dc618-2cfe-44e9-a319-69c503d090e7",
+            "7962add3-c63a-6075-42d3-517305ba3b0b"
+        ]
+    },
+    "491a901c-cc36-a2f8-50bc-9bb1a420d7fa": {
+        "assetTypeGuid": "c4e01aa2-495d-4eb1-b9be-fe0e30500b07",
+        "path": "Assets/Graphics/icon-heart-empty.tex.nasset"
+    },
+    "4b024a68-e202-492a-86e0-4007809e545b": {
+        "assetTypeGuid": "807d69a9-56ec-4032-bb92-d081df336672",
+        "componentTypeGuid": "0c3f4f29-0d53-4878-922a-cca7d6af7bb6",
+        "path": "Assets/Components/old/HealthCollectible.scene.nasset",
+        "dependencies": [
+            "db5dc618-2cfe-44e9-a319-69c503d090e7",
+            "7962add3-c63a-6075-42d3-517305ba3b0b"
+        ]
+    },
+    "4ce903fd-5586-4f16-8e87-fc0814bdf340": {
+        "assetTypeGuid": "ded54a50-9829-41c5-a9b7-189387705aa7",
+        "path": "Assets/VirtualController/ui-gamepad-4.widget.nasset"
+    },
+    "4e368fa9-7ef6-4a33-9fc8-f9593b685c4f": {
+        "assetTypeGuid": "807d69a9-56ec-4032-bb92-d081df336672",
+        "componentTypeGuid": "0c3f4f29-0d53-4878-922a-cca7d6af7bb6",
+        "path": "Assets/Components/old/RespawnSensor.scene.nasset",
+        "dependencies": [
+            "db5dc618-2cfe-44e9-a319-69c503d090e7",
+            "7962add3-c63a-6075-42d3-517305ba3b0b"
+        ]
+    },
+    "5520deb5-8144-4af1-8fb0-149031fb795b": {
+        "assetTypeGuid": "807d69a9-56ec-4032-bb92-d081df336672",
+        "componentTypeGuid": "0c3f4f29-0d53-4878-922a-cca7d6af7bb6",
+        "path": "Assets/Components/old/DamageSensor.scene.nasset",
+        "dependencies": [
+            "db5dc618-2cfe-44e9-a319-69c503d090e7",
+            "7962add3-c63a-6075-42d3-517305ba3b0b"
+        ]
+    },
+    "5f9dfe41-997f-44f3-9905-593114a2f2bf": {
+        "assetTypeGuid": "c4e01aa2-495d-4eb1-b9be-fe0e30500b07",
+        "path": "Assets/VirtualController/Icons/ui-button-accelerate.tex.nasset"
+    },
+    "6352c2a9-1ae2-42a9-b630-53ee3db19bf3": {
+        "assetTypeGuid": "807d69a9-56ec-4032-bb92-d081df336672",
+        "componentTypeGuid": "bb15f0a1-1644-44b2-9f6c-4c09ec7c7370",
+        "path": "Assets/Components/HazardSensor.scene.nasset",
+        "dependencies": [
+            "db5dc618-2cfe-44e9-a319-69c503d090e7"
+        ]
+    },
+    "635dd72f-f9bd-4dd0-a6d7-3655eada628f": {
+        "assetTypeGuid": "807d69a9-56ec-4032-bb92-d081df336672",
+        "componentTypeGuid": "38679bb8-9365-438c-83dc-953fa09e6380",
+        "path": "Assets/Components/RespawnSensor.scene.nasset",
+        "dependencies": [
+            "db5dc618-2cfe-44e9-a319-69c503d090e7"
+        ]
+    },
+    "638119c4-b28a-4642-9392-74f141a0570a": {
+        "assetTypeGuid": "ded54a50-9829-41c5-a9b7-189387705aa7",
+        "path": "Assets/VirtualController/ui-gamepad-base.widget.nasset"
+    },
+    "63905376-bceb-45db-acec-c2642dec8447": {
+        "assetTypeGuid": "ded54a50-9829-41c5-a9b7-189387705aa7",
+        "path": "Assets/VirtualController/ui-gamepad-arrows.widget.nasset"
+    },
+    "66e39159-c4e1-5153-454e-c2e801802cee": {
+        "assetTypeGuid": "c4e01aa2-495d-4eb1-b9be-fe0e30500b07",
+        "path": "Assets/Graphics/badge.tex.nasset"
+    },
+    "66f32919-7638-41e7-8796-84c8b7de56d7": {
+        "assetTypeGuid": "807d69a9-56ec-4032-bb92-d081df336672",
+        "componentTypeGuid": "0c3f4f29-0d53-4878-922a-cca7d6af7bb6",
+        "path": "Assets/Components/old/TransmitterSensor.scene.nasset",
+        "dependencies": [
+            "db5dc618-2cfe-44e9-a319-69c503d090e7",
+            "7962add3-c63a-6075-42d3-517305ba3b0b"
+        ]
+    },
+    "6ddc6fb6-8f88-4ed4-abfb-227e86923a06": {
+        "assetTypeGuid": "807d69a9-56ec-4032-bb92-d081df336672",
+        "componentTypeGuid": "b0ec7111-5de9-4039-bee2-d915f63f929e",
+        "path": "Assets/Components/CinematicCamera.scene.nasset"
+    },
+    "7026f03b-25a6-991a-42c5-03b5c6c90dc0": {
+        "assetTypeGuid": "c4e01aa2-495d-4eb1-b9be-fe0e30500b07",
+        "path": "Assets/HUDs/FPS/icon-deaths.tex.nasset"
+    },
+    "72043a52-4674-407b-aa47-865f43cb077b": {
+        "assetTypeGuid": "807d69a9-56ec-4032-bb92-d081df336672",
+        "componentTypeGuid": "7d07e1f4-1660-4732-9ab0-ca3c4bad63ff",
+        "path": "Assets/Components/DamageSensor.scene.nasset",
+        "dependencies": [
+            "db5dc618-2cfe-44e9-a319-69c503d090e7"
+        ]
+    },
+    "7286831d-0648-00fc-89ec-42a2a6d24941": {
+        "assetTypeGuid": "c4e01aa2-495d-4eb1-b9be-fe0e30500b07",
+        "path": "Assets/Graphics/star.tex.nasset"
+    },
+    "76def5d8-bf5b-15bf-feed-4b5058389247": {
+        "assetTypeGuid": "c4e01aa2-495d-4eb1-b9be-fe0e30500b07",
+        "path": "Assets/Graphics/icon-generate.tex.nasset"
+    },
+    "7a7e41a5-3e9c-4300-9e14-d1c0b5e1e4a9": {
+        "assetTypeGuid": "807d69a9-56ec-4032-bb92-d081df336672",
+        "componentTypeGuid": "88a0cdbb-2826-46e3-b372-2a5154eacb61",
+        "path": "Assets/Components/Spawnpoint.scene.nasset",
+        "dependencies": [
+            "2e5d6458-f003-4d2a-9a46-0f4926ec9e16"
+        ]
+    },
+    "7f22f519-1e79-2678-0ea6-775fdec4e4f6": {
+        "assetTypeGuid": "c4e01aa2-495d-4eb1-b9be-fe0e30500b07",
+        "path": "Assets/HUDs/FPS/icon-damage-direction.tex.nasset"
+    },
+    "84be036b-30a5-4fc8-958e-451daf55b057": {
+        "assetTypeGuid": "807d69a9-56ec-4032-bb92-d081df336672",
+        "componentTypeGuid": "0c3f4f29-0d53-4878-922a-cca7d6af7bb6",
+        "path": "Assets/Components/old/Collectible.scene.nasset",
+        "dependencies": [
+            "db5dc618-2cfe-44e9-a319-69c503d090e7",
+            "7962add3-c63a-6075-42d3-517305ba3b0b"
+        ]
+    },
+    "86b7c3b2-b2c5-4ed4-84a4-84b9318426db": {
+        "assetTypeGuid": "ded54a50-9829-41c5-a9b7-189387705aa7",
+        "path": "Assets/VirtualController/ui-gamepad-2-ab-extension.widget.nasset"
+    },
+    "8af32dcf-e958-400b-0c98-38a91b44a09e": {
+        "assetTypeGuid": "c4e01aa2-495d-4eb1-b9be-fe0e30500b07",
+        "path": "Assets/VirtualController/Icons/ui-button-arrow-up.tex.nasset"
+    },
+    "8d4b596d-faa9-4ed8-8a6d-9d5526ec4afb": {
+        "assetTypeGuid": "ded54a50-9829-41c5-a9b7-189387705aa7",
+        "path": "Assets/VirtualController/ui-gamepad-2-analog.widget.nasset"
+    },
+    "8ec31ea3-c9b0-4dd2-8e9e-b7d390d2f8c8": {
+        "assetTypeGuid": "807d69a9-56ec-4032-bb92-d081df336672",
+        "componentTypeGuid": "0c3f4f29-0d53-4878-922a-cca7d6af7bb6",
+        "path": "Assets/Components/old/ImpulseSensor.scene.nasset",
+        "dependencies": [
+            "db5dc618-2cfe-44e9-a319-69c503d090e7",
+            "7962add3-c63a-6075-42d3-517305ba3b0b"
+        ]
+    },
+    "91724885-2902-6f8e-538c-3b05044a8918": {
+        "assetTypeGuid": "c4e01aa2-495d-4eb1-b9be-fe0e30500b07",
+        "path": "Assets/VirtualController/Icons/ui-button-up.tex.nasset"
+    },
+    "91e774d1-dcfa-0b17-b9ba-eaa3604c2914": {
+        "assetTypeGuid": "c4e01aa2-495d-4eb1-b9be-fe0e30500b07",
+        "path": "Assets/VirtualController/Icons/ui-button-y.tex.nasset"
+    },
+    "933e08ed-9240-6be4-5d97-7d23d24a6a4b": {
+        "assetTypeGuid": "c4e01aa2-495d-4eb1-b9be-fe0e30500b07",
+        "path": "Assets/VirtualController/Icons/ui-thumbstick.tex.nasset"
+    },
+    "9a9baffe-7f08-43ce-98aa-6155b2927a14": {
+        "assetTypeGuid": "807d69a9-56ec-4032-bb92-d081df336672",
+        "componentTypeGuid": "0c3f4f29-0d53-4878-922a-cca7d6af7bb6",
+        "path": "Assets/Components/old/TeleportSensor.scene.nasset",
+        "dependencies": [
+            "db5dc618-2cfe-44e9-a319-69c503d090e7",
+            "7962add3-c63a-6075-42d3-517305ba3b0b"
+        ]
+    },
+    "9f0ee7de-1af4-4d68-ada9-a4c63f9905aa": {
+        "assetTypeGuid": "807d69a9-56ec-4032-bb92-d081df336672",
+        "componentTypeGuid": "683e117b-9758-4ba8-85d3-75114f58589e",
+        "path": "Assets/Components/FinishSensor.scene.nasset",
+        "dependencies": [
+            "db5dc618-2cfe-44e9-a319-69c503d090e7"
+        ]
+    },
+    "9f651169-3782-4ba1-b714-e75811e0d65c": {
+        "assetTypeGuid": "807d69a9-56ec-4032-bb92-d081df336672",
+        "componentTypeGuid": "0c3f4f29-0d53-4878-922a-cca7d6af7bb6",
+        "path": "Assets/Components/old/PressurePlateSensor.scene.nasset",
+        "dependencies": [
+            "db5dc618-2cfe-44e9-a319-69c503d090e7",
+            "7962add3-c63a-6075-42d3-517305ba3b0b"
+        ]
+    },
+    "9fc4ce8c-8bdc-4778-843d-cc0512c5fc86": {
+        "assetTypeGuid": "ded54a50-9829-41c5-a9b7-189387705aa7",
+        "path": "Assets/HUDs/FPS/FPSHUD.widget.nasset",
+        "name": "FPS HUD Root"
+    },
+    "a0965d73-c9ed-4bc1-9109-d96689f67aec": {
+        "assetTypeGuid": "ded54a50-9829-41c5-a9b7-189387705aa7",
+        "path": "Assets/VirtualController/ui-gamepad-1.widget.nasset"
+    },
+    "a4d746c4-f7f6-5309-f80a-f72f4bb86b0d": {
+        "assetTypeGuid": "c4e01aa2-495d-4eb1-b9be-fe0e30500b07",
+        "path": "Assets/VirtualController/Icons/ui-button-arrow-right.tex.nasset"
+    },
+    "a63f66e1-db8f-aaab-1f5d-e3d5aa36e0b4": {
+        "assetTypeGuid": "c4e01aa2-495d-4eb1-b9be-fe0e30500b07",
+        "path": "Assets/Graphics/icon-new-folder.tex.nasset"
+    },
+    "a678be1a-2e3e-1922-4eaa-f6f95209d08a": {
+        "assetTypeGuid": "c4e01aa2-495d-4eb1-b9be-fe0e30500b07",
+        "path": "Assets/HUDs/FPS/icon-health.tex.nasset"
+    },
+    "a72fc22e-677e-8519-16d4-31a5c6b61150": {
+        "assetTypeGuid": "c4e01aa2-495d-4eb1-b9be-fe0e30500b07",
+        "path": "Assets/Graphics/timer.tex.nasset"
+    },
+    "b5997cac-2742-c722-3878-2366c9cd2d36": {
+        "assetTypeGuid": "c4e01aa2-495d-4eb1-b9be-fe0e30500b07",
+        "path": "Assets/HUDs/FPS/icon-pause.tex.nasset"
+    },
+    "b62903bc-05c2-4198-a113-026ac074bb83": {
+        "componentTypeGuid": "807d69a9-56ec-4032-bb92-d081df336672",
+        "path": "Assets/DefaultCharacter.actionmap.nasset"
+    },
+    "bc0c9f0e-2e2b-0d14-b44e-0e2699892c1f": {
+        "assetTypeGuid": "c4e01aa2-495d-4eb1-b9be-fe0e30500b07",
+        "path": "Assets/HUDs/FPS/icon-ammo.tex.nasset"
+    },
+    "bcf86453-6016-4c94-b937-b0de08a9f5cf": {
+        "assetTypeGuid": "807d69a9-56ec-4032-bb92-d081df336672",
+        "componentTypeGuid": "0c3f4f29-0d53-4878-922a-cca7d6af7bb6",
+        "path": "Assets/Components/old/Spawnpoint.scene.nasset",
+        "dependencies": [
+            "db5dc618-2cfe-44e9-a319-69c503d090e7",
+            "7962add3-c63a-6075-42d3-517305ba3b0b",
+            "2e5d6458-f003-4d2a-9a46-0f4926ec9e16"
+        ]
+    },
+    "c1250283-0f1c-4547-bfb0-493dfc60e7bb": {
+        "assetTypeGuid": "4a976efb-3161-426a-b717-0955cf30641a",
+        "path": "Assets/VirtualController/Style.css.nasset"
+    },
+    "c2aacbb4-e0f4-44a2-a274-8c3feffda6dc": {
+        "assetTypeGuid": "ded54a50-9829-41c5-a9b7-189387705aa7",
+        "path": "Assets/VirtualController/ui-gamepad-2-ab.widget.nasset"
+    },
+    "c2eee8ca-41e0-6bd3-b7ec-78cb5a01a15c": {
+        "assetTypeGuid": "c4e01aa2-495d-4eb1-b9be-fe0e30500b07",
+        "path": "Assets/VirtualController/Icons/ui-button-brake.tex.nasset"
+    },
+    "ca38d06e-ea90-404e-af3d-749c406c6c09": {
+        "assetTypeGuid": "ded54a50-9829-41c5-a9b7-189387705aa7",
+        "path": "Assets/HUDs/Default/DefaultHUD.widget.nasset",
+        "name": "HUD Root"
+    },
+    "cf732505-b1d1-44bd-8cf8-b82bfa86a252": {
+        "assetTypeGuid": "ded54a50-9829-41c5-a9b7-189387705aa7",
+        "path": "Assets/VirtualController/ui-joystick.widget.nasset"
+    },
+    "d45f765a-a619-4fd0-a3e7-722672ffe19a": {
+        "assetTypeGuid": "ded54a50-9829-41c5-a9b7-189387705aa7",
+        "path": "Assets/HUDs/Default/LeaderboardEntry.widget.nasset",
+        "name": "Leaderboard Entry"
+    },
+    "d4996837-d3ae-4a3e-af3c-99557059ac39": {
+        "assetTypeGuid": "807d69a9-56ec-4032-bb92-d081df336672",
+        "componentTypeGuid": "767aa5d4-9881-4368-8a59-07b6942f2089",
+        "path": "Assets/Components/CheckpointSensor.scene.nasset",
+        "dependencies": [
+            "db5dc618-2cfe-44e9-a319-69c503d090e7"
+        ]
+    },
+    "d5d1c966-38e2-534b-01a1-87a8d236d108": {
+        "assetTypeGuid": "c4e01aa2-495d-4eb1-b9be-fe0e30500b07",
+        "path": "Assets/HUDs/FPS/icon-kill.tex.nasset"
+    },
+    "d9d09289-4106-4111-94d6-8032f49bcfbd": {
+        "assetTypeGuid": "ded54a50-9829-41c5-a9b7-189387705aa7",
+        "path": "Assets/VirtualController/ui-gamepad-2-a-extension.widget.nasset",
+        "name": "ui-gamepad-2-ab-extension"
+    },
+    "db8f274a-f32c-6048-2708-6c71d834a301": {
+        "assetTypeGuid": "c4e01aa2-495d-4eb1-b9be-fe0e30500b07",
+        "path": "Assets/VirtualController/Icons/ui-pad.tex.nasset"
+    },
+    "de38b756-c5c3-dab2-940a-ec7efead60a9": {
+        "assetTypeGuid": "c4e01aa2-495d-4eb1-b9be-fe0e30500b07",
+        "path": "Assets/HUDs/FPS/icon-timer.tex.nasset"
+    },
+    "e00f4f1c-418d-4a3f-b1f1-fd051d55f8cb": {
+        "assetTypeGuid": "807d69a9-56ec-4032-bb92-d081df336672",
+        "componentTypeGuid": "c90ede96-46b3-4f18-a0d6-ed0d26773916",
+        "path": "Assets/Components/TransmitterSensor.scene.nasset",
+        "dependencies": [
+            "db5dc618-2cfe-44e9-a319-69c503d090e7"
+        ]
+    },
+    "e5f1f68f-abcd-a124-c34c-a10333fbfb7a": {
+        "assetTypeGuid": "c4e01aa2-495d-4eb1-b9be-fe0e30500b07",
+        "path": "Assets/Graphics/highlights.tex.nasset"
+    },
+    "e6abe028-09c1-4f66-991f-999c52bb1358": {
+        "assetTypeGuid": "807d69a9-56ec-4032-bb92-d081df336672",
+        "componentTypeGuid": "da54462b-1339-4cb3-bb4c-e0f5b68e6005",
+        "path": "Assets/Components/ImpulseSensor.scene.nasset",
+        "dependencies": [
+            "db5dc618-2cfe-44e9-a319-69c503d090e7"
+        ]
+    },
+    "e97e2232-f5fe-47cc-99b5-36ad43501c8c": {
+        "assetTypeGuid": "807d69a9-56ec-4032-bb92-d081df336672",
+        "componentTypeGuid": "0c3f4f29-0d53-4878-922a-cca7d6af7bb6",
+        "path": "Assets/Components/old/HazardSensor.scene.nasset",
+        "dependencies": [
+            "db5dc618-2cfe-44e9-a319-69c503d090e7",
+            "7962add3-c63a-6075-42d3-517305ba3b0b"
+        ]
+    },
+    "eaf8c037-4adf-4a97-99fd-915341d1854c": {
+        "assetTypeGuid": "926268b2-2d45-4c52-87c9-d76815217359",
+        "path": "GameFramework.nplugin",
+        "name": "Game Framework"
+    },
+    "ed1872d6-fdbe-5159-8ccd-644c05d2f9f5": {
+        "assetTypeGuid": "c4e01aa2-495d-4eb1-b9be-fe0e30500b07",
+        "path": "Assets/Graphics/timer_hand.tex.nasset"
+    },
+    "ed88ce48-9ba4-43df-ab62-ec7da78cc18a": {
+        "assetTypeGuid": "ded54a50-9829-41c5-a9b7-189387705aa7",
+        "path": "Assets/HUDs/FPS/FPSCountdown.widget.nasset",
+        "name": "Countdown Overlay"
+    },
+    "eeb46bf7-5a28-c36b-1550-e94b2caf2e45": {
+        "assetTypeGuid": "c4e01aa2-495d-4eb1-b9be-fe0e30500b07",
+        "path": "Assets/VirtualController/Icons/ui-button-b.tex.nasset"
+    },
+    "f0882305-09a3-3e30-2519-f7f268ac9acf": {
+        "assetTypeGuid": "c4e01aa2-495d-4eb1-b9be-fe0e30500b07",
+        "path": "Assets/Graphics/icon-heart-filled.tex.nasset"
+    },
+    "f0b00fc5-1d84-353b-1828-e6d5794c60d4": {
+        "assetTypeGuid": "c4e01aa2-495d-4eb1-b9be-fe0e30500b07",
+        "path": "Assets/VirtualController/Icons/ui-button-arrow-left.tex.nasset"
+    },
+    "f9673019-f098-b2bf-dea9-3a2037405fcb": {
+        "assetTypeGuid": "c4e01aa2-495d-4eb1-b9be-fe0e30500b07",
+        "path": "Assets/HUDs/FPS/crosshair.tex.nasset"
+    },
+    "guid": "c1e0e96c-2531-6163-d083-5ccce6e5fd07"
+}

@@ -1,0 +1,23 @@
+{
+    "guid": "04e0fb6b-9189-45fa-9b0b-313cac133110",
+    "name": "Countdown Overlay",
+    "style": "display: flex; flex-direction: column; align-items: center; justify-content: center; background: #18181B; opacity: 0.4; height: 100%; width: 100%;",
+    "children": [
+        {
+            "name": "Countdown Text",
+            "style": "width: 200px; height: 64px; background: #18181B; display: flex; flex-direction: row; justify-content: center; align-items: center; text: \"\"; font-family: asset(73ebe3ce-2911-6273-46f5-122ca2c061f9); font-weight: 500; font-size: 32pt;",
+            "dynamic_style": "text: {gamerules_countdown_timer}",
+            "property_source": "c98b70aa-12f5-46b5-80ca-327f2ac078df"
+        }
+    ],
+    "hidden": true,
+    "events": {
+        "f9b5eb8a-cbe0-4595-8546-dc5d08e061cc": [
+            "show"
+        ],
+        "0c25e3a7-f5ba-4c55-acbc-2b847efdd46e": [
+            "hide"
+        ]
+    },
+    "assetTypeGuid": "ded54a50-9829-41c5-a9b7-189387705aa7"
+}

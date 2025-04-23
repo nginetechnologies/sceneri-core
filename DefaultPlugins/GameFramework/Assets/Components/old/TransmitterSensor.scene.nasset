@@ -1,0 +1,48 @@
+{
+    "guid": "66f32919-7638-41e7-8796-84c8b7de56d7",
+    "assetTypeGuid": "807d69a9-56ec-4032-bb92-d081df336672",
+    "typeGuid": "0c3f4f29-0d53-4878-922a-cca7d6af7bb6",
+    "instanceGuid": "a6dd3afb-317a-45c2-a0f3-8f17ad8d30c5",
+    "0c3f4f29-0d53-4878-922a-cca7d6af7bb6": {
+        "scene": "66f32919-7638-41e7-8796-84c8b7de56d7"
+    },
+    "dependencies": [
+        "db5dc618-2cfe-44e9-a319-69c503d090e7",
+        "7962add3-c63a-6075-42d3-517305ba3b0b"
+    ],
+    "children": [
+        {
+            "typeGuid": "c90ede96-46b3-4f18-a0d6-ed0d26773916",
+            "instanceGuid": "81f19a6a-2287-421c-b99c-29d61a2b0e2f",
+            "data_components": [
+                {
+                    "typeGuid": "fefa51b8-945d-4f88-8859-356c7546efa7",
+                    "name": "Transmitter"
+                },
+                {
+                    "typeGuid": "ef986f60-a987-4434-9e88-254094e36e9c"
+                }
+            ],
+            "children": [
+                {
+                    "typeGuid": "e81f4e62-fee0-4182-9c1a-a47c053b813f",
+                    "instanceGuid": "35a6f45d-fa1a-4e96-b656-a21399a9a38a",
+                    "10dceba7-be9f-4a9d-9902-6f51bed634ab": {
+                        "physical_material": "db5dc618-2cfe-44e9-a319-69c503d090e7"
+                    },
+                    "e81f4e62-fee0-4182-9c1a-a47c053b813f": {
+                        "half_extent": [
+                            0.5
+                        ]
+                    },
+                    "data_components": [
+                        {
+                            "typeGuid": "fefa51b8-945d-4f88-8859-356c7546efa7",
+                            "name": "Box Collider"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
