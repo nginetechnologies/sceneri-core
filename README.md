@@ -3,7 +3,7 @@
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/nginetechnologies/sceneri-core/.github%2Fworkflows%2Fworkflow.yml)
 [![Discord](https://img.shields.io/discord/842853727606013963?style=plastic&logo=discord&logoColor=white&label=Discord&link=https%3A%2F%2Fdiscord.gg%2Fsceneriapp)](https://discord.gg/sceneriapp)
 
-This is the home of the core libraries and runtime for [Sceneri](http://sceneri.com), the game / interactive media engine supporting creation & play of 2D and 3D experiences on and for any device.
+This is the home of the core libraries and runtime for [Sceneri](http://sceneri.com), the game / interactive media engine supporting creation & play of 2D and 3D experiences on and for any device. We are currently in the process of migrating to a more open development model, please bear with us as we add tests, documentation, examples and more.
 
 The common library is routinely tested on:
 - Windows (x64)
